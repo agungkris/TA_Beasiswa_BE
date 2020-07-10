@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::prefix('period')->group(function(){
+    Route::get('/','PeriodController@index');
+    Route::post('/','PeriodController@store');
+    Route::get('/{id}','PeriodController@show');
+    Route::post('/{id}','PeriodController@update');
+    Route::delete('/{id}','PeriodController@destroy');
+});
