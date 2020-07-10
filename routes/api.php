@@ -26,3 +26,11 @@ Route::prefix('period')->group(function(){
     Route::post('/{id}','PeriodController@update');
     Route::delete('/{id}','PeriodController@destroy');
 });
+
+Route::prefix('student-groups')->group(function(){
+    Route::get('/','StudentGroupController@index');
+    Route::post('/','StudentGroupController@store');
+    Route::get('/{id}','StudentGroupController@show');
+    Route::post('/{id}','StudentGroupController@update');
+    Route::delete('/{id}','StudentGroupController@destroy');
+});
