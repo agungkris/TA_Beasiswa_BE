@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePaperAssessmentsTable extends Migration
+class CreatePresentationAssessmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePaperAssessmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('scholarship_paper_assessments', function (Blueprint $table) {
+        Schema::create('scholarship_presentation_assessments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('period_id');
             $table->unsignedBigInteger('jury_id');
@@ -22,7 +22,7 @@ class CreatePaperAssessmentsTable extends Migration
 
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('period_id')->on('periods')->references('id')->onDelete('cascade');
+            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,18 +34,18 @@ class CreatePaperAssessmentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('paper_assessments', function (Blueprint $table) {
+        Schema::table('presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['jury_id']);
         });
 
-        Schema::table('paper_assessments', function (Blueprint $table) {
+        Schema::table('presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['student_id']);
         });
 
-        Schema::table('paper_assessments', function (Blueprint $table) {
+        Schema::table('presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['period_id']);
         });
 
-        Schema::dropIfExists('paper_assessments');
+        Schema::dropIfExists('presentation_assessments');
     }
 }

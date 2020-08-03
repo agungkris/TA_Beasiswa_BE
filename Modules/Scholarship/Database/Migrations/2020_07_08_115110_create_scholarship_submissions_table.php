@@ -27,7 +27,7 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->double('presentasi')->default(0);
             $table->tinyInteger('is_accepted')->default(0);
 
-            $table->foreign('period_id')->on('periods')->references('id')->onDelete('cascade');
+            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
@@ -42,11 +42,9 @@ class CreateScholarshipSubmissionsTable extends Migration
     {
         Schema::table('scholarship_submissions', function (Blueprint $table) {
             $table->dropForeign(['period_id']);
-        });
-
-        Schema::table('scholarship_submissions', function (Blueprint $table) {
             $table->dropForeign(['student_id']);
         });
+
 
         Schema::dropIfExists('scholarship_submissions');
     }

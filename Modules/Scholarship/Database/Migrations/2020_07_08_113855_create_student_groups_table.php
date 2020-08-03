@@ -13,14 +13,14 @@ class CreateStudentGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('student_groups', function (Blueprint $table) {
+        Schema::create('scholarship_student_groups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('period_id');
             $table->string('group_name');
-            $table->string('topic');
-
-            $table->foreign('period_id')->on('periods')->references('id')->onDelete('cascade');
+            $table->string('topic')->nullable();
+            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -31,6 +31,10 @@ class CreateStudentGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('student_groups');
+        Schema::table('scholarship_student_groups', function (Blueprint $table) {
+            $table->dropForeign(['period_id']);
+        });
+
+        Schema::dropIfExists('scholarship_student_groups');
     }
 }

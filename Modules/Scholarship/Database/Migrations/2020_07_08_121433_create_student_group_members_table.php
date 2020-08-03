@@ -18,7 +18,7 @@ class CreateStudentGroupMembersTable extends Migration
             $table->unsignedBigInteger('student_group_id');
             $table->unsignedBigInteger('student_id');
 
-            $table->foreign('student_group_id')->on('student_groups')->references('id')->onDelete('cascade');
+            $table->foreign('student_group_id')->on('scholarship_student_groups')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
 
             $table->timestamps();
@@ -32,14 +32,14 @@ class CreateStudentGroupMembersTable extends Migration
      */
     public function down()
     {
-        Schema::table('student_group_members', function (Blueprint $table) {
+        Schema::table('scholarship_student_group_members', function (Blueprint $table) {
             $table->dropForeign(['student_group_id']);
         });
 
-        Schema::table('student_group_members', function (Blueprint $table) {
+        Schema::table('scholarship_student_group_members', function (Blueprint $table) {
             $table->dropForeign(['student_id']);
         });
 
-        Schema::dropIfExists('student_group_members');
+        Schema::dropIfExists('scholarship_student_group_members');
     }
 }
