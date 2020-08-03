@@ -1,0 +1,13 @@
+{
+    "name": "CommandCenter",
+    "alias": "commandcenter",
+    "description": "",
+    "keywords": [],
+    "order": 0,
+    "providers": [
+        "Modules\\CommandCenter\\Providers\\CommandCenterServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
