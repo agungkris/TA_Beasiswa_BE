@@ -31,6 +31,6 @@ class CreatePeriodeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('periods');
+        Schema::dropIfExists('scholarship_periods');
     }
 }

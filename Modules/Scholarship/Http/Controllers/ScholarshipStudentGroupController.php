@@ -28,7 +28,7 @@ class ScholarshipStudentGroupController extends Controller
         $createNewStudentGroup = $this->scholarshipStudentGroupModel->create([
             'period_id' => $request->period_id,
             'group_name' => $request->group_name,
-            'topic' => $request->description
+            'topic' => $request->topic
         ]);
         return response()->json($createNewStudentGroup);
     }
@@ -45,7 +45,7 @@ class ScholarshipStudentGroupController extends Controller
         $findStudentGroup->update([
             'period_id' => $request->period_id,
             'group_name' => $request->group_name,
-            'topic' => $request->description
+            'topic' => $request->topic
         ]);
         return response()->json($findStudentGroup);
     }

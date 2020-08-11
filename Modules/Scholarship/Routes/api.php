@@ -39,4 +39,32 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/update/{id}', 'ScholarshipInformationController@update');
         Route::delete('/delete/{id}', 'ScholarshipInformationController@destroy');
     });
+    Route::middleware('auth:sanctum')->prefix('scholarshipsubmissions')->group(function () {
+        Route::get('/', 'ScholarshipSubmissionsController@index');
+        Route::post('/create', 'ScholarshipSubmissionsController@store');
+        Route::get('/get/{id}', 'ScholarshipSubmissionsController@show');
+        Route::post('/update/{id}', 'ScholarshipSubmissionsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipSubmissionsController@destroy');
+    });
+    Route::prefix('scholarshipstudentgroupmembers')->group(function () {
+        Route::get('/', 'ScholarshipStudentGroupMembersController@index');
+        Route::post('/create', 'ScholarshipStudentGroupMembersController@store');
+        Route::get('/get/{id}', 'ScholarshipStudentGroupMembersController@show');
+        Route::post('/update/{id}', 'ScholarshipStudentGroupMembersController@update');
+        Route::delete('/delete/{id}', 'ScholarshipStudentGroupMembersController@destroy');
+    });
+    Route::prefix('scholarshippaperassessments')->group(function () {
+        Route::get('/', 'ScholarshipPaperAssessmentsController@index');
+        Route::post('/create', 'ScholarshipPaperAssessmentsController@store');
+        Route::get('/get/{id}', 'ScholarshipPaperAssessmentsController@show');
+        Route::post('/update/{id}', 'ScholarshipPaperAssessmentsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipPaperAssessmentsController@destroy');
+    });
+    Route::prefix('scholarshippresentationassessments')->group(function () {
+        Route::get('/', 'ScholarshipPresentationAssessmentsController@index');
+        Route::post('/create', 'ScholarshipPresentationAssessmentsController@store');
+        Route::get('/get/{id}', 'ScholarshipPresentationAssessmentsController@show');
+        Route::post('/update/{id}', 'ScholarshipPresentationAssessmentsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipPresentationAssessmentsController@destroy');
+    });
 });
