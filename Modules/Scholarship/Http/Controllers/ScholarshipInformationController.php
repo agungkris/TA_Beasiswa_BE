@@ -5,6 +5,7 @@ namespace Modules\Scholarship\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Scholarship\Entities\ScholarshipInformation;
 
 class ScholarshipInformationController extends Controller
@@ -18,17 +19,58 @@ class ScholarshipInformationController extends Controller
 
     public function index()
     {
-        $getAllScholarshipInformation = $this->scholarshipInformationModel->get(); // select * from ScholarshipInformations;
+        // $getAllScholarshipInformation = $this->scholarshipInformationModel->first()->map(function ($value) {
+        //     $data = [
+        //         'id' => $value->id,
+        //         'scholarship_form' => asset('upload/' . $value->scholarship_form),
+        //         'scholarship_term_condition' => asset('upload/' . $value->scholarship_terms_condition),
+        //     ];
+        //     return $data;
+        // }); // select * from ScholarshipInformations;
+        $findScholarshipInformation = $this->scholarshipInformationModel->first();
+        $data = [
+            'id' => $findScholarshipInformation->id,
+            'scholarship_form' => asset('upload/' . $findScholarshipInformation->scholarship_form),
+            'scholarship_term_condition' => asset('upload/' . $findScholarshipInformation->scholarship_terms_condition),
+            'cv_templete' => asset('upload/' . $findScholarshipInformation->cv_templete),
+        ];
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
-        return response()->json($getAllScholarshipInformation);
+        return response()->json($data);
     }
 
     public function store(Request $request)
     {
-        $createNewScholarshipInformation = $this->scholarshipInformationModel->create([
-            'scholarship_form' => $request->scholarship_form,
-            'scholarship_terms_condition' => $request->scholarship_terms_condition
-        ]);
+        $payloadData = [
+            'id' => 1
+        ];
+        $findScholarShip = $this->scholarshipInformationModel->first();
+        if ($request->file('scholarship_form')) {
+            if ($findScholarShip && Storage::exists($findScholarShip->scholarship_form)) {
+                Storage::delete($findScholarShip->scholarship_form);
+            }
+            $uploadForm = $request->file('scholarship_form')->store('document');
+            $payloadData['scholarship_form'] = $uploadForm;
+        }
+
+        if ($request->file('scholarship_terms_condition')) {
+            if ($findScholarShip && Storage::exists($findScholarShip->scholarship_terms_condition)) {
+                Storage::delete($findScholarShip->scholarship_terms_condition);
+            }
+            $uploadTerm = $request->file('scholarship_terms_condition')->store('document');
+            $payloadData['scholarship_terms_condition'] = $uploadTerm;
+        }
+
+        if ($request->file('cv_templete')) {
+            if ($findScholarShip && Storage::exists($findScholarShip->cv_templete)) {
+                Storage::delete($findScholarShip->cv_templete);
+            }
+            $uploadTerm = $request->file('cv_templete')->store('document');
+            $payloadData['cv_templete'] = $uploadTerm;
+        }
+
+        $createNewScholarshipInformation = $this->scholarshipInformationModel->updateOrCreate([
+            'id' => 1,
+        ], $payloadData);
         return response()->json($createNewScholarshipInformation);
     }
 
@@ -43,7 +85,8 @@ class ScholarshipInformationController extends Controller
         $findScholarshipInformation = $this->scholarshipInformationModel->find($id);
         $findScholarshipInformation->update([
             'scholarship_form' => $request->scholarship_form,
-            'scholarship_terms_condition' => $request->scholarship_terms_condition
+            'scholarship_terms_condition' => $request->scholarship_terms_condition,
+            'cv_templete' => $request->cv_templete
         ]);
         return response()->json($findScholarshipInformation);
     }

@@ -17,10 +17,11 @@ class CreateStudentGroupsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('period_id');
             $table->string('group_name');
-            $table->string('topic')->nullable();
-            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
+            $table->string('topic');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
         });
     }
 

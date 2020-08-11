@@ -17,15 +17,14 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('period_id');
-            $table->string('formulir')->nullable();
-            $table->string('brs')->nullable();
-            $table->string('transkrip')->nullable();
-            $table->string('cv')->nullable();
-            $table->string('karyatulis')->nullable();
-            $table->string('prestasi')->nullable();
-            $table->double('ipk')->default(0);
-            $table->double('presentasi')->default(0);
-            $table->tinyInteger('is_accepted')->default(0);
+            $table->string('submit_form');
+            $table->string('brs');
+            $table->string('raport');
+            $table->string('cv');
+            $table->string('papers');
+            $table->string('other_requirements');
+            $table->double('presentation')->default(0)->nullable();
+            $table->double('papers_score')->default(0)->nullable();
 
             $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
