@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScholarshipGroupTable extends Migration
+class CreateLaporanAkademik extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CreateScholarshipGroupTable extends Migration
      */
     public function up()
     {
-        Schema::create('scholarship_group', function (Blueprint $table) {
+        Schema::create('laporan_akademik', function (Blueprint $table) {
             $table->id();
+            $table->string('subbab')->nullable();
+            $table->longText('text_laporan');
+            $table->string('image1')->nullable();
+            $table->string('image2')->nullable();
+            $table->string('subtitle')->nullable();
             $table->timestamps();
         });
     }
@@ -26,6 +31,6 @@ class CreateScholarshipGroupTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scholarship_group');
+        Schema::dropIfExists('laporan_akademik');
     }
 }
