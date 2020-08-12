@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CommandCenter;
 
+use App\Http\Controllers\Controller;
 use App\Period;
 use Illuminate\Http\Request;
 

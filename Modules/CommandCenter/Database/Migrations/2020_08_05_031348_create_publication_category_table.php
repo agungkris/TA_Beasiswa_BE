@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKategoriLingkup extends Migration
+class CreatePublicationCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateKategoriLingkup extends Migration
      */
     public function up()
     {
-        Schema::create('kategori_lingkup', function (Blueprint $table) {
+        Schema::create('publication_category', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('description')->nullable();
+            $table->string('publication_category_name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateKategoriLingkup extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kategori_lingkup');
+        Schema::dropIfExists('publication_category');
     }
 }
