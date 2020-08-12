@@ -15,8 +15,10 @@ class CreateScholarshipInformationTable extends Migration
     {
         Schema::create('scholarship_information', function (Blueprint $table) {
             $table->id();
+            // didatabase yang beasiswaupjPC ada periode
             $table->string('scholarship_form');
             $table->string('scholarship_terms_condition');
+            $table->string('cv_templete');
             $table->timestamps();
         });
     }

@@ -13,11 +13,18 @@ class CreatePaperAssessmentsTable extends Migration
      */
     public function up()
     {
+        // beda
         Schema::create('scholarship_paper_assessments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('period_id');
             $table->unsignedBigInteger('jury_id');
             $table->unsignedBigInteger('student_id');
+            $table->unsignedTinyInteger('format_papers');
+            $table->unsignedTinyInteger('creativity');
+            $table->unsignedTinyInteger('contribution');
+            $table->unsignedTinyInteger('information');
+            $table->unsignedTinyInteger('conclusion');
+            $table->string('comment')->nullable();
             $table->double('score')->default(0);
 
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');

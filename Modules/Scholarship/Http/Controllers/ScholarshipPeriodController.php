@@ -26,6 +26,9 @@ class ScholarshipPeriodController extends Controller
     {
         $createNewPeriod = $this->periodModel->create([
             'name' => $request->name,
+            'start_date' => $request->start_date,
+            'due_date_file' => $request->due_date_file,
+            'end_date' => $request->end_date,
         ]);
         return response()->json($createNewPeriod);
     }
@@ -41,6 +44,9 @@ class ScholarshipPeriodController extends Controller
         $findPeriod = $this->periodModel->find($id);
         $findPeriod->update([
             'name' => $request->name,
+            'start_date' => $request->start_date,
+            'due_date_file' => $request->due_date_file,
+            'end_date' => $request->end_date,
         ]);
         return response()->json($findPeriod);
     }

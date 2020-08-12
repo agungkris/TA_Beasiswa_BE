@@ -13,12 +13,23 @@ class CreatePresentationAssessmentsTable extends Migration
      */
     public function up()
     {
+        // beda
         Schema::create('scholarship_presentation_assessments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('period_id');
             $table->unsignedBigInteger('jury_id');
             $table->unsignedBigInteger('student_id');
-            $table->double('score')->default(0);
+            $table->unsignedTinyInteger('score_A');
+            $table->unsignedTinyInteger('score_B');
+            $table->unsignedTinyInteger('score_C');
+            $table->unsignedTinyInteger('score_D');
+            $table->unsignedTinyInteger('score_E');
+            $table->unsignedTinyInteger('score_F');
+            $table->unsignedTinyInteger('score_G');
+            $table->unsignedTinyInteger('score_H');
+            $table->unsignedTinyInteger('score_I');
+            $table->unsignedTinyInteger('score_J');
+            $table->double('final_score')->default(0);
 
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
@@ -34,18 +45,18 @@ class CreatePresentationAssessmentsTable extends Migration
      */
     public function down()
     {
-        Schema::table('presentation_assessments', function (Blueprint $table) {
+        Schema::table('scholarship_presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['jury_id']);
         });
 
-        Schema::table('presentation_assessments', function (Blueprint $table) {
+        Schema::table('scholarship_presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['student_id']);
         });
 
-        Schema::table('presentation_assessments', function (Blueprint $table) {
+        Schema::table('scholarship_presentation_assessments', function (Blueprint $table) {
             $table->dropForeign(['period_id']);
         });
 
-        Schema::dropIfExists('presentation_assessments');
+        Schema::dropIfExists('scholarship_presentation_assessments');
     }
 }
