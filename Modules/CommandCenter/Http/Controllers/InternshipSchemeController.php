@@ -86,6 +86,8 @@ class InternshipSchemeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findInternshipScheme = $this->internshipschemeModel->find($id);
+        $findInternshipScheme->delete();
+        return response()->json($findInternshipScheme);
     }
 }

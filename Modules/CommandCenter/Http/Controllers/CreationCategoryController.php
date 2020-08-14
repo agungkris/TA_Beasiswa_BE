@@ -86,6 +86,8 @@ class CreationCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findCreationCategory = $this->creationcategoryModel->find($id);
+        $findCreationCategory->delete();
+        return response()->json($findCreationCategory);
     }
 }

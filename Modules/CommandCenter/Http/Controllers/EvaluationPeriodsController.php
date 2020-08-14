@@ -86,6 +86,8 @@ class EvaluationPeriodsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findEvaluationPeriods = $this->evaluationperiodsModel->find($id);
+        $findEvaluationPeriods->delete();
+        return response()->json($findEvaluationPeriods);
     }
 }

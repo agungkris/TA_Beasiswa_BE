@@ -86,6 +86,8 @@ class GenerationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findGeneration = $this->generationModel->find($id);
+        $findGeneration->delete();
+        return response()->json($findGeneration);
     }
 }

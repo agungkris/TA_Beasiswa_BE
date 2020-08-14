@@ -36,11 +36,11 @@ class PeriodsController extends Controller
      */
     public function store(Request $request)
     {
+
         $createNewPeriod = $this->periodModel->create([
             'period_name' => $request->period_name,
         ]);
         return response()->json($createNewPeriod);
-        //
     }
 
     /**
@@ -80,10 +80,10 @@ class PeriodsController extends Controller
      * @param int $id
      * @return Renderable
      */
-    // public function destroy($id)
-    // {
-    //     $findPeriod = $this->periodModel->find($id);
-    //     $findPeriod->delete();
-    //     return response()->json($findPeriod);
-    // }
+    public function destroy($id)
+    {
+        $findPeriod = $this->periodModel->find($id);
+        $findPeriod->delete();
+        return response()->json($findPeriod);
+    }
 }

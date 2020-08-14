@@ -86,6 +86,8 @@ class CollaborationScopeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findCollaborationScope = $this->collaborationscopeModel->find($id);
+        $findCollaborationScope->delete();
+        return response()->json($findCollaborationScope);
     }
 }

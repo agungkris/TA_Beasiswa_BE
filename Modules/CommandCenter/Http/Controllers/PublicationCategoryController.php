@@ -86,6 +86,8 @@ class PublicationCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findPublicationCategory = $this->publicationcategoryModel->find($id);
+        $findPublicationCategory->delete();
+        return response()->json($findPublicationCategory);
     }
 }

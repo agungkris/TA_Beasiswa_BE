@@ -86,6 +86,8 @@ class SpecializationTopicController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findSpecializationTopic = $this->specializationtopicModel->find($id);
+        $findSpecializationTopic->delete();
+        return response()->json($findSpecializationTopic);
     }
 }

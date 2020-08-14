@@ -24,6 +24,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','PeriodsController@store');
         Route::get('/{id}','PeriodsController@show');
         Route::post('/update/{id}','PeriodsController@update');
+        Route::delete('/delete/{id}','PeriodsController@destroy');
     });
     
     Route::prefix('achievementcategory')->group(function(){
@@ -31,6 +32,8 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','AchievementCategoryController@store');
         Route::get('/{id}','AchievementCategoryController@show');
         Route::post('/update/{id}','AchievementCategoryController@update');
+        Route::delete('/delete/{id}','AchievementCategoryController@destroy');
+        
     });
 
     Route::prefix('collaborationperiods')->group(function(){
@@ -38,6 +41,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','CollaborationPeriodsController@store');
         Route::get('/{id}','CollaborationPeriodsController@show');
         Route::post('/update/{id}','CollaborationPeriodsController@update');
+        Route::delete('/delete/{id}','CollaborationPeriodsController@destroy');
     });
 
     Route::prefix('collaborationscope')->group(function(){
@@ -45,6 +49,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','CollaborationScopeController@store');
         Route::get('/{id}','CollaborationScopeController@show');
         Route::post('/update/{id}','CollaborationScopeController@update');
+        Route::delete('/delete/{id}','CollaborationScopeController@destroy');
     });
 
     Route::prefix('copyrightcategory')->group(function(){
@@ -52,6 +57,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','CopyrightCategoryController@store');
         Route::get('/{id}','CopyrightCategoryController@show');
         Route::post('/update/{id}','CopyrightCategoryController@update');
+        Route::delete('/delete/{id}','CopyrightCategoryController@destroy');
     });
 
     Route::prefix('creationcategory')->group(function(){
@@ -59,6 +65,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','CreationCategoryController@store');
         Route::get('/{id}','CreationCategoryController@show');
         Route::post('/update/{id}','CreationCategoryController@update');
+        Route::delete('/delete/{id}','CreationCategoryController@destroy');
     });
 
     Route::prefix('evaluationperiods')->group(function(){
@@ -66,6 +73,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','EvaluationPeriodsController@store');
         Route::get('/{id}','EvaluationPeriodsController@show');
         Route::post('/update/{id}','EvaluationPeriodsController@update');
+        Route::delete('/delete/{id}','EvaluationPeriodsController@destroy');
     });
 
     Route::prefix('generation')->group(function(){
@@ -73,6 +81,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','GenerationController@store');
         Route::get('/{id}','GenerationController@show');
         Route::post('/update/{id}','GenerationController@update');
+        Route::delete('/delete/{id}','GenerationController@destroy');
     });
 
     Route::prefix('internshipscheme')->group(function(){
@@ -80,6 +89,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','InternshipSchemeController@store');
         Route::get('/{id}','InternshipSchemeController@show');
         Route::post('/update/{id}','InternshipSchemeController@update');
+        Route::delete('/delete/{id}','InternshipSchemeController@destroy');
     });
 
     Route::prefix('publicationcategory')->group(function(){
@@ -87,6 +97,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','PublicationCategoryController@store');
         Route::get('/{id}','PublicationCategoryController@show');
         Route::post('/update/{id}','PublicationCategoryController@update');
+        Route::delete('/delete/{id}','PublicationCategoryController@destroy');
     });
 
     Route::prefix('scopecategory')->group(function(){
@@ -94,6 +105,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','ScopeCategoryController@store');
         Route::get('/{id}','ScopeCategoryController@show');
         Route::post('/update/{id}','ScopeCategoryController@update');
+        Route::delete('/delete/{id}','ScopeCategoryController@destroy');
     });
 
     Route::prefix('specialization')->group(function(){
@@ -101,6 +113,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','SpecializationController@store');
         Route::get('/{id}','SpecializationController@show');
         Route::post('/update/{id}','SpecializationController@update');
+        Route::delete('/delete/{id}','SpecializationController@destroy');
     });
 
     Route::prefix('specializationtopic')->group(function(){
@@ -108,6 +121,7 @@ Route::prefix('/command-center')->group(function(){
         Route::post('/create','SpecializationTopicController@store');
         Route::get('/{id}','SpecializationTopicController@show');
         Route::post('/update/{id}','SpecializationTopicController@update');
+        Route::delete('/delete/{id}','SpecializationTopicController@destroy');
     });
 
     #region notmasterdata

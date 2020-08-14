@@ -86,6 +86,8 @@ class CopyrightCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findCopyrightCategory = $this->copyrightcategoryModel->find($id);
+        $findCopyrightCategory->delete();
+        return response()->json($findCopyrightCategory);
     }
 }

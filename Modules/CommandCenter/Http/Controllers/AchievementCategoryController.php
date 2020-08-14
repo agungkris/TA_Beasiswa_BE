@@ -87,6 +87,8 @@ class AchievementCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findAchievementCategory = $this->achievementcategoryModel->find($id);
+        $findAchievementCategory->delete();
+        return response()->json($findAchievementCategory);
     }
 }

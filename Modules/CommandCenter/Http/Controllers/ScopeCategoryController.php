@@ -86,6 +86,8 @@ class ScopeCategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findScopeCategory = $this->scopecategoryModel->find($id);
+        $findScopeCategory->delete();
+        return response()->json($findScopeCategory);
     }
 }

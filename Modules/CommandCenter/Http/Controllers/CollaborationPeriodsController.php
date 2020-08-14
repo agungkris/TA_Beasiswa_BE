@@ -86,6 +86,8 @@ class CollaborationPeriodsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $findCollaborationPeriods = $this->collaborationperiodsModel->find($id);
+        $findCollaborationPeriods->delete();
+        return response()->json($findCollaborationPeriods);
     }
 }
