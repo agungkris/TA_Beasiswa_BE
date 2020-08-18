@@ -22,8 +22,6 @@ Route::prefix('/auth')->group(function () {
     Route::post('/login', 'AuthController@loginToken');
     Route::post('/register', 'AuthController@register');
 
-
-
     Route::middleware('auth:sanctum')->prefix('users')->group(function () {
         Route::get('/', 'UsersController@index');
         Route::post('/create', 'UsersController@store');

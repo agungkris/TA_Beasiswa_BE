@@ -38,12 +38,12 @@ Route::prefix('student-groups')->group(function () {
 });
 
 
-Route::prefix('command-center')->namespace('CommandCenter')->group(function () {
-    Route::prefix('kategori-lingkup')->group(function () {
-        Route::get('/', 'KategoriLingkupController@index');
-        Route::post('/', 'KategoriLingkupController@store');
-        Route::get('/{id}', 'KategoriLingkupController@show');
-        Route::post('/{id}', 'KategoriLingkupController@update');
-        Route::delete('/{id}', 'KategoriLingkupController@destroy');
-    });
-});
+// Route::prefix('command-center')->namespace('CommandCenter')->group(function () {
+//     Route::prefix('kategori-lingkup')->group(function () {
+//         Route::get('/', 'KategoriLingkupController@index');
+//         Route::post('/', 'KategoriLingkupController@store');
+//         Route::get('/{id}', 'KategoriLingkupController@show');
+//         Route::post('/{id}', 'KategoriLingkupController@update');
+//         Route::delete('/{id}', 'KategoriLingkupController@destroy');
+//     });
+// });

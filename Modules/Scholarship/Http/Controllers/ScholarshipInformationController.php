@@ -19,6 +19,28 @@ class ScholarshipInformationController extends Controller
 
     public function index()
     {
+        $getAllScholarshipInformation = $this->scholarshipInformationModel->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'scholarship_form' => asset('upload/' . $value->scholarship_form),
+                'scholarship_term_condition' => asset('upload/' . $value->scholarship_terms_condition),
+                'cv_templete' => asset('upload/' . $value->cv_templete),
+            ];
+            return $data;
+        }); // select * from ScholarshipInformations;
+        // $findScholarshipInformation = $this->scholarshipInformationModel->first();
+        // $data = [
+        //     'id' => $findScholarshipInformation->id,
+        //     'scholarship_form' => asset('upload/' . $findScholarshipInformation->scholarship_form),
+        //     'scholarship_term_condition' => asset('upload/' . $findScholarshipInformation->scholarship_terms_condition),
+        //     'cv_templete' => asset('upload/' . $findScholarshipInformation->cv_templete),
+        // ];
+        // select * from student_groups inner join period on periode.id = student_groups.period_id;
+        return response()->json($getAllScholarshipInformation);
+    }
+
+    public function show()
+    {
         // $getAllScholarshipInformation = $this->scholarshipInformationModel->first()->map(function ($value) {
         //     $data = [
         //         'id' => $value->id,
@@ -74,11 +96,11 @@ class ScholarshipInformationController extends Controller
         return response()->json($createNewScholarshipInformation);
     }
 
-    public function show($id)
-    {
-        $findScholarshipInformation = $this->scholarshipInformationModel->find($id);
-        return response()->json($findScholarshipInformation);
-    }
+    // public function show($id)
+    // {
+    //     $findScholarshipInformation = $this->scholarshipInformationModel->find($id);
+    //     return response()->json($findScholarshipInformation);
+    // }
 
     public function update($id, Request $request)
     {
