@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\Curriculum;
 
 class CurriculumController extends Controller
@@ -21,10 +22,22 @@ class CurriculumController extends Controller
 
     public function index()
     {
-        $getAllCurriculum = $this->curriculumModel->with('periods','specialization')->get(); // select * from periods;
+        $getAllCurriculum = $this->curriculumModel->with(['periods','specializations'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'periods_id' => $value->periods_id,
+                // 'specialization_id' => $value->specialization_id,
+                'curriculum_file' => asset('upload/' . $value->curriculum_file),
+                'description' => $value->description,
+                'periods' => $value->periods,
+                'specializations' => $value->specializations
+                // 'specialization' => $value->specialization
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllCurriculum);
     }
-
+ 
     /**
      * Show the form for creating a new resource.
      * @return Renderable
@@ -37,12 +50,19 @@ class CurriculumController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewCurriculum = $this->curriculumModel->create([
+        $payloadData = [
             'periods_id' => $request->periods_id,
-            'specialization_id' => $request->specialization_id,
-            'curriculum_file' => $request->curriculum_file,
+            // 'specialization_id' => $request->specialization_id,
             'description' => $request->description,
-        ]);
+        ];
+        if ($request->file('curriculum_file')) {
+            // if (Storage::exists($findSubmissions->curriculum_file)) {
+            //     Storage::delete($findSubmissions->curriculum_file);
+            // }
+            $uploadForm = $request->file('curriculum_file')->store('document');
+            $payloadData['curriculum_file'] = $uploadForm;
+        }
+        $createNewCurriculum = $this->curriculumModel->create($payloadData);
         return response()->json($createNewCurriculum);
     }
 
@@ -53,7 +73,9 @@ class CurriculumController extends Controller
      */
     public function show($id)
     {
-        $findCurriculum = $this->curriculumModel->find($id);
+        $findCurriculum = $this->curriculumModel->with('specializations')->find($id);
+        // $findCurriculum->specializations = 
+        
         return response()->json($findCurriculum);
     }
 
@@ -76,13 +98,47 @@ class CurriculumController extends Controller
     public function update($id, Request $request)
     {
         $findCurriculum = $this->curriculumModel->find($id);
-        $findCurriculum->update([
+        $payloadData = [
             'periods_id' => $request->periods_id,
-            'specialization_id' => $request->specialization_id,
-            'curriculum_file' => $request->curriculum_file,
+            // 'specialization_id' => $request->specialization_id,
             'description' => $request->description,
-        ]);
+        ];
+        if($request->file('curriculum_file')){
+            if(Storage::exists($findCurriculum->curriculum_file)){
+                Storage::delete(($findCurriculum->curriculum_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('curriculum_file')->store('document');
+            $payloadData['curriculum_file'] = $uploadForm;
+
+        }
+
+        // if($request->filled('specializations')){
+        //     $specializationList = $request->specializations;
+        //     foreach($specializationList as $data){
+        //         $findCurriculum->specializations()->attach($data->id);   
+        //     }
+        // }
+
+        // $findCurriculum->specialization()->sync();
+        
+        $findCurriculum->update($payloadData);
         return response()->json($findCurriculum);
+    }
+
+    public function addSpecialization($curriculumID,Request $request){
+        $findCurriculum = $this->curriculumModel->find($curriculumID);
+        $findCurriculum->specializations()->attach($request->id);
+        return response()->json(['message' => 'asdasd'],200);
+
+    }
+
+    public function removeSpecialization($curriculumID,$id){
+        $findCurriculum = $this->curriculumModel->find($curriculumID);
+        $findCurriculum->specializations()->detach($id);
+        return response()->json(['message' => 'asdasd'],200);
     }
 
     /**

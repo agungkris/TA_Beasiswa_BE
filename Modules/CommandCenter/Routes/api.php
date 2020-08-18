@@ -128,7 +128,9 @@ Route::prefix('/command-center')->group(function(){
     Route::prefix('curriculum')->group(function(){
         Route::get('/','CurriculumController@index');
         Route::post('/create','CurriculumController@store');
-        Route::get('/{id}','CurriculumController@show');
+        Route::get('/{curriculumID}','CurriculumController@show');
+        Route::post('/{curriculumID}/specialization/add','CurriculumController@addSpecialization');
+        Route::post('/{curriculumID}/specialization/remove/{id}','CurriculumController@removeSpecialization');
         Route::post('/update/{id}','CurriculumController@update');
     });
 

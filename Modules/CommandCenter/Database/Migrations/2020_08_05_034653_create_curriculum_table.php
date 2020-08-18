@@ -16,11 +16,11 @@ class CreateCurriculumTable extends Migration
         Schema::create('curriculum', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('periods_id');
-            $table->unsignedBigInteger('specialization_id');
+            // $table->unsignedBigInteger('specialization_id');
             $table->string('curriculum_file');
             $table->string('description')->nullable();
             $table->foreign('periods_id')->on('periods')->references('id')->onDelete('cascade');
-            $table->foreign('specialization_id')->on('specialization')->references('id')->onDelete('cascade');
+            // $table->foreign('specialization_id')->on('specialization')->references('id')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -35,7 +35,7 @@ class CreateCurriculumTable extends Migration
     {
         Schema::table('curriculum', function (Blueprint $table) {
             $table->dropForeign(['periods_id']);
-            $table->dropForeign(['specialization_id']);
+            // $table->dropForeign(['specialization_id']);
         });
         Schema::dropIfExists('curriculum');
     }
