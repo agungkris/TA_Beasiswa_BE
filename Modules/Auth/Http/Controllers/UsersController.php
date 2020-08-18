@@ -15,17 +15,29 @@ class UsersController extends Controller
         $this->usersModel = new User();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $getAllUsers = $this->usersModel->get(); // select * from Users;
+        $userModel = $this->usersModel;
+        // dd($request->level);
+        if ($request->level) {
+            $userModel = $userModel->where('level', $request->level);
+        }
+        $getAllUsers = $userModel->get();
+
+        // select * from Users;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
         return response()->json($getAllUsers);
     }
 
     public function store(Request $request)
     {
+        $userModel = $this->usersModel;
+        // dd($request->level);
+
+        $createNewUsers = $userModel->get();
+
         $createNewUsers = $this->usersModel->create([
-            'level' => $request->level,
+            'level' => $request->level ?? 'student',
             'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,

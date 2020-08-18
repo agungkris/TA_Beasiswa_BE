@@ -22,7 +22,7 @@ class AuthController extends Controller
             return response()->json(['errors' => $checkValidation->errors()], 422);
         }
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('username', $request->username)->orWhere('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
