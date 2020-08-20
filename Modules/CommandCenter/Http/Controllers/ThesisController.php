@@ -6,6 +6,8 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\CommandCenter\Entities\Thesis;
+use SebastianBergmann\Environment\Console;
+
 class ThesisController extends Controller
 {
     /**
@@ -20,8 +22,19 @@ class ThesisController extends Controller
 
     public function index()
     {
-        $getAllThesis = $this->thesisModel->with('generation','specialization','specialization_topic')->get(); // select * from periods;
+        $getAllThesis = $this->thesisModel->with(['generation','specialization','specialization_topic'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'generation_id' => $value->generation_id,
+                'specialization_id' => $value->specialization_id,
+                'specialization_topic_id' => $value->specialization_topic_id,
+                'output' => $value->output,
+                'student_name' => $value->student_name
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllThesis);
+        
     }
 
     /**
@@ -36,14 +49,17 @@ class ThesisController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewThesis = $this->thesisModel->create([
+
+        $payloadData = [
             'generation_id' => $request->generation_id,
             'specialization_id' => $request->specialization_id,
             'specialization_topic_id' => $request->specialization_topic_id,
             'output' => $request->output,
             'student_name' => $request->student_name,
-        ]);
+        ];
+        $createNewThesis = $this->thesisModel->create($payloadData);
         return response()->json($createNewThesis);
+
     }
 
     /**

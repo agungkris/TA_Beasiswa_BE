@@ -36,6 +36,10 @@ class CreateInternshipTable extends Migration
     {
         Schema::table('internship', function (Blueprint $table) {
             $table->dropForeign(['generation_id']);
+            // $table->dropForeign(['internship_scheme_id']);
+        });
+        Schema::table('internship', function (Blueprint $table) {
+            // $table->dropForeign(['generation_id']);
             $table->dropForeign(['internship_scheme_id']);
         });
 

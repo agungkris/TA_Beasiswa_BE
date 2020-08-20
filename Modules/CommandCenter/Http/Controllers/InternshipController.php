@@ -21,7 +21,17 @@ class InternshipController extends Controller
 
     public function index()
     {
-        $getAllInternship = $this->internshipModel->with('generation','internship_scheme')->get(); // select * from periods;
+        $getAllInternship = $this->internshipModel->with(['generation','internship_scheme'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'generation_id' => $value->generation_id,
+                'internship_scheme_id' => $value->internship_scheme_id,
+                'location' => $value->location,
+                'output' => $value->output,
+                'student_name' => $value->student_name
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllInternship);
     }
 
@@ -37,14 +47,18 @@ class InternshipController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewInternship = $this->internshipModel->create([
+
+        $payloadData = [
             'generation_id' => $request->generation_id,
             'internship_scheme_id' => $request->internship_scheme_id,
             'location' => $request->location,
             'output' => $request->output,
             'student_name' => $request->student_name,
-        ]);
+        ];
+        $createNewInternship = $this->internshipModel->create($payloadData);
         return response()->json($createNewInternship);
+    
+        
     }
 
     /**
