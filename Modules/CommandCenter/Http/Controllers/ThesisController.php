@@ -29,7 +29,10 @@ class ThesisController extends Controller
                 'specialization_id' => $value->specialization_id,
                 'specialization_topic_id' => $value->specialization_topic_id,
                 'output' => $value->output,
-                'student_name' => $value->student_name
+                'student_name' => $value->student_name,
+                'generation' => $value->generation,
+                'specialization' => $value->specialization,
+                'specialization_topic' => $value->specialization_topic
             ];
             return $data;
         }); // select * from periods;

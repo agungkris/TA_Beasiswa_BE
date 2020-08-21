@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\CommunityDedicationGrant;
 
 class CommunityDedicationGrantController extends Controller
@@ -21,8 +22,20 @@ class CommunityDedicationGrantController extends Controller
 
     public function index()
     {
-        $getAllCommunityDedicationGrant = $this->communitydedicationgrantModel->with('scope_category','periods')->get(); // select * from periods;
-        return response()->json($getAllCommunityDedicationGrant);
+        $getAllCommunityDedicationGran = $this->communitydedicationgrantModel->with(['periods','scope_category'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'periods_id' => $value->periods_id,
+                'scope_category_id' => $value->scope_category_id,
+                'grant_file' => asset('upload/' . $value->grant_file),
+                'description' => $value->description,
+                'periods' => $value->periods,
+                'scope_category' => $value->scope_category
+            ];
+            return $data;
+        }); // select * from periods;
+        return response()->json($getAllCommunityDedicationGran);
+
     }
 
     /**
@@ -37,12 +50,16 @@ class CommunityDedicationGrantController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewCommunityDedicationGrant = $this->communitydedicationgrantModel->create([
-            'scope_category_id' => $request->scope_category_id,
+        $payloadData = [
             'periods_id' => $request->periods_id,
-            'grant_file' => $request->grant_file,
+            'scope_category_id' => $request->scope_category_id,
             'description' => $request->description,
-        ]);
+        ];
+        if ($request->file('grant_file')) {
+            $uploadForm = $request->file('grant_file')->store('document');
+            $payloadData['grant_file'] = $uploadForm;
+        }
+        $createNewCommunityDedicationGrant = $this->communitydedicationgrantModel->create($payloadData);
         return response()->json($createNewCommunityDedicationGrant);
     }
 
@@ -76,12 +93,23 @@ class CommunityDedicationGrantController extends Controller
     public function update($id, Request $request)
     {
         $findCommunityDedicationGrant = $this->communitydedicationgrantModel->find($id);
-        $findCommunityDedicationGrant->update([
-            'scope_category_id' => $request->scope_category_id,
+        $payloadData = [
             'periods_id' => $request->periods_id,
-            'grant_file' => $request->grant_file,
+            'scope_category_id' => $request->scope_category_id,
             'description' => $request->description,
-        ]);
+        ];
+        if($request->file('grant_file')){
+            if(Storage::exists($findCommunityDedicationGrant->grant_file)){
+                Storage::delete(($findCommunityDedicationGrant->grant_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('grant_file')->store('document');
+            $payloadData['grant_file'] = $uploadForm;
+
+        }
+        $findCommunityDedicationGrant->update($payloadData);
         return response()->json($findCommunityDedicationGrant);
     }
 

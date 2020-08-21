@@ -10,7 +10,7 @@ class ResearchCopyright extends Model
 
     protected $table = 'research_copyright';
 
-    public function achievement_category()
+    public function copyright_category()
     {
         return $this->belongsTo(CopyrightCategory::class, 'copyright_category_id');
     }

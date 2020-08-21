@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\ResearchCopyright;
 
 class ResearchCopyrightController extends Controller
@@ -21,7 +22,20 @@ class ResearchCopyrightController extends Controller
 
     public function index()
     {
-        $getAllResearchCopyright = $this->researchcopyrightModel->with('achievement_category','periods','scope_category')->get(); // select * from periods;
+        $getAllResearchCopyright = $this->researchcopyrightModel->with(['copyright_category','periods','scope_category'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'copyright_category_id' => $value->copyright_category_id,
+                'periods_id' => $value->periods_id,
+                'scope_category_id' => $value->scope_category_id,
+                'copyright_file' => asset('upload/' . $value->copyright_file),
+                'description' => $value->description,
+                'copyright_category' => $value->copyright_category,
+                'periods' => $value->periods,
+                'scope_category' => $value->scope_category
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllResearchCopyright);
     }
 
@@ -37,13 +51,17 @@ class ResearchCopyrightController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewResearchCopyright = $this->researchcopyrightModel->create([
+        $payloadData = [
             'copyright_category_id' => $request->copyright_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
-            'copyright_file' => $request->copyright_file,
             'description' => $request->description,
-        ]);
+        ];
+        if ($request->file('copyright_file')) {
+            $uploadForm = $request->file('copyright_file')->store('document');
+            $payloadData['copyright_file'] = $uploadForm;
+        }
+        $createNewResearchCopyright = $this->researchcopyrightModel->create($payloadData);
         return response()->json($createNewResearchCopyright);
     }
 
@@ -77,13 +95,24 @@ class ResearchCopyrightController extends Controller
     public function update($id, Request $request)
     {
         $findResearchCopyright = $this->researchcopyrightModel->find($id);
-        $findResearchCopyright->update([
+        $payloadData = [
             'copyright_category_id' => $request->copyright_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
-            'copyright_file' => $request->copyright_file,
             'description' => $request->description,
-        ]);
+        ];
+        if($request->file('copyright_file')){
+            if(Storage::exists($findResearchCopyright->copyright_file)){
+                Storage::delete(($findResearchCopyright->copyright_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('copyright_file')->store('document');
+            $payloadData['copyright_file'] = $uploadForm;
+
+        }
+        $findResearchCopyright->update($payloadData);
         return response()->json($findResearchCopyright);
     }
 

@@ -28,7 +28,9 @@ class InternshipController extends Controller
                 'internship_scheme_id' => $value->internship_scheme_id,
                 'location' => $value->location,
                 'output' => $value->output,
-                'student_name' => $value->student_name
+                'student_name' => $value->student_name,
+                'generation' => $value->generation,
+                'internship_scheme' => $value->internship_scheme
             ];
             return $data;
         }); // select * from periods;
