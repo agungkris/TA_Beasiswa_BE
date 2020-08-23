@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\Curriculum;
+use Modules\CommandCenter\Entities\Periods;
 
 class CurriculumController extends Controller
 {
@@ -21,9 +22,18 @@ class CurriculumController extends Controller
     }
 
     public function index(Request $request)
-    {
+    {   
         
-        $getAllCurriculum = $this->curriculumModel->with(['periods','specializations'])->get()->map(function ($value) {
+        $getAllCurriculum = $this->curriculumModel->with(['periods','specializations']);
+        if($request->filled('period_id')){
+            $getAllCurriculum = $getAllCurriculum->where('periods_id',$request->period_id);
+        }
+
+        
+            
+            
+        
+        $getAllCurriculum = $getAllCurriculum->get()->map(function ($value) {
             $data = [
                 'id' => $value->id,
                 'periods_id' => $value->periods_id,
@@ -35,7 +45,6 @@ class CurriculumController extends Controller
                 // 'specialization' => $value->specialization
                 
             ];
-            
             return $data;
         }); // select * from periods;
         return response()->json($getAllCurriculum);
