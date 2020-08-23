@@ -20,8 +20,9 @@ class CurriculumController extends Controller
         $this->curriculumModel = new Curriculum();
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        
         $getAllCurriculum = $this->curriculumModel->with(['periods','specializations'])->get()->map(function ($value) {
             $data = [
                 'id' => $value->id,
@@ -32,7 +33,9 @@ class CurriculumController extends Controller
                 'periods' => $value->periods,
                 'specializations' => $value->specializations
                 // 'specialization' => $value->specialization
+                
             ];
+            
             return $data;
         }); // select * from periods;
         return response()->json($getAllCurriculum);

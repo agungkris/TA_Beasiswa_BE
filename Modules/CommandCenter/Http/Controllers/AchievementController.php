@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\Achievement;
 
 class AchievementController extends Controller
@@ -21,7 +22,21 @@ class AchievementController extends Controller
 
     public function index()
     {
-        $getAllAchievement = $this->achievementModel->with('achievement_category','periods','scope_category')->get(); // select * from periods;
+        $getAllAchievement = $this->achievementModel->with(['achievement_category','periods','scope_category'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'achievement_category_id' => $value->achievement_category_id,
+                'periods_id' => $value->periods_id,
+                'scope_category_id' => $value->scope_category_id,
+                'achievement_file' => asset('upload/' . $value->achievement_file),
+                'achievement_name' => $value->achievement_name,
+                'description' => $value->description,
+                'achievement_category' => $value->achievement_category,
+                'periods' => $value->periods,
+                'scope_category' => $value->scope_category
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllAchievement);
     }
 
@@ -37,14 +52,18 @@ class AchievementController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewAchievement = $this->achievementModel->create([
+        $payloadData = [
             'achievement_category_id' => $request->achievement_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
             'achievement_name' => $request->achievement_name,
             'description' => $request->description,
-            'achievement_file' => $request->achievement_file,
-        ]);
+        ];
+        if ($request->file('achievement_file')) {
+            $uploadForm = $request->file('achievement_file')->store('document');
+            $payloadData['achievement_file'] = $uploadForm;
+        }
+        $createNewAchievement = $this->achievementModel->create($payloadData);
         return response()->json($createNewAchievement);
     }
 
@@ -78,14 +97,25 @@ class AchievementController extends Controller
     public function update($id, Request $request)
     {
         $findAchievement = $this->achievementModel->find($id);
-        $findAchievement->update([
-            'collaboration_scope_id' => $request->collaboration_scope_id,
-            'collaboration_periods_id' => $request->collaboration_periods_id,
-            'evaluation_periods_id' => $request->evaluation_periods_id,
-            'mou_file' => $request->mou_file,
-            'moa_file' => $request->moa_file,
-            'supporting_file' => $request->supporting_file,
-        ]);
+        $payloadData = [
+            'achievement_category_id' => $request->achievement_category_id,
+            'periods_id' => $request->periods_id,
+            'scope_category_id' => $request->scope_category_id,
+            'achievement_name' => $request->achievement_name,
+            'description' => $request->description,
+        ];
+        if($request->file('achievement_file')){
+            if(Storage::exists($findAchievement->achievement_file)){
+                Storage::delete(($findAchievement->achievement_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('publication_file')->store('document');
+            $payloadData['publication_file'] = $uploadForm;
+
+        }
+        $findAchievement->update($payloadData);
         return response()->json($findAchievement);
     }
 

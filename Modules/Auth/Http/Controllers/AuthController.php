@@ -44,7 +44,7 @@ class AuthController extends Controller
     public function getUser(Request $request)
     {
         // $findUser = 
-        $user = $request->user();
+        $user = User::with('profile')->find(auth()->id());
         return response()->json([
             'user' => $user,
             'token' => $user->tokens()->orderBy('id', 'desc')->first()
@@ -68,13 +68,20 @@ class AuthController extends Controller
     {
         $registerUser = User::create([
             'level' => $request->level ?? 'student',
-            'username' => $request->username,
-            'prodi' => $request->prodi,
-            'generation' => $request->generation,
+            'username' => $request->username,            
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        if($request->prodi || $request->generation){
+
+            $registerUser->profile()->create([
+                'prodi' => $request->prodi ?? null,
+                'generation' => $request->generation ?? null
+            ]);
+            
+        }
 
         return response()->json(['data' => $registerUser]);
     }

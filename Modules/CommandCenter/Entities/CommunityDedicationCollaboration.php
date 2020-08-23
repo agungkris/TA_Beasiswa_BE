@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CommunityDedicationCollaboration extends Model
 {
-    protected $fillable = ['achievement_category_id','collaboration_periods_id','evaluation_periods_id','mou_file','moa_file','supporting_file'];
+    protected $fillable = ['collaboration_scope_id','collaboration_periods_id','evaluation_periods_id','mou_file','moa_file','supporting_file'];
 
     protected $table = 'community_collaboration';
 
