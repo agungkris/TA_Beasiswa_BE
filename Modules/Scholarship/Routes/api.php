@@ -28,6 +28,7 @@ Route::prefix('/scholarship')->group(function () {
     Route::prefix('studentgroup')->group(function () {
         Route::get('/', 'ScholarshipStudentGroupController@index');
         Route::post('/create', 'ScholarshipStudentGroupController@store');
+        Route::get('/random', 'ScholarshipStudentGroupController@randomMember');
         Route::get('/get/{id}', 'ScholarshipStudentGroupController@show');
         Route::post('/update/{id}', 'ScholarshipStudentGroupController@update');
         Route::delete('/delete/{id}', 'ScholarshipStudentGroupController@destroy');
@@ -55,7 +56,7 @@ Route::prefix('/scholarship')->group(function () {
     });
     Route::prefix('scholarshippaperassessments')->group(function () {
         Route::get('/', 'ScholarshipPaperAssessmentsController@index');
-        Route::post('/create', 'ScholarshipPaperAssessmentsController@store');
+        Route::post('/create/{id}', 'ScholarshipPaperAssessmentsController@store');
         Route::get('/get/{id}', 'ScholarshipPaperAssessmentsController@show');
         Route::post('/update/{id}', 'ScholarshipPaperAssessmentsController@update');
         Route::delete('/delete/{id}', 'ScholarshipPaperAssessmentsController@destroy');
@@ -73,5 +74,12 @@ Route::prefix('/scholarship')->group(function () {
         Route::get('/get/{id}', 'ScholarshipCategoryJuryController@show');
         Route::post('/update/{id}', 'ScholarshipCategoryJuryController@update');
         Route::delete('/delete/{id}', 'ScholarshipCategoryJuryController@destroy');
+    });
+    Route::prefix('scholarshipannouncement')->group(function () {
+        Route::get('/', 'ScholarshipAnnouncementController@index');
+        Route::post('/create', 'ScholarshipAnnouncementController@store');
+        Route::get('/get/{id}', 'ScholarshipAnnouncementController@show');
+        Route::post('/update/{id}', 'ScholarshipAnnouncementController@update');
+        Route::delete('/delete/{id}', 'ScholarshipAnnouncementController@destroy');
     });
 });

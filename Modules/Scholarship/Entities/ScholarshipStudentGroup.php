@@ -2,6 +2,7 @@
 
 namespace Modules\Scholarship\Entities;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class ScholarshipStudentGroup extends Model
@@ -13,5 +14,10 @@ class ScholarshipStudentGroup extends Model
     public function period()
     {
         return $this->belongsTo(ScholarshipPeriod::class, 'period_id');
+    }
+
+    public function member()
+    {
+        return $this->belongsToMany(User::class, 'scholarship_student_group_members', 'student_group_id', 'student_id');
     }
 }

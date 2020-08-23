@@ -39,9 +39,11 @@ class UsersController extends Controller
         $createNewUsers = $this->usersModel->create([
             'level' => $request->level ?? 'student',
             'username' => $request->username,
+            'prodi' => $request->prodi,
+            'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password
+            'password' => bcrypt($request->password)
         ]);
         return response()->json($createNewUsers);
     }
@@ -58,6 +60,8 @@ class UsersController extends Controller
         $findUsers->update([
             'level' => $request->level,
             'username' => $request->username,
+            'prodi' => $request->prodi,
+            'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password

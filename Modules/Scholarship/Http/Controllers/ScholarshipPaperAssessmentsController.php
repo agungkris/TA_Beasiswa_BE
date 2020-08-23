@@ -23,19 +23,27 @@ class ScholarshipPaperAssessmentsController extends Controller
         return response()->json($getAllPaperAssessments);
     }
 
-    public function store(Request $request)
+    public function store($id, Request $request)
     {
+
+        $formatPapers = $request->format_papers * (10 / 100);
+        $creativity = $request->creativity * (30 / 100);
+        $contribution = $request->contribution * (25 / 100);
+        $information = $request->information * (20 / 100);
+        $conclusion = $request->conclusion * (15 / 100);
+
+        $score = $formatPapers + $creativity + $contribution + $information + $conclusion;
         $createNewPaperAssessments = $this->scholarshipPaperAssessmentsModel->create([
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
-            'student_id' => $request->student_id,
+            'student_id' => $id,
             'format_papers' => $request->format_papers,
             'creativity' => $request->creativity,
             'contribution' => $request->contribution,
             'information' => $request->information,
             'conclusion' => $request->conclusion,
             'comment' => $request->comment,
-            'score' => $request->score
+            'score' => $score ?? 0
         ]);
         return response()->json($createNewPaperAssessments);
     }

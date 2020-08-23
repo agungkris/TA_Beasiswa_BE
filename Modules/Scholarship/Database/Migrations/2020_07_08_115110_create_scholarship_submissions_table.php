@@ -25,6 +25,7 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->string('other_requirements');
             $table->double('presentation')->default(0)->nullable();
             $table->double('papers_score')->default(0)->nullable();
+            $table->tinyInteger('next_stage')->nullable();
 
             $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');

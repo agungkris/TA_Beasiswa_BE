@@ -18,9 +18,20 @@ class ScholarshipSubmissionsController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student')->get(); // select * from Submissionss;
+        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student'); // select * from Submissionss;
+        // select * from student_groups inner join period on periode.id = student_groups.period_id;
+
+        if ($request->filled('period_id')) {
+            $getAllSubmissions = $getAllSubmissions->where('period_id', $request->period_id);
+        }
+        // if ($request->filled('student_id')) {
+        //     $getAllSubmissions = $getAllSubmissions->where('student_id', $request->student_id);
+        // }
+
+        $getAllSubmissions = $getAllSubmissions->get();
+
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
         return response()->json($getAllSubmissions);
     }
