@@ -25,17 +25,17 @@ class GraduationKegiatanProdiController extends Controller
     public function store(Request $request)
     {
         $createNewKegiatanProdi = $this->homeKegiatanProdiModel->create([
-            'nama_prodi' => $request->nama_prodi,
+            'prodi_id' => $request->prodi_id,
             'image' => $request->image,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewKegiatanProdi);
     }
 
     public function show($id)
     {
-        $findKegiatanProdi = $this->homeKegiatanProdiModel->find($id);
+        $findKegiatanProdi = $this->homeKegiatanProdiModel->with('prodi','tahun')->find($id);
         return response()->json($findKegiatanProdi);
     }
 
@@ -43,10 +43,10 @@ class GraduationKegiatanProdiController extends Controller
     {
         $findKegiatanProdi = $this->homeKegiatanProdiModel->find($id);
         $findKegiatanProdi->update([
-            'nama_prodi' => $request->nama_prodi,
+            'prodi_id' => $request->prodi_id,
             'image' => $request->image,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findKegiatanProdi);
     }

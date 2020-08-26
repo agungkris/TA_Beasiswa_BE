@@ -15,21 +15,22 @@ class CreateGraduationLulusanProdi extends Migration
     {
         Schema::create('graduation_lulusan_prodi', function (Blueprint $table) {
             $table->id();
+            $table->string('nim');
             $table->string('nama_lengkap');
-            $table->integer('nim');
-            $table->unsignedBigInteger('prodi');
+            $table->unsignedBigInteger('prodi_id');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->text('alamat');
             $table->string('judul_skripsi');
             $table->string('ipk');
-            $table->enum('keterangan',['Dengan Pujian (Cum Laude)','Sangat Memuaskan','Memuaskan','Kurang Memuaskan']);
+            $table->string('keterangan');
+            $table->string('jsdp');
             $table->string('image');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('prodi')->on('graduation_profil_prodi')->references('id')->onDelete('cascade');
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('prodi_id')->on('graduation_profil_prodi')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -41,10 +42,10 @@ class CreateGraduationLulusanProdi extends Migration
     public function down()
     {
         Schema::table('graduation_lulusan_prodi', function (Blueprint $table) {
-            $table->dropForeign(['prodi']);
+            $table->dropForeign(['prodi_id']);
         });
         Schema::table('graduation_lulusan_prodi', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
 
         Schema::dropIfExists('graduation_lulusan_prodi');

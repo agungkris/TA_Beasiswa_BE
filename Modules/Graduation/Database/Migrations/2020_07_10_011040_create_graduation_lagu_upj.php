@@ -15,6 +15,7 @@ class CreateGraduationLaguUpj extends Migration
     {
         Schema::create('graduation_lagu_upj', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->string('image');
             $table->timestamps();
         });

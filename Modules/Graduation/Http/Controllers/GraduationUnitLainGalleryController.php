@@ -25,19 +25,17 @@ class GraduationUnitLainGalleryController extends Controller
     public function store(Request $request)
     {
         $createNewUnitLainGallery = $this->unitLainGalleryModel->create([
-            'nama_kepala_unit' => $request->nama_kepala_unit,
             'image' => $request->image,
-            'subbab' => $request->subbab,
-            'deskripsi' => $request->deskripsi,
+            'subtitle' => $request->subtitle,
             'kategori' => $request->kategori,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewUnitLainGallery);
     }
 
     public function show($id)
     {
-        $findUnitLainGallery = $this->unitLainGalleryModel->find($id);
+        $findUnitLainGallery = $this->unitLainGalleryModel->with('tahun')->find($id);
         return response()->json($findUnitLainGallery);
     }
 
@@ -45,12 +43,10 @@ class GraduationUnitLainGalleryController extends Controller
     {
         $findUnitLainGallery = $this->unitLainGalleryModel->find($id);
         $findUnitLainGallery->update([
-            'nama_kepala_unit' => $request->nama_kepala_unit,
             'image' => $request->image,
-            'subbab' => $request->subbab,
-            'deskripsi' => $request->deskripsi,
+            'subtitle' => $request->subtitle,
             'kategori' => $request->kategori,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findUnitLainGallery);
     }

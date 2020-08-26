@@ -26,14 +26,14 @@ class GraduationUndanganController extends Controller
     {
         $createNewUndangan = $this->undanganModel->create([
             'undangan' => $request->undangan,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewUndangan);
     }
 
     public function show($id)
     {
-        $findUndangan = $this->undanganModel->find($id);
+        $findUndangan = $this->undanganModel->with('tahun')->find($id);
         return response()->json($findUndangan);
     }
 
@@ -42,7 +42,7 @@ class GraduationUndanganController extends Controller
         $findUndangan = $this->undanganModel->find($id);
         $findUndangan->update([
             'undangan' => $request->undangan,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findUndangan);
     }

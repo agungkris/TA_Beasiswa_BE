@@ -6,17 +6,20 @@ use Illuminate\Database\Eloquent\Model;
 
 class GraduationLulusanTerbaik extends Model
 {
-    protected $fillable = ['id_lulusan','prestasi','testimoni','tahun'];
+    protected $fillable = ['title','lulusan_prodi_id', 'prodi_id','kategori','prestasi','testimoni','tahun_id'];
 
     protected $table = 'graduation_lulusan_terbaik';
 
-    public function tahun()
-    {
-        return $this->belongsTo(GraduationTahun::class, 'tahun');
-    }
-
     public function lulusan()
     {
-        return $this->belongsTo(GraduationLulusanProdi::class, 'id_lulusan');
+        return $this->belongsTo(GraduationLulusanProdi::class, 'lulusan_prodi_id');
+    }
+    public function prodi()
+    {
+        return $this->belongsTo(GraduationLulusanProdi::class, 'prodi_id');
+    }
+    public function tahun()
+    {
+        return $this->belongsTo(GraduationTahun::class, 'tahun_id');
     }
 }

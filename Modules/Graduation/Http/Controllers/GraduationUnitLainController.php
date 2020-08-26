@@ -30,14 +30,14 @@ class GraduationUnitLainController extends Controller
             'subbab' => $request->subbab,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewUnitLain);
     }
 
     public function show($id)
     {
-        $findUnitLain = $this->unitLainModel->find($id);
+        $findUnitLain = $this->unitLainModel->with('tahun')->find($id);
         return response()->json($findUnitLain);
     }
 
@@ -50,7 +50,7 @@ class GraduationUnitLainController extends Controller
             'subbab' => $request->subbab,
             'deskripsi' => $request->deskripsi,
             'kategori' => $request->kategori,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findUnitLain);
     }

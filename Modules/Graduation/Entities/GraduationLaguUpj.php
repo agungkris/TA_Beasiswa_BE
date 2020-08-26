@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GraduationLaguUpj extends Model
 {
-    protected $fillable = ['image'];
+    protected $fillable = ['title','image'];
 
     protected $table = 'graduation_lagu_upj';
 }

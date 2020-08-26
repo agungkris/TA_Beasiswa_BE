@@ -17,16 +17,16 @@ class CreateGraduationProfilProdi extends Migration
             $table->id();
             $table->string('nama_prodi');
             $table->string('singkatan_prodi');
-            $table->unsignedBigInteger('fakultas');
+            $table->unsignedBigInteger('fakultas_id');
             $table->string('logo');
             $table->longText('isi_profil');
             $table->string('nama_kaprodi');
             $table->string('image_kaprodi');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('fakultas')->on('graduation_fakultas')->references('id')->onDelete('cascade');
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('fakultas_id')->on('graduation_fakultas')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -38,10 +38,10 @@ class CreateGraduationProfilProdi extends Migration
     public function down()
     {
         Schema::table('graduation_profil_prodi', function (Blueprint $table) {
-            $table->dropForeign(['fakultas']);
+            $table->dropForeign(['fakultas_id']);
         });
         Schema::table('graduation_profil_prodi', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_profil_prodi');
     }
