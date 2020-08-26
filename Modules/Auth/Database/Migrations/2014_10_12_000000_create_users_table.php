@@ -17,8 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->enum('level', ['student', 'admin', 'juri', 'wisudawan', 'undangan', 'koor buku wisuda', 'kesekretariatan', 'koor desain', 'admin buku wisuda'])->default('student')->nullable();
             $table->string('username')->unique();
-            $table->string('prodi')->nullable();
-            $table->unsignedBigInteger('generation')->nullable();
             $table->string('name');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
