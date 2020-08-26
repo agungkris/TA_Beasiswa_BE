@@ -18,12 +18,6 @@ Route::middleware('auth:api')->get('/graduation', function (Request $request) {
 });
 
 Route::prefix('/graduation')->group(function () {
-    Route::prefix('tahun')->group(function () {
-        Route::get('/', 'GraduationTahunController@index');
-        Route::post('/create', 'GraduationTahunController@store');
-        Route::get('/get/{id}', 'GraduationTahunController@show');
-        Route::post('/update/{id}', 'GraduationTahunController@update');
-    });
     Route::prefix('undangan')->group(function () {
         Route::get('/', 'GraduationUndanganController@index');
         Route::post('/create', 'GraduationUndanganController@store');
@@ -83,18 +77,6 @@ Route::prefix('/graduation')->group(function () {
         Route::post('/create', 'GraduationSaranaPrasaranaController@store');
         Route::get('/get/{id}', 'GraduationSaranaPrasaranaController@show');
         Route::post('/update/{id}', 'GraduationSaranaPrasaranaController@update');
-    });
-    Route::prefix('fakultas')->group(function () {
-        Route::get('/', 'GraduationFakultasController@index');
-        Route::post('/create', 'GraduationFakultasController@store');
-        Route::get('/get/{id}', 'GraduationFakultasController@show');
-        Route::post('/update/{id}', 'GraduationFakultasController@update');
-    });
-    Route::prefix('profil-prodi')->group(function () {
-        Route::get('/', 'GraduationProfilProdiController@index');
-        Route::post('/create', 'GraduationProfilProdiController@store');
-        Route::get('/get/{id}', 'GraduationProfilProdiController@show');
-        Route::post('/update/{id}', 'GraduationProfilProdiController@update');
     });
     Route::prefix('kegiatan-prodi')->group(function () {
         Route::get('/', 'GraduationKegiatanProdiController@index');

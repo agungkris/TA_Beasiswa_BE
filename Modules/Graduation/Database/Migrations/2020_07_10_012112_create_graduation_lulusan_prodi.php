@@ -29,7 +29,7 @@ class CreateGraduationLulusanProdi extends Migration
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('prodi_id')->on('graduation_profil_prodi')->references('id')->onDelete('cascade');
+            $table->foreign('prodi_id')->on('profil_prodi')->references('id')->onDelete('cascade');
             $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
