@@ -16,10 +16,13 @@ class CreateAnnouncementTable extends Migration
         // beda
         Schema::create('scholarship_announcement', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('period_id');
             $table->string('title');
             $table->string('description')->nullable();
             $table->string('document');
             $table->timestamps();
+
+            $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
         });
     }
 
@@ -30,6 +33,10 @@ class CreateAnnouncementTable extends Migration
      */
     public function down()
     {
+        Schema::table('scholarship_announcement', function (Blueprint $table) {
+            $table->dropForeign(['period_id']);
+        });
+
         Schema::dropIfExists('scholarship_announcement');
     }
 }

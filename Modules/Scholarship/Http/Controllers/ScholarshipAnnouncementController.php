@@ -16,15 +16,22 @@ class ScholarshipAnnouncementController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $getAllScholarshipAnnouncement = $this->scholarshipAnnouncementModel->get(); // select * from scholarshipannouncements;
+        $getAllScholarshipAnnouncement = $this->scholarshipAnnouncementModel->with('period'); // select * from scholarshipannouncements;
+
+        if ($request->filled('period_id')) {
+            $getAllScholarshipAnnouncement = $getAllScholarshipAnnouncement->where('period_id', $request->period_id);
+        }
+        $getAllScholarshipAnnouncement = $getAllScholarshipAnnouncement->get();
+
         return response()->json($getAllScholarshipAnnouncement);
     }
 
     public function store(Request $request)
     {
         $payloadData = [
+            'period_id' => $request->period_id,
             'title' => $request->title,
             'description' => $request->description,
         ];
@@ -36,6 +43,7 @@ class ScholarshipAnnouncementController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewScholarshipAnnouncement = $this->scholarshipAnnouncementModel->updateOrCreate([
+            'period_id' => $request->period_id,
             'title' => $request->title,
             'description' => $request->description,
 

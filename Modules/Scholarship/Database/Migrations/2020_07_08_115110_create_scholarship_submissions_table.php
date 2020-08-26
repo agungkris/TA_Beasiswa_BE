@@ -22,7 +22,7 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->string('raport');
             $table->string('cv');
             $table->string('papers');
-            $table->string('other_requirements');
+            $table->string('other_requirements')->nullable();
             $table->double('presentation')->default(0)->nullable();
             $table->double('papers_score')->default(0)->nullable();
             $table->tinyInteger('next_stage')->nullable();
