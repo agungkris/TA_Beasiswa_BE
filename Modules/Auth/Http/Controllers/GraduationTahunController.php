@@ -1,11 +1,11 @@
 <?php
 
-namespace Modules\Graduation\Http\Controllers;
+namespace Modules\Auth\Http\Controllers;
 
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Graduation\Entities\GraduationTahun;
+use Modules\Auth\Entities\GraduationTahun;
 
 class GraduationTahunController extends Controller
 {

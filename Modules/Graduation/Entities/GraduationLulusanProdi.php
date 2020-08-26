@@ -17,6 +17,6 @@ class GraduationLulusanProdi extends Model
 
     public function prodi()
     {
-        return $this->belongsTo(GraduationProfilProdi::class, 'prodi_id');
+        return $this->belongsTo(ProfilProdi::class, 'prodi_id');
     }
 }

@@ -16,7 +16,7 @@ class GraduationLulusanTerbaik extends Model
     }
     public function prodi()
     {
-        return $this->belongsTo(GraduationLulusanProdi::class, 'prodi_id');
+        return $this->belongsTo(ProfilProdi::class, 'prodi_id');
     }
     public function tahun()
     {

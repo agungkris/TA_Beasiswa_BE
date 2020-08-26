@@ -1,14 +1,14 @@
 <?php
 
-namespace Modules\Graduation\Entities;
+namespace Modules\Auth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class GraduationProfilProdi extends Model
+class ProfilProdi extends Model
 {
     protected $fillable = ['nama_prodi', 'singkatan_prodi', 'fakultas_id', 'logo', 'isi_profil', 'nama_kaprodi', 'image_kaprodi', 'tahun_id'];
 
-    protected $table = 'graduation_profil_prodi';
+    protected $table = 'profil_prodi';
 
     public function tahun()
     {
@@ -17,6 +17,6 @@ class GraduationProfilProdi extends Model
 
     public function fakultas()
     {
-        return $this->belongsTo(GraduationFakultas::class, 'fakultas_id');
+        return $this->belongsTo(Fakultas::class, 'fakultas_id');
     }
 }

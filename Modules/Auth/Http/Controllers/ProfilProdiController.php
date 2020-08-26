@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Graduation\Http\Controllers;
+namespace Modules\Auth\Http\Controllers;
 
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Graduation\Entities\GraduationProfilProdi;
+use Modules\Auth\Entities\ProfilProdi;
 
-class GraduationProfilProdiController extends Controller
+class ProfilProdiController extends Controller
 {
     private $profilProdiModel;
     public function __construct()
     {
-        $this->profilProdiModel = new GraduationProfilProdi();
+        $this->profilProdiModel = new ProfilProdi();
     }
 
 

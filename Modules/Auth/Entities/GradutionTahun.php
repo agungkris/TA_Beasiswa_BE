@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Graduation\Entities;
+namespace Modules\Auth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
