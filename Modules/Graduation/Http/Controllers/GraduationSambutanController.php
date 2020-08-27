@@ -29,14 +29,14 @@ class GraduationSambutanController extends Controller
             'kategori' => $request->kategori,
             'text_sambutan' => $request->text_sambutan,
             'image' => $request->image,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewSambutan);
     }
 
     public function show($id)
     {
-        $findSambutan = $this->sambutanModel->find($id);
+        $findSambutan = $this->sambutanModel->with('tahun')->find($id);
         return response()->json($findSambutan);
     }
 
@@ -48,7 +48,7 @@ class GraduationSambutanController extends Controller
             'kategori' => $request->kategori,
             'text_sambutan' => $request->text_sambutan,
             'image' => $request->image,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findSambutan);
     }

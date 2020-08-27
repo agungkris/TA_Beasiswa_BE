@@ -18,7 +18,7 @@ class GraduationVisiMisiController extends Controller
 
     public function index()
     {
-        $getAllVisiMisi = $this->visiMisiModel->with('tahun')->get(); // select * from Sponsorships;
+        $getAllVisiMisi = $this->visiMisiModel->get(); // select * from Sponsorships;
         return response()->json($getAllVisiMisi);
     }
 

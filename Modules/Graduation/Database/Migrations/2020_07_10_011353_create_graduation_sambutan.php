@@ -19,10 +19,10 @@ class CreateGraduationSambutan extends Migration
             $table->enum('kategori', ['Ketua Panitia Wisuda', 'Rektor Universitas Pembangunan Jaya', 'Presiden Universitas Pembangunan Jaya', 'Ketua Pengurus Yayasan Pendidikan Jaya', 'Ketua Pembina Yayasan Pendidikan Jaya', 'Kepala LLDIKTI Wilayah IV']);
             $table->longText('text_sambutan');
             $table->string('image');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -34,7 +34,7 @@ class CreateGraduationSambutan extends Migration
     public function down()
     {
         Schema::table('graduation_sambutan', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_sambutan');
     }

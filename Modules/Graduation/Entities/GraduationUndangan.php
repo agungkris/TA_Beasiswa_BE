@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class GraduationUndangan extends Model
 {
-    protected $fillable = ['undangan','tahun'];
+    protected $fillable = ['undangan','tahun_id'];
 
     protected $table = 'graduation_undangan';
 
     public function tahun()
     {
-        return $this->belongsTo(GraduationTahun::class, 'tahun');
+        return $this->belongsTo(GraduationTahun::class, 'tahun_id');
     }
 
 }

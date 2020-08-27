@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Graduation\Http\Controllers;
+namespace Modules\Auth\Http\Controllers;
 
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Graduation\Entities\GraduationFakultas;
+use Modules\Auth\Entities\Fakultas;
 
-class GraduationFakultasController extends Controller
+class FakultasController extends Controller
 {
     private $fakultasModel;
     public function __construct()
     {
-        $this->fakultasModel = new GraduationFakultas();
+        $this->fakultasModel = new Fakultas();
     }
 
 

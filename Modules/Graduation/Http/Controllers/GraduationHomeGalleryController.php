@@ -5,6 +5,7 @@ namespace Modules\Graduation\Http\Controllers;
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Graduation\Entities\GraduationHomeGallery;
 
 class GraduationHomeGalleryController extends Controller
@@ -24,34 +25,52 @@ class GraduationHomeGalleryController extends Controller
 
     public function store(Request $request)
     {
-        $createNewHomeGallery = $this->homeGalleryModel->create([
+        $payloadData = [
             'sampul_image' => $request->sampul_image,
+            'title' => $request->title,
+            'sub_title' => $request->sub_title,
             'tema' => $request->tema,
-            'sub_tema' => $request->sub_tema,
             'tema_image' => $request->tema_image,
             'deskripsi' => $request->deskripsi,
-            'tahun' => $request->tahun,
-        ]);
+            'tahun_id' => $request->tahun_id,
+        ];
+        if ($request->file('tema_image')) {
+           
+            $uploadForm = $request->file('tema_image')->store('document');
+            $payloadData['tema_image'] = $uploadForm;
+        }
+        $createNewHomeGallery = $this->homeGalleryModel->create($payloadData);
         return response()->json($createNewHomeGallery);
     }
 
     public function show($id)
     {
-        $findHomeGallery = $this->homeGalleryModel->find($id);
+        $findHomeGallery = $this->homeGalleryModel->with('tahun')->find($id);
+        $findHomeGallery
+            ->tema_image = asset('upload/'.$findHomeGallery->tema_image);
         return response()->json($findHomeGallery);
     }
 
     public function update($id, Request $request)
     {
         $findHomeGallery = $this->homeGalleryModel->find($id);
-        $findHomeGallery->update([
+        $payloadData = [
             'sampul_image' => $request->sampul_image,
+            'title' => $request->title,
+            'sub_title' => $request->sub_title,
             'tema' => $request->tema,
-            'sub_tema' => $request->sub_tema,
             'tema_image' => $request->tema_image,
             'deskripsi' => $request->deskripsi,
-            'tahun' => $request->tahun,
-        ]);
+            'tahun_id' => $request->tahun_id,
+        ];
+        if ($request->file('tema_image')) {
+            if ($findHomeGallery && Storage::exists($findHomeGallery->tema_image)) {
+                Storage::delete($findHomeGallery->tema_image);
+            }
+            $uploadForm = $request->file('tema_image')->store('document');
+            $payloadData['tema_image'] = $uploadForm;
+        }
+        $findHomeGallery->update($payloadData);
         return response()->json($findHomeGallery);
     }
 

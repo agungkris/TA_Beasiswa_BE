@@ -16,10 +16,10 @@ class CreateGraduationUndangan extends Migration
         Schema::create('graduation_undangan', function (Blueprint $table) {
             $table->id();
             $table->string('undangan');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -31,7 +31,7 @@ class CreateGraduationUndangan extends Migration
     public function down()
     {
         Schema::table('graduation_undangan', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_undangan');
     }

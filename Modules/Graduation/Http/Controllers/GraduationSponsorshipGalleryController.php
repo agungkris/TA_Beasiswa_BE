@@ -27,14 +27,14 @@ class GraduationSponsorshipGalleryController extends Controller
         $createNewSponsorshipGallery = $this->sponsorshipGalleryModel->create([
             'image' => $request->image,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewSponsorshipGallery);
     }
 
     public function show($id)
     {
-        $findSponsorshipGallery = $this->sponsorshipGalleryModel->find($id);
+        $findSponsorshipGallery = $this->sponsorshipGalleryModel->with('tahun')->find($id);
         return response()->json($findSponsorshipGallery);
     }
 
@@ -44,7 +44,7 @@ class GraduationSponsorshipGalleryController extends Controller
         $findSponsorshipGallery->update([
             'image' => $request->image,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findSponsorshipGallery);
     }

@@ -27,14 +27,14 @@ class GraduationSponsorshipController extends Controller
         $createNewSponsorship = $this->sponsorshipModel->create([
             'nama_donatur' => $request->nama_donatur,
             'bentuk_dukungan' => $request->bentuk_dukungan,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewSponsorship);
     }
 
     public function show($id)
     {
-        $findSponsorship = $this->sponsorshipModel->find($id);
+        $findSponsorship = $this->sponsorshipModel->with('tahun')->find($id);
         return response()->json($findSponsorship);
     }
 
@@ -44,7 +44,7 @@ class GraduationSponsorshipController extends Controller
         $findSponsorship->update([
             'nama_donatur' => $request->nama_donatur,
             'bentuk_dukungan' => $request->bentuk_dukungan,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findSponsorship);
     }

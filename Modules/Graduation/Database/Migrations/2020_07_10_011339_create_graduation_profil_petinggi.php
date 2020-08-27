@@ -19,11 +19,10 @@ class CreateGraduationProfilPetinggi extends Migration
             $table->string('nama_lengkap');
             $table->string('jabatan');
             $table->string('image');
-            $table->string('tahun_awal');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -35,7 +34,7 @@ class CreateGraduationProfilPetinggi extends Migration
     public function down()
     {
         Schema::table('graduation_profil_petinggi', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_profil_petinggi');
     }

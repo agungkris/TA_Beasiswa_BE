@@ -17,10 +17,10 @@ class CreateGraduationSponsorship extends Migration
             $table->id();
             $table->string('nama_donatur');
             $table->string('bentuk_dukungan');
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -32,7 +32,7 @@ class CreateGraduationSponsorship extends Migration
     public function down()
     {
         Schema::table('graduation_sponsorship', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_sponsorship');
     }

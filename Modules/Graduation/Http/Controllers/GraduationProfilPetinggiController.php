@@ -29,15 +29,14 @@ class GraduationProfilPetinggiController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'jabatan' => $request->jabatan,
             'image' => $request->image,
-            'tahun_awal' => $request->tahun_awal,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewProfilPetinggi);
     }
 
     public function show($id)
     {
-        $findProfilPetinggi = $this->profilPetinggiModel->find($id);
+        $findProfilPetinggi = $this->profilPetinggiModel->with('tahun')->find($id);
         return response()->json($findProfilPetinggi);
     }
 
@@ -49,8 +48,7 @@ class GraduationProfilPetinggiController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'jabatan' => $request->jabatan,
             'image' => $request->image,
-            'tahun_awal' => $request->tahun_awal,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findProfilPetinggi);
     }

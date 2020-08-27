@@ -28,14 +28,14 @@ class GraduationPanitiaController extends Controller
             'seksi_panitia' => $request->seksi_panitia,
             'jabatan' => $request->jabatan,
             'nama_lengkap' => $request->nama_lengkap,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewPanitia);
     }
 
     public function show($id)
     {
-        $findPanitia = $this->panitiaModel->find($id);
+        $findPanitia = $this->panitiaModel->with('tahun')->find($id);
         return response()->json($findPanitia);
     }
 
@@ -46,7 +46,7 @@ class GraduationPanitiaController extends Controller
             'seksi_panitia' => $request->seksi_panitia,
             'jabatan' => $request->jabatan,
             'nama_lengkap' => $request->nama_lengkap,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findPanitia);
     }

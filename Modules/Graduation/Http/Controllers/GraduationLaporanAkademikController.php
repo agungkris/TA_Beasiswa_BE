@@ -30,14 +30,14 @@ class GraduationLaporanAkademikController extends Controller
             'image1' => $request->image1,
             'image2' => $request->image2,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewLaporanAkademik);
     }
 
     public function show($id)
     {
-        $findLaporanAkademik = $this->laporanAkademikModel->find($id);
+        $findLaporanAkademik = $this->laporanAkademikModel->with('tahun')->find($id);
         return response()->json($findLaporanAkademik);
     }
 
@@ -50,7 +50,7 @@ class GraduationLaporanAkademikController extends Controller
             'image1' => $request->image1,
             'image2' => $request->image2,
             'subtitle' => $request->subtitle,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findLaporanAkademik);
     }

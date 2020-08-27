@@ -35,7 +35,7 @@ class GraduationPanitiaGalleryController extends Controller
 
     public function show($id)
     {
-        $findPanitiaGallery = $this->panitiaGalleryModel->find($id);
+        $findPanitiaGallery = $this->panitiaGalleryModel->with('tahun')->find($id);
         return response()->json($findPanitiaGallery);
     }
 

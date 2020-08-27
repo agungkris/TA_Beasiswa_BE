@@ -20,10 +20,10 @@ class CreateGraduationUnitLain extends Migration
             $table->string('subbab')->nullable();
             $table->longText('deskripsi');
             $table->enum('kategori', ['KOTA', 'JSDP', 'JLP & RPTRA', 'PJC Sport', 'PJC Urban']);
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -35,7 +35,7 @@ class CreateGraduationUnitLain extends Migration
     public function down()
     {
         Schema::table('graduation_unit_lain', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_unit_lain');
     }

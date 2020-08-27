@@ -16,7 +16,7 @@ class CreateGraduationSejarahUpj extends Migration
         Schema::create('graduation_sejarah_upj', function (Blueprint $table) {
             $table->id();
             $table->string('subbab')->nullable();
-            $table->text('text_sejarah');
+            $table->longText('text_sejarah');
             $table->timestamps();
         });
     }

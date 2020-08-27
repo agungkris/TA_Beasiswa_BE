@@ -17,10 +17,10 @@ class CreateGraduationSponsorshipGallery extends Migration
             $table->id();
             $table->string('image');
             $table->string('subtitle')->nullable();
-            $table->unsignedBigInteger('tahun');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -32,7 +32,7 @@ class CreateGraduationSponsorshipGallery extends Migration
     public function down()
     {
         Schema::table('graduation_sponsorship_gallery', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_sponsorship_gallery');
     }

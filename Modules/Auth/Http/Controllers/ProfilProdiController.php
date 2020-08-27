@@ -1,18 +1,18 @@
 <?php
 
-namespace Modules\Graduation\Http\Controllers;
+namespace Modules\Auth\Http\Controllers;
 
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Graduation\Entities\GraduationProfilProdi;
+use Modules\Auth\Entities\ProfilProdi;
 
-class GraduationProfilProdiController extends Controller
+class ProfilProdiController extends Controller
 {
     private $profilProdiModel;
     public function __construct()
     {
-        $this->profilProdiModel = new GraduationProfilProdi();
+        $this->profilProdiModel = new ProfilProdi();
     }
 
 
@@ -27,19 +27,19 @@ class GraduationProfilProdiController extends Controller
         $createNewprofilProdi = $this->profilProdiModel->create([
             'nama_prodi' => $request->nama_prodi,
             'singkatan_prodi' => $request->singkatan_prodi,
-            'fakultas' => $request->fakultas,
+            'fakultas_id' => $request->fakultas_id,
             'logo' => $request->logo,
             'isi_profil' => $request->isi_profil,
             'nama_kaprodi' => $request->nama_kaprodi,
             'image_kaprodi' => $request->image_kaprodi,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewprofilProdi);
     }
 
     public function show($id)
     {
-        $findprofilProdi = $this->profilProdiModel->find($id);
+        $findprofilProdi = $this->profilProdiModel->with('fakultas','tahun')->find($id);
         return response()->json($findprofilProdi);
     }
 
@@ -49,12 +49,12 @@ class GraduationProfilProdiController extends Controller
         $findprofilProdi->update([
             'nama_prodi' => $request->nama_prodi,
             'singkatan_prodi' => $request->singkatan_prodi,
-            'fakultas' => $request->fakultas,
+            'fakultas_id' => $request->fakultas_id,
             'logo' => $request->logo,
             'isi_profil' => $request->isi_profil,
             'nama_kaprodi' => $request->nama_kaprodi,
             'image_kaprodi' => $request->image_kaprodi,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findprofilProdi);
     }
