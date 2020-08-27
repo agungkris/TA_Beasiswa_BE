@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\Organization;
 
 class OrganizationController extends Controller
@@ -21,7 +22,20 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        $getAllOrganization = $this->organizationModel->with('periods','scope_category')->get(); // select * from periods;
+
+        $getAllOrganization = $this->organizationModel->with(['periods','scope_category'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'periods_id' => $value->periods_id,
+                'scope_category_id' => $value->scope_category_id,
+                'output' => $value->output,
+                'description' => $value->description,
+                'organization_file' => asset('upload/' . $value->organization_file),
+                'periods' => $value->periods,
+                'scope_category' => $value->scope_category
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllOrganization);
     }
 
@@ -37,13 +51,17 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewOrganization = $this->organizationModel->create([
+        $payloadData = [
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
             'output' => $request->output,
             'description' => $request->description,
-            'organization_file' => $request->organization_file,
-        ]);
+        ];
+        if ($request->file('organization_file')) {
+            $uploadForm = $request->file('organization_file')->store('document');
+            $payloadData['organization_file'] = $uploadForm;
+        }
+        $createNewOrganization = $this->organizationModel->create($payloadData);
         return response()->json($createNewOrganization);
     }
 
@@ -77,14 +95,27 @@ class OrganizationController extends Controller
     public function update($id, Request $request)
     {
         $findOrganization = $this->organizationModel->find($id);
-        $findOrganization->update([
+        $payloadData = [
+            'achievement_category_id' => $request->achievement_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
-            'output' => $request->output,
+            'achievement_name' => $request->achievement_name,
             'description' => $request->description,
-            'organization_file' => $request->organization_file,
-        ]);
+        ];
+        if($request->file('organization_file')){
+            if(Storage::exists($findOrganization->organization_file)){
+                Storage::delete(($findOrganization->organization_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('organization_file')->store('document');
+            $payloadData['organization_file'] = $uploadForm;
+
+        }
+        $findOrganization->update($payloadData);
         return response()->json($findOrganization);
+
     }
 
     /**
