@@ -21,7 +21,16 @@ class ForumController extends Controller
 
     public function index()
     {
-        $getAllForum = $this->forumModel->with('generation')->get(); // select * from periods;
+        $getAllForum = $this->forumModel->with(['generation'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'generation_id' => $value->generation_id,
+                'message' => $value->message,
+                'generation' => $value->generation,
+
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllForum);
     }
 
@@ -37,10 +46,11 @@ class ForumController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewForum = $this->forumModel->create([
+        $payloadData = [
             'generation_id' => $request->generation_id,
             'message' => $request->message,
-        ]);
+        ];
+        $createNewForum = $this->forumModel->create($payloadData);
         return response()->json($createNewForum);
     }
 
@@ -74,10 +84,11 @@ class ForumController extends Controller
     public function update($id, Request $request)
     {
         $findForum = $this->forumModel->find($id);
-        $findForum->update([
+        $payloadData = [
             'generation_id' => $request->generation_id,
             'message' => $request->message,
-        ]);
+        ];
+        $findForum->update($payloadData);
         return response()->json($findForum);
     }
 

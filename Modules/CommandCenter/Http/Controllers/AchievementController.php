@@ -111,8 +111,8 @@ class AchievementController extends Controller
                 
                 
             }
-            $uploadForm = $request->file('publication_file')->store('document');
-            $payloadData['publication_file'] = $uploadForm;
+            $uploadForm = $request->file('achievement_file')->store('document');
+            $payloadData['achievement_file'] = $uploadForm;
 
         }
         $findAchievement->update($payloadData);
