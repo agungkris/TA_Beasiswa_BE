@@ -17,8 +17,7 @@ class CreateGraduationUnitLain extends Migration
             $table->id();
             $table->string('nama_kepala_unit')->nullable();
             $table->string('image')->nullable();
-            $table->string('subbab')->nullable();
-            $table->longText('deskripsi');
+            $table->text('deskripsi');
             $table->enum('kategori', ['KOTA', 'JSDP', 'JLP & RPTRA', 'PJC Sport', 'PJC Urban']);
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();

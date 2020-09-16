@@ -16,8 +16,8 @@ class CreateGraduationPanitia extends Migration
         Schema::create('graduation_panitia', function (Blueprint $table) {
             $table->id();
             $table->string('seksi_panitia');
-            $table->enum('jabatan',['Koordinator','Anggota','Sub Seksi']);
-            $table->string('nama_lengkap');
+            $table->string('jabatan');
+            $table->string('list_anggota');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 

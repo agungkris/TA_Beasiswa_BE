@@ -30,6 +30,12 @@ Route::prefix('/graduation')->group(function () {
         Route::get('/get/{id}', 'GraduationHomeGalleryController@show');
         Route::post('/update/{id}', 'GraduationHomeGalleryController@update');
     });
+    Route::prefix('tema')->group(function () {
+        Route::get('/', 'GraduationTemaController@index');
+        Route::post('/create', 'GraduationTemaController@store');
+        Route::get('/get/{id}', 'GraduationTemaController@show');
+        Route::post('/update/{id}', 'GraduationTemaController@update');
+    });
     Route::prefix('visi-misi')->group(function () {
         Route::get('/', 'GraduationVisiMisiController@index');
         Route::post('/create', 'GraduationVisiMisiController@store');
@@ -53,6 +59,12 @@ Route::prefix('/graduation')->group(function () {
         Route::post('/create', 'GraduationProfilPetinggiController@store');
         Route::get('/get/{id}', 'GraduationProfilPetinggiController@show');
         Route::post('/update/{id}', 'GraduationProfilPetinggiController@update');
+    });
+    Route::prefix('profil-prodi')->group(function () {
+        Route::get('/', 'GraduationProfilProdiController@index');
+        Route::post('/create', 'GraduationProfilProdiController@store');
+        Route::get('/get/{id}', 'GraduationProfilProdiController@show');
+        Route::post('/update/{id}', 'GraduationProfilProdiController@update');
     });
     Route::prefix('sambutan')->group(function () {
         Route::get('/', 'GraduationSambutanController@index');
@@ -95,6 +107,18 @@ Route::prefix('/graduation')->group(function () {
         Route::post('/create', 'GraduationLulusanTerbaikController@store');
         Route::get('/get/{id}', 'GraduationLulusanTerbaikController@show');
         Route::post('/update/{id}', 'GraduationLulusanTerbaikController@update');
+    });
+    Route::prefix('panitia')->group(function () {
+        Route::get('/', 'GraduationPanitiaController@index');
+        Route::post('/create', 'GraduationPanitiaController@store');
+        Route::get('/get/{id}', 'GraduationPanitiaController@show');
+        Route::post('/update/{id}', 'GraduationPanitiaController@update');
+    });
+    Route::prefix('panitia-gallery')->group(function () {
+        Route::get('/', 'GraduationPanitiaGalleryController@index');
+        Route::post('/create', 'GraduationPanitiaGalleryController@store');
+        Route::get('/get/{id}', 'GraduationPanitiaGalleryController@show');
+        Route::post('/update/{id}', 'GraduationPanitiaGalleryController@update');
     });
     Route::prefix('unit-lain')->group(function () {
         Route::get('/', 'GraduationUnitLainController@index');

@@ -1,6 +1,8 @@
 <?php
 
 namespace Modules\Graduation\Entities;
+use Modules\Auth\Entities\Prodi;
+use Modules\Auth\Entities\GraduationTahun;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +19,6 @@ class GraduationKegiatanProdi extends Model
 
     public function prodi()
     {
-        return $this->belongsTo(GraduationProfilProdi::class, 'prodi_id');
+        return $this->belongsTo(Prodi::class, 'prodi_id');
     }
 }

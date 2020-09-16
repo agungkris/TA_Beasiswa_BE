@@ -4,7 +4,7 @@ namespace Modules\Graduation\Http\Controllers;
 
 //use Illuminate\Contracts\Support\Renderable;
 
-use Carbon\Carbon;
+// use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +21,24 @@ class GraduationLulusanProdiController extends Controller
 
     public function index()
     {
-        $getAllLulusanProdi = $this->lulusanProdiModel->with('prodi','tahun')->get(); // select * from LulusanProdi;
+        $getAllLulusanProdi = $this->lulusanProdiModel->with('prodi','tahun')->get()->map(function($value){
+            return [
+                'id' => $value->id,
+                'nim' => $value->nim,
+                'nama_lengkap' => $value->nama_lengkap,            
+                'prodi_id' => $value->prodi_id,
+                'prodi' => $value->prodi,
+                'thesis' => $value->thesis,
+                // 'ipk' => $value->ipk,
+                // 'jsdp' => $value->jsdp,
+                'email' => $value->email,
+                'keterangan' => $value->keterangan,
+                'tahun_id' => $value->tahun_id,
+                'tahun' => $value->tahun,
+                'image' => asset('upload/'.$value->image)
+
+            ];
+        }); // select * from LulusanProdi;
         return response()->json($getAllLulusanProdi);
     }
 
@@ -32,13 +49,14 @@ class GraduationLulusanProdiController extends Controller
             'nim' => $request->nim,
             'nama_lengkap' => $request->nama_lengkap,            
             'prodi_id' => $request->prodi_id,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => Carbon::parse($request->tanggal_lahir)->toDateString(),
-            'alamat' => $request->alamat,
-            'judul_skripsi' => $request->judul_skripsi,
-            'ipk' => $request->ipk,
+            // 'tempat_lahir' => $request->tempat_lahir,
+            // 'tanggal_lahir' => Carbon::parse($request->tanggal_lahir)->toDateString(),
+            // 'alamat' => $request->alamat,
+            'thesis' => $request->thesis,
+            // 'ipk' => $request->ipk,
+            // 'jsdp' => $request->jsdp,
+            'email' => $request->email,
             'keterangan' => $request->keterangan,
-            'jsdp' => $request->jsdp,
             'image' => $request->image,
             'tahun_id' => $request->tahun_id,
         ];
@@ -65,13 +83,11 @@ class GraduationLulusanProdiController extends Controller
             'nim' => $request->nim,
             'nama_lengkap' => $request->nama_lengkap,            
             'prodi_id' => $request->prodi_id,
-            'tempat_lahir' => $request->tempat_lahir,
-            'tanggal_lahir' => $request->tanggal_lahir,
-            'alamat' => $request->alamat,
-            'judul_skripsi' => $request->judul_skripsi,
-            'ipk' => $request->ipk,
+            'thesis' => $request->thesis,
+            // 'ipk' => $request->ipk,
+            // 'jsdp' => $request->jsdp,
+            'email' => $request->email,
             'keterangan' => $request->keterangan,
-            'jsdp' => $request->jsdp,
             'image' => $request->image,
             'tahun_id' => $request->tahun_id,
         ];

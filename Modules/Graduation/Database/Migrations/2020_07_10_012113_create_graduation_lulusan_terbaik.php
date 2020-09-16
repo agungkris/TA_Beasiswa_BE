@@ -19,13 +19,14 @@ class CreateGraduationLulusanTerbaik extends Migration
             $table->unsignedBigInteger('lulusan_prodi_id');
             $table->unsignedBigInteger('prodi_id');
             $table->enum('kategori',['IPK','JSDP']);
+            $table->string('isi_kategori');
             $table->text('prestasi');
             $table->string('testimoni');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
             $table->foreign('lulusan_prodi_id')->on('graduation_lulusan_prodi')->references('id')->onDelete('cascade');
-            $table->foreign('prodi_id')->on('profil_prodi')->references('id')->onDelete('cascade');
+            $table->foreign('prodi_id')->on('prodi')->references('id')->onDelete('cascade');
             $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }

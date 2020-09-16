@@ -16,11 +16,9 @@ class CreateGraduationHomeGallery extends Migration
         Schema::create('graduation_home_gallery', function (Blueprint $table) {
             $table->id();
             $table->string('sampul_image');
-            $table->string('title');
+            $table->string('sampul_title');
             $table->string('sub_title');
-            $table->string('tema');
-            $table->string('tema_image');
-            $table->longText('deskripsi');
+            $table->string('keterangan');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 

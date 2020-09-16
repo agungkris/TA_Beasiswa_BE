@@ -27,7 +27,7 @@ class GraduationPanitiaController extends Controller
         $createNewPanitia = $this->panitiaModel->create([
             'seksi_panitia' => $request->seksi_panitia,
             'jabatan' => $request->jabatan,
-            'nama_lengkap' => $request->nama_lengkap,
+            'list_anggota' => $request->list_anggota,
             'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewPanitia);
@@ -45,7 +45,7 @@ class GraduationPanitiaController extends Controller
         $findPanitia->update([
             'seksi_panitia' => $request->seksi_panitia,
             'jabatan' => $request->jabatan,
-            'nama_lengkap' => $request->nama_lengkap,
+            'list_anggota' => $request->list_anggota,
             'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findPanitia);

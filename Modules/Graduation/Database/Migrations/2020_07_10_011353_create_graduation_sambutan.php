@@ -18,6 +18,7 @@ class CreateGraduationSambutan extends Migration
             $table->string('nama_lengkap');
             $table->enum('kategori', ['Ketua Panitia Wisuda', 'Rektor Universitas Pembangunan Jaya', 'Presiden Universitas Pembangunan Jaya', 'Ketua Pengurus Yayasan Pendidikan Jaya', 'Ketua Pembina Yayasan Pendidikan Jaya', 'Kepala LLDIKTI Wilayah IV']);
             $table->longText('text_sambutan');
+            $table->date('tanggal');
             $table->string('image');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();

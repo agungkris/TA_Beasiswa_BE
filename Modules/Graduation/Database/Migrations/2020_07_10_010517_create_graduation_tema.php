@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGraduationKegiatanProdi extends Migration
+class CreateGraduationTema extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,14 @@ class CreateGraduationKegiatanProdi extends Migration
      */
     public function up()
     {
-        Schema::create('graduation_kegiatan_prodi', function (Blueprint $table) {
+        Schema::create('graduation_tema', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('prodi_id');
-            $table->string('image');
-            $table->text('subtitle');
+            $table->string('tema');
+            $table->string('tema_image');
+            $table->text('deskripsi');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('prodi_id')->on('prodi')->references('id')->onDelete('cascade');
             $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
@@ -33,12 +32,9 @@ class CreateGraduationKegiatanProdi extends Migration
      */
     public function down()
     {
-        Schema::table('graduation_kegiatan_prodi', function (Blueprint $table) {
-            $table->dropForeign(['prodi_id']);
-        });
-        Schema::table('graduation_kegiatan_prodi', function (Blueprint $table) {
+        Schema::table('graduation_tema', function (Blueprint $table) {
             $table->dropForeign(['tahun_id']);
         });
-        Schema::dropIfExists('graduation_kegiatan_prodi');
+        Schema::dropIfExists('graduation_tema');
     }
 }

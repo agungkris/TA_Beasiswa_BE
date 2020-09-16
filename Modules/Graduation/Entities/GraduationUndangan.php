@@ -3,6 +3,7 @@
 namespace Modules\Graduation\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Auth\Entities\GraduationTahun;
 
 class GraduationUndangan extends Model
 {

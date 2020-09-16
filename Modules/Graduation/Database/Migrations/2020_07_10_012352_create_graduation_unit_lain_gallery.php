@@ -17,10 +17,11 @@ class CreateGraduationUnitLainGallery extends Migration
             $table->id();
             $table->string('image');
             $table->string('subtitle');
-            $table->enum('kategori', ['KOTA', 'JSDP', 'JLP & RPTRA', 'PJC Sport', 'PJC Urban']);
+            $table->unsignedBigInteger('unit_lain_id');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
+            $table->foreign('unit_lain_id')->on('graduation_unit_lain')->references('id')->onDelete('cascade');
             $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
@@ -32,6 +33,9 @@ class CreateGraduationUnitLainGallery extends Migration
      */
     public function down()
     {
+        Schema::table('graduation_unit_lain_gallery', function (Blueprint $table) {
+            $table->dropForeign(['unit_lain_id']);
+        });
         Schema::table('graduation_unit_lain_gallery', function (Blueprint $table) {
             $table->dropForeign(['tahun_id']);
         });

@@ -3,10 +3,11 @@
 namespace Modules\Graduation\Entities;
 
 use Illuminate\Database\Eloquent\Model;
+use Modules\Auth\Entities\GraduationTahun;
 
 class GraduationUnitLain extends Model
 {
-    protected $fillable = ['nama_kepala_unit','image','subbab','deskripsi','kategori','tahun_id'];
+    protected $fillable = ['nama_kepala_unit','image','deskripsi','kategori','tahun_id'];
 
     protected $table = 'graduation_unit_lain';
 

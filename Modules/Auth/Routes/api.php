@@ -44,10 +44,10 @@ Route::prefix('/vue')->group(function () {
         Route::get('/get/{id}', 'FakultasController@show');
         Route::post('/update/{id}', 'FakultasController@update');
     });
-    Route::prefix('profil-prodi')->group(function () {
-        Route::get('/', 'ProfilProdiController@index');
-        Route::post('/create', 'ProfilProdiController@store');
-        Route::get('/get/{id}', 'ProfilProdiController@show');
-        Route::post('/update/{id}', 'ProfilProdiController@update');
+    Route::prefix('prodi')->group(function () {
+        Route::get('/', 'ProdiController@index');
+        Route::post('/create', 'ProdiController@store');
+        Route::get('/get/{id}', 'ProdiController@show');
+        Route::post('/update/{id}', 'ProdiController@update');
     });
 });
