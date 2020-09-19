@@ -15,10 +15,10 @@ class CreateGraduationLaporanAkademik extends Migration
     {
         Schema::create('graduation_laporan_akademik', function (Blueprint $table) {
             $table->id();
-            $table->string('subbab')->nullable();
-            $table->text('text_laporan')->nullable();
-            $table->string('image')->nullable();
-            $table->text('subtitle')->nullable();
+            // $table->string('subbab')->nullable();
+            // $table->text('text_laporan')->nullable();
+            $table->string('file')->nullable();
+            // $table->text('subtitle')->nullable();
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 

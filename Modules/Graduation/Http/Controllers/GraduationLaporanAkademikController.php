@@ -22,10 +22,10 @@ class GraduationLaporanAkademikController extends Controller
         $getAllLaporanAkademik = $this->laporanAkademikModel->with('tahun')->get()->map(function($value){ // select * from LaporanAkademik;
             return [
                 'id' => $value->id,
-                'subbab' => $value->subbab,
-                'text_laporan' => $value->text_laporan,
-                'image' => asset('upload/'.$value->image),
-                'subtitle' => $value->subtitle,
+                // 'subbab' => $value->subbab,
+                // 'text_laporan' => $value->text_laporan,
+                'file' => asset('upload/'.$value->file),
+                // 'subtitle' => $value->subtitle,
                 'tahun_id' => $value->tahun_id,
                 'tahun' => $value->tahun,
             ];
@@ -36,15 +36,15 @@ class GraduationLaporanAkademikController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
-            'subbab' => $request->subbab,
-            'text_laporan' => $request->text_laporan,
-            'image' => $request->image,
-            'subtitle' => $request->subtitle,
+            // 'subbab' => $request->subbab,
+            // 'text_laporan' => $request->text_laporan,
+            'file' => $request->file,
+            // 'subtitle' => $request->subtitle,
             'tahun_id' => $request->tahun_id,
         ];
-        if ($request->file('image')) {
-            $uploadForm = $request->file('image')->store('document');
-            $payloadData['image'] = $uploadForm;
+        if ($request->file('file')) {
+            $uploadForm = $request->file('file')->store('document');
+            $payloadData['file'] = $uploadForm;
         }
         $createNewLaporanAkademik = $this->laporanAkademikModel->create($payloadData);
         return response()->json($createNewLaporanAkademik);
@@ -53,7 +53,7 @@ class GraduationLaporanAkademikController extends Controller
     public function show($id)
     {
         $findLaporanAkademik = $this->laporanAkademikModel->with('tahun')->find($id);
-        $findLaporanAkademik->image = asset('upload/'.$findLaporanAkademik->image);
+        $findLaporanAkademik->file = asset('upload/'.$findLaporanAkademik->file);
         return response()->json($findLaporanAkademik);
     }
 
@@ -61,18 +61,18 @@ class GraduationLaporanAkademikController extends Controller
     {
         $findLaporanAkademik = $this->laporanAkademikModel->find($id);
         $payloadData = [
-            'subbab' => $request->subbab,
-            'text_laporan' => $request->text_laporan,
-            'image' => $request->image,
-            'subtitle' => $request->subtitle,
+            // 'subbab' => $request->subbab,
+            // 'text_laporan' => $request->text_laporan,
+            'file' => $request->file,
+            // 'subtitle' => $request->subtitle,
             'tahun_id' => $request->tahun_id,
         ];
-        if ($request->file('image')) {
-            if ($findLaporanAkademik && Storage::exists($findLaporanAkademik->image)) {
-                Storage::delete($findLaporanAkademik->image);
+        if ($request->file('file')) {
+            if ($findLaporanAkademik && Storage::exists($findLaporanAkademik->file)) {
+                Storage::delete($findLaporanAkademik->file);
             }
-            $uploadForm = $request->file('image')->store('document');
-            $payloadData['image'] = $uploadForm;
+            $uploadForm = $request->file('file')->store('document');
+            $payloadData['file'] = $uploadForm;
         }
         $findLaporanAkademik->update($payloadData);
         return response()->json($findLaporanAkademik);
