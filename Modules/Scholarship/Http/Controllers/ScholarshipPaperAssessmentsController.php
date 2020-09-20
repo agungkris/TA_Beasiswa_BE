@@ -15,11 +15,26 @@ class ScholarshipPaperAssessmentsController extends Controller
         $this->scholarshipPaperAssessmentsModel = new ScholarshipPaperAssessments();
     }
 
+    public function report(Request $request)
+    {
+        $getAllPaperAssessments = $this->scholarshipPaperAssessmentsModel->with('period', 'jury', 'student')
+            ->where('period_id', $request->period_id)->where('student_id', $request->student_id)->first();
 
-    public function index()
+
+        return response()->json($getAllPaperAssessments);
+        // $periodId = $request->period_id ?? null;
+        // if ($request->filled('period_id')) {
+        // $getAllPaperAssessments = $getAllPaperAssessments->where('period_id', $periodId);
+    }
+
+    public function index(Request $request)
     {
         $getAllPaperAssessments = $this->scholarshipPaperAssessmentsModel->with('period', 'jury', 'student')->get(); // select * from PaperAssessmentss;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
+        $periodId = $request->period_id ?? null;
+        // if ($request->filled('period_id')) {
+        $getAllPaperAssessments = $getAllPaperAssessments->where('period_id', $periodId);
+
         return response()->json($getAllPaperAssessments);
     }
 
@@ -32,8 +47,12 @@ class ScholarshipPaperAssessmentsController extends Controller
         $information = $request->information * (20 / 100);
         $conclusion = $request->conclusion * (15 / 100);
 
-        $score = $formatPapers + $creativity + $contribution + $information + $conclusion;
-        $createNewPaperAssessments = $this->scholarshipPaperAssessmentsModel->create([
+        $papers_score = $formatPapers + $creativity + $contribution + $information + $conclusion;
+        $createNewPaperAssessments = $this->scholarshipPaperAssessmentsModel->updateOrCreate([
+            'period_id' => $request->period_id,
+            'jury_id' => $request->jury_id,
+            'student_id' => $id,
+        ], [
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
             'student_id' => $id,
@@ -43,7 +62,7 @@ class ScholarshipPaperAssessmentsController extends Controller
             'information' => $request->information,
             'conclusion' => $request->conclusion,
             'comment' => $request->comment,
-            'score' => $score ?? 0
+            'papers_score' => $papers_score ?? 0
         ]);
         return response()->json($createNewPaperAssessments);
     }
@@ -67,7 +86,7 @@ class ScholarshipPaperAssessmentsController extends Controller
             'information' => $request->information,
             'conclusion' => $request->conclusion,
             'comment' => $request->comment,
-            'score' => $request->score
+            'papers_score' => $request->papers_score
         ]);
         return response()->json($findPaperAssessments);
     }

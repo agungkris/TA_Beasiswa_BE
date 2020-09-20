@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Scholarship\Entities\ScholarshipAnnouncement;
+use Modules\Scholarship\Transformers\ScholarshipAnnouncementResource;
 
 class ScholarshipAnnouncementController extends Controller
 {
@@ -25,7 +26,7 @@ class ScholarshipAnnouncementController extends Controller
         }
         $getAllScholarshipAnnouncement = $getAllScholarshipAnnouncement->get();
 
-        return response()->json($getAllScholarshipAnnouncement);
+        return ScholarshipAnnouncementResource::collection($getAllScholarshipAnnouncement);
     }
 
     public function store(Request $request)
@@ -61,9 +62,9 @@ class ScholarshipAnnouncementController extends Controller
     {
         $findScholarshipAnnouncement = $this->scholarshipAnnouncementModel->find($id);
         $findScholarshipAnnouncement->update([
-            // 'jury_id' => $request->jury_id,
-            // 'karya_tulis' => $request->karya_tulis,
-            // 'fgd' => $request->fgd,
+            // 'period_id' => $request->period_id,
+            // 'title' => $request->title,
+            // 'description' => $request->description,
         ]);
         return response()->json($findScholarshipAnnouncement);
     }

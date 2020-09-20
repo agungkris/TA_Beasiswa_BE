@@ -45,7 +45,10 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/create', 'ScholarshipSubmissionsController@store');
         Route::get('/get/{id}', 'ScholarshipSubmissionsController@show');
         Route::post('/update/{id}', 'ScholarshipSubmissionsController@update');
+        Route::post('/nextstage/{id}', 'ScholarshipSubmissionsController@next_Stage');
+        Route::post('/finalstage/{id}', 'ScholarshipSubmissionsController@final_Stage');
         Route::delete('/delete/{id}', 'ScholarshipSubmissionsController@destroy');
+        Route::post('/report', 'ScholarshipSubmissionsController@report');
     });
     Route::prefix('scholarshipstudentgroupmembers')->group(function () {
         Route::get('/', 'ScholarshipStudentGroupMembersController@index');
@@ -58,12 +61,13 @@ Route::prefix('/scholarship')->group(function () {
         Route::get('/', 'ScholarshipPaperAssessmentsController@index');
         Route::post('/create/{id}', 'ScholarshipPaperAssessmentsController@store');
         Route::get('/get/{id}', 'ScholarshipPaperAssessmentsController@show');
+        Route::get('/report', 'ScholarshipPaperAssessmentsController@report');
         Route::post('/update/{id}', 'ScholarshipPaperAssessmentsController@update');
         Route::delete('/delete/{id}', 'ScholarshipPaperAssessmentsController@destroy');
     });
     Route::prefix('scholarshippresentationassessments')->group(function () {
         Route::get('/', 'ScholarshipPresentationAssessmentsController@index');
-        Route::post('/create', 'ScholarshipPresentationAssessmentsController@store');
+        Route::post('/create/{id}', 'ScholarshipPresentationAssessmentsController@store');
         Route::get('/get/{id}', 'ScholarshipPresentationAssessmentsController@show');
         Route::post('/update/{id}', 'ScholarshipPresentationAssessmentsController@update');
         Route::delete('/delete/{id}', 'ScholarshipPresentationAssessmentsController@destroy');

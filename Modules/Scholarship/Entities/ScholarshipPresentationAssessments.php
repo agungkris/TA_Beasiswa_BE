@@ -3,7 +3,7 @@
 namespace Modules\Scholarship\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Auth\Entities\Users;
+use Modules\Auth\Entities\User;
 
 class ScholarshipPresentationAssessments extends Model
 {
@@ -18,11 +18,11 @@ class ScholarshipPresentationAssessments extends Model
 
     public function jury()
     {
-        return $this->belongsTo(Users::class, 'jury_id');
+        return $this->belongsTo(User::class, 'jury_id');
     }
 
     public function student()
     {
-        return $this->belongsTo(Users::class, 'student_id');
+        return $this->belongsTo(User::class, 'student_id');
     }
 }

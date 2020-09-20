@@ -16,8 +16,8 @@ class CategoryJuryTable extends Migration
         Schema::create('scholarship_category_jury', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('jury_id');
-            $table->unsignedBigInteger('karya_tulis');
-            $table->unsignedBigInteger('fgd');
+            $table->unsignedBigInteger('karya_tulis')->nullable();
+            $table->unsignedBigInteger('fgd')->nullable();
 
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');
             $table->timestamps();

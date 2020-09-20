@@ -25,7 +25,24 @@ class ScholarshipPresentationAssessmentsController extends Controller
 
     public function store(Request $request)
     {
-        $createNewPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->create([
+        $score_A = $request->score_A;
+        $score_B = $request->score_B;
+        $score_C = $request->score_C;
+        $score_D = $request->score_D;
+        $score_E = $request->score_E;
+        $score_F = $request->score_F;
+        $score_G = $request->score_G;
+        $score_H = $request->score_H;
+        $score_I = $request->score_I;
+        $score_J = $request->score_J;
+        $score = (($score_A + $score_B + $score_C + $score_D + $score_E + $score_F + $score_G + $score_F + $score_G + $score_H + $score_I + $score_J) / 10);
+
+
+        $createNewPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->updateorcreate([
+            'period_id' => $request->period_id,
+            'jury_id' => $request->jury_id,
+            'student_id' => $request->student_id,
+        ], [
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
             'student_id' => $request->student_id,
@@ -39,7 +56,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
             'score_H' => $request->score_H,
             'score_I' => $request->score_I,
             'score_J' => $request->score_J,
-            'score' => $request->score
+            'final_score' => $score ?? 0
         ]);
         return response()->json($createNewPresentationAssessments);
     }
@@ -67,7 +84,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
             'score_H' => $request->score_H,
             'score_I' => $request->score_I,
             'score_J' => $request->score_J,
-            'score' => $request->score
+            'final_score' => $score ?? 0
         ]);
         return response()->json($findPresentationAssessments);
     }

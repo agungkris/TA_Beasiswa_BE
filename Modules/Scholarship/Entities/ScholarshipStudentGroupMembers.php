@@ -3,7 +3,7 @@
 namespace Modules\Scholarship\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Auth\Entities\Users;
+use Modules\Auth\Entities\User;
 
 class ScholarshipStudentGroupMembers extends Model
 {
@@ -18,6 +18,6 @@ class ScholarshipStudentGroupMembers extends Model
 
     public function student()
     {
-        return $this->belongsTo(Users::class, 'student_id');
+        return $this->belongsTo(User::class, 'student_id');
     }
 }

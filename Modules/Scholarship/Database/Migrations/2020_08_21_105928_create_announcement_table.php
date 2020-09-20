@@ -19,7 +19,7 @@ class CreateAnnouncementTable extends Migration
             $table->unsignedBigInteger('period_id');
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('document');
+            $table->string('document')->nullable();
             $table->timestamps();
 
             $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
