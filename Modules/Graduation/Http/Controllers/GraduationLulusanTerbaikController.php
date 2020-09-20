@@ -18,24 +18,28 @@ class GraduationLulusanTerbaikController extends Controller
 
     public function index()
     {
-        $getAllLulusanTerbaik = $this->lulusanTerbaikModel->with('lulusan','tahun')->get(); // select * from LulusanTerbaik;
+        $getAllLulusanTerbaik = $this->lulusanTerbaikModel->with('lulusan','prodi','tahun')->get(); // select * from LulusanTerbaik;
         return response()->json($getAllLulusanTerbaik);
     }
 
     public function store(Request $request)
     {
         $createNewLulusanTerbaik = $this->lulusanTerbaikModel->create([
-            'id_lulusan' => $request->id_lulusan,
+            'title' => $request->title,
+            'lulusan_prodi_id' => $request->lulusan_prodi_id,
+            'prodi_id' => $request->prodi_id,
+            'kategori' => $request->kategori,
+            'isi_kategori' => $request->isi_kategori,
             'prestasi' => $request->prestasi,
             'testimoni' => $request->testimoni,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($createNewLulusanTerbaik);
     }
 
     public function show($id)
     {
-        $findLulusanTerbaik = $this->lulusanTerbaikModel->find($id);
+        $findLulusanTerbaik = $this->lulusanTerbaikModel->with('lulusan','prodi','tahun')->find($id);
         return response()->json($findLulusanTerbaik);
     }
 
@@ -43,10 +47,14 @@ class GraduationLulusanTerbaikController extends Controller
     {
         $findLulusanTerbaik = $this->lulusanTerbaikModel->find($id);
         $findLulusanTerbaik->update([
-            'id_lulusan' => $request->id_lulusan,
+            'title' => $request->title,
+            'lulusan_prodi_id' => $request->lulusan_prodi_id,
+            'prodi_id' => $request->prodi_id,
+            'kategori' => $request->kategori,
+            'isi_kategori' => $request->isi_kategori,
             'prestasi' => $request->prestasi,
             'testimoni' => $request->testimoni,
-            'tahun' => $request->tahun,
+            'tahun_id' => $request->tahun_id,
         ]);
         return response()->json($findLulusanTerbaik);
     }

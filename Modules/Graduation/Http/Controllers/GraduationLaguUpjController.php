@@ -25,6 +25,7 @@ class GraduationLaguUpjController extends Controller
     public function store(Request $request)
     {
         $createNewLaguUpj = $this->homeLaguUpj->create([
+            'title' => $request->title,
             'image' => $request->image,
         ]);
         return response()->json($createNewLaguUpj);
@@ -40,6 +41,7 @@ class GraduationLaguUpjController extends Controller
     {
         $findLaguUpj = $this->homeLaguUpj->find($id);
         $findLaguUpj->update([
+            'title' => $request->title,
             'image' => $request->image,
         ]);
         return response()->json($findLaguUpj);

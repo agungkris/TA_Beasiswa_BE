@@ -12,7 +12,7 @@ class Forum extends Model
 
     public function generation()
     {
-        return $this->belongsTo(Generation::class, 'creation_category_id');
+        return $this->belongsTo(Generation::class, 'generation_id');
     }
 
 }

@@ -16,14 +16,13 @@ class CreateGraduationHomeGallery extends Migration
         Schema::create('graduation_home_gallery', function (Blueprint $table) {
             $table->id();
             $table->string('sampul_image');
-            $table->string('tema');
-            $table->string('sub_tema');
-            $table->string('tema_image');
-            $table->string('deskripsi');
-            $table->unsignedBigInteger('tahun');
+            $table->string('sampul_title');
+            $table->string('sub_title');
+            $table->string('keterangan');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -35,7 +34,7 @@ class CreateGraduationHomeGallery extends Migration
     public function down()
     {
         Schema::table('graduation_home_gallery', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_home_gallery');
     }

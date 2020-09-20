@@ -17,7 +17,10 @@ class CreateGraduationSaranaPrasarana extends Migration
             $table->id();
             $table->string('image');
             $table->string('subtitle');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
+
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -29,5 +32,9 @@ class CreateGraduationSaranaPrasarana extends Migration
     public function down()
     {
         Schema::dropIfExists('graduation_sarana_prasarana');
+
+        Schema::table('graduation_sarana_prasarana', function (Blueprint $table) {
+            $table->dropForeign(['tahun_id']);
+        });
     }
 }

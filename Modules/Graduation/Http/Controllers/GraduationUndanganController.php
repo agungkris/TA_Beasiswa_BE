@@ -5,6 +5,7 @@ namespace Modules\Graduation\Http\Controllers;
 //use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Graduation\Entities\GraduationUndangan;
 
 class GraduationUndanganController extends Controller
@@ -18,32 +19,57 @@ class GraduationUndanganController extends Controller
 
     public function index()
     {
-        $getAllUndangan = $this->undanganModel->with('tahun')->get(); // select * from Sponsorships;
+        $getAllUndangan = $this->undanganModel->with('tahun')->get()->map(function($value){
+            return [
+                'id' => $value->id,
+                'undangan' => asset('upload/'.$value->undangan),
+                'tahun_id' => $value->tahun_id,
+                'tahun' => $value->tahun
+            ];
+        }); // select * from Sponsorships;
         return response()->json($getAllUndangan);
     }
 
     public function store(Request $request)
     {
-        $createNewUndangan = $this->undanganModel->create([
+        $payloadData = [
             'undangan' => $request->undangan,
-            'tahun' => $request->tahun,
-        ]);
+            'tahun_id' => $request->tahun_id,
+        ];
+        if ($request->file('undangan')) {
+            $uploadForm = $request->file('undangan')->storeAs(
+                'document', $request->file('undangan')->getClientOriginalName()
+            );
+            $payloadData['undangan'] = $uploadForm;
+        }
+        $createNewUndangan = $this->undanganModel->create($payloadData);
         return response()->json($createNewUndangan);
     }
 
     public function show($id)
     {
-        $findUndangan = $this->undanganModel->find($id);
+        $findUndangan = $this->undanganModel->with('tahun')->find($id);
+        $findUndangan->undangan = asset('upload/'.$findUndangan->undangan);
         return response()->json($findUndangan);
     }
 
     public function update($id, Request $request)
     {
         $findUndangan = $this->undanganModel->find($id);
-        $findUndangan->update([
+        $payloadData = [
             'undangan' => $request->undangan,
-            'tahun' => $request->tahun,
-        ]);
+            'tahun_id' => $request->tahun_id,
+        ];
+        if ($request->file('undangan')) {
+            if ($findUndangan && Storage::exists($findUndangan->undangan)) {
+                Storage::delete($findUndangan->undangan);
+            }
+            $uploadForm = $request->file('undangan')->storeAs(
+                'document', $request->file('undangan')->getClientOriginalName()
+            );
+            $payloadData['undangan'] = $uploadForm;
+        }
+        $findUndangan->update($payloadData);
         return response()->json($findUndangan);
     }
 

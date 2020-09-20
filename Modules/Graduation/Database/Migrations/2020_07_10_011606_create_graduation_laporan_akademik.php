@@ -15,15 +15,14 @@ class CreateGraduationLaporanAkademik extends Migration
     {
         Schema::create('graduation_laporan_akademik', function (Blueprint $table) {
             $table->id();
-            $table->string('subbab')->nullable();
-            $table->longText('text_laporan');
-            $table->string('image1')->nullable();
-            $table->string('image2')->nullable();
-            $table->string('subtitle')->nullable();
-            $table->unsignedBigInteger('tahun');
+            // $table->string('subbab')->nullable();
+            // $table->text('text_laporan')->nullable();
+            $table->string('file')->nullable();
+            // $table->text('subtitle')->nullable();
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -35,7 +34,7 @@ class CreateGraduationLaporanAkademik extends Migration
     public function down()
     {
         Schema::table('graduation_laporan_akademik', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_laporan_akademik');
     }

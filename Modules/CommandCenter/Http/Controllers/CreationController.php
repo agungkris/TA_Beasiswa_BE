@@ -5,6 +5,7 @@ namespace Modules\CommandCenter\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\CommandCenter\Entities\Creation;
 
 class CreationController extends Controller
@@ -21,7 +22,21 @@ class CreationController extends Controller
 
     public function index()
     {
-        $getAllCreation = $this->creationModel->with('creation_category','periods','scope_category')->get(); // select * from periods;
+        $getAllCreation = $this->creationModel->with(['creation_category','periods','scope_category'])->get()->map(function ($value) {
+            $data = [
+                'id' => $value->id,
+                'creation_category_id' => $value->creation_category_id,
+                'periods_id' => $value->periods_id,
+                'scope_category_id' => $value->scope_category_id,
+                'creation_file' => asset('upload/' . $value->creation_file),
+                'creation_name' => $value->creation_name,
+                'description' => $value->description,
+                'creation_category' => $value->creation_category,
+                'periods' => $value->periods,
+                'scope_category' => $value->scope_category
+            ];
+            return $data;
+        }); // select * from periods;
         return response()->json($getAllCreation);
     }
 
@@ -37,14 +52,18 @@ class CreationController extends Controller
      */
     public function store(Request $request)
     {
-        $createNewCreation = $this->creationModel->create([
+        $payloadData = [
             'creation_category_id' => $request->creation_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
             'creation_name' => $request->creation_name,
             'description' => $request->description,
-            'creation_file' => $request->creation_file,
-        ]);
+        ];
+        if ($request->file('creation_file')) {
+            $uploadForm = $request->file('creation_file')->store('document');
+            $payloadData['creation_file'] = $uploadForm;
+        }
+        $createNewCreation = $this->creationModel->create($payloadData);
         return response()->json($createNewCreation);
     }
 
@@ -78,14 +97,25 @@ class CreationController extends Controller
     public function update($id, Request $request)
     {
         $findCreation = $this->creationModel->find($id);
-        $findCreation->update([
+        $payloadData = [
             'creation_category_id' => $request->creation_category_id,
             'periods_id' => $request->periods_id,
             'scope_category_id' => $request->scope_category_id,
             'creation_name' => $request->creation_name,
             'description' => $request->description,
-            'creation_file' => $request->creation_file,
-        ]);
+        ];
+        if($request->file('creation_file')){
+            if(Storage::exists($findCreation->creation_file)){
+                Storage::delete(($findCreation->creation_file));
+
+                
+                
+            }
+            $uploadForm = $request->file('creation_file')->store('document');
+            $payloadData['creation_file'] = $uploadForm;
+
+        }
+        $findCreation->update($payloadData);
         return response()->json($findCreation);
     }
 

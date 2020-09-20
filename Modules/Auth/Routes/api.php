@@ -30,3 +30,24 @@ Route::prefix('/auth')->group(function () {
         Route::delete('/delete/{id}', 'UsersController@destroy');
     });
 });
+
+Route::prefix('/vue')->group(function () {
+    Route::prefix('tahun')->group(function () {
+        Route::get('/', 'GraduationTahunController@index');
+        Route::post('/create', 'GraduationTahunController@store');
+        Route::get('/get/{id}', 'GraduationTahunController@show');
+        Route::post('/update/{id}', 'GraduationTahunController@update');
+    });
+    Route::prefix('fakultas')->group(function () {
+        Route::get('/', 'FakultasController@index');
+        Route::post('/create', 'FakultasController@store');
+        Route::get('/get/{id}', 'FakultasController@show');
+        Route::post('/update/{id}', 'FakultasController@update');
+    });
+    Route::prefix('prodi')->group(function () {
+        Route::get('/', 'ProdiController@index');
+        Route::post('/create', 'ProdiController@store');
+        Route::get('/get/{id}', 'ProdiController@show');
+        Route::post('/update/{id}', 'ProdiController@update');
+    });
+});

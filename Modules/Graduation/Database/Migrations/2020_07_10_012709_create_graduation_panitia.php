@@ -16,12 +16,12 @@ class CreateGraduationPanitia extends Migration
         Schema::create('graduation_panitia', function (Blueprint $table) {
             $table->id();
             $table->string('seksi_panitia');
-            $table->enum('jabatan',['Koordinator','Anggota','Sub Seksi']);
-            $table->string('nama_lengkap');
-            $table->unsignedBigInteger('tahun');
+            $table->string('jabatan');
+            $table->string('list_anggota');
+            $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
-            $table->foreign('tahun')->on('graduation_tahun')->references('id')->onDelete('cascade');
+            $table->foreign('tahun_id')->on('graduation_tahun')->references('id')->onDelete('cascade');
         });
     }
 
@@ -33,7 +33,7 @@ class CreateGraduationPanitia extends Migration
     public function down()
     {
         Schema::table('graduation_panitia', function (Blueprint $table) {
-            $table->dropForeign(['tahun']);
+            $table->dropForeign(['tahun_id']);
         });
         Schema::dropIfExists('graduation_panitia');
     }
