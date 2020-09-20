@@ -37,7 +37,9 @@ class GraduationUndanganController extends Controller
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('undangan')) {
-            $uploadForm = $request->file('undangan')->store('document');
+            $uploadForm = $request->file('undangan')->storeAs(
+                'document', $request->file('undangan')->getClientOriginalName()
+            );
             $payloadData['undangan'] = $uploadForm;
         }
         $createNewUndangan = $this->undanganModel->create($payloadData);
@@ -62,7 +64,9 @@ class GraduationUndanganController extends Controller
             if ($findUndangan && Storage::exists($findUndangan->undangan)) {
                 Storage::delete($findUndangan->undangan);
             }
-            $uploadForm = $request->file('undangan')->store('document');
+            $uploadForm = $request->file('undangan')->storeAs(
+                'document', $request->file('undangan')->getClientOriginalName()
+            );
             $payloadData['undangan'] = $uploadForm;
         }
         $findUndangan->update($payloadData);

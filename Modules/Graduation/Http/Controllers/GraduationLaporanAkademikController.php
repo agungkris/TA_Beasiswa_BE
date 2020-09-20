@@ -43,7 +43,9 @@ class GraduationLaporanAkademikController extends Controller
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('file')) {
-            $uploadForm = $request->file('file')->store('document');
+            $uploadForm = $request->file('file')->storeAs(
+                'document', $request->file('file')->getClientOriginalName()
+            );
             $payloadData['file'] = $uploadForm;
         }
         $createNewLaporanAkademik = $this->laporanAkademikModel->create($payloadData);
@@ -71,7 +73,9 @@ class GraduationLaporanAkademikController extends Controller
             if ($findLaporanAkademik && Storage::exists($findLaporanAkademik->file)) {
                 Storage::delete($findLaporanAkademik->file);
             }
-            $uploadForm = $request->file('file')->store('document');
+            $uploadForm = $request->file('file')->storeAs(
+                'document', $request->file('file')->getClientOriginalName()
+            );
             $payloadData['file'] = $uploadForm;
         }
         $findLaporanAkademik->update($payloadData);
