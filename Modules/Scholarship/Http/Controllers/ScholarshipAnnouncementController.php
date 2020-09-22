@@ -62,9 +62,9 @@ class ScholarshipAnnouncementController extends Controller
     {
         $findScholarshipAnnouncement = $this->scholarshipAnnouncementModel->find($id);
         $findScholarshipAnnouncement->update([
-            // 'period_id' => $request->period_id,
-            // 'title' => $request->title,
-            // 'description' => $request->description,
+            'period_id' => $request->period_id,
+            'title' => $request->title,
+            'description' => $request->description,
         ]);
         return response()->json($findScholarshipAnnouncement);
     }

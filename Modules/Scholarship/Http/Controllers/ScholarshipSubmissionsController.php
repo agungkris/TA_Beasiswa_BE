@@ -2,7 +2,6 @@
 
 namespace Modules\Scholarship\Http\Controllers;
 
-use App\Period;
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
@@ -11,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Modules\Scholarship\Entities\ScholarshipSubmissions;
 use Modules\Scholarship\Transformers\ScholarshipSubmissionResource;
+use Modules\Scholarship\Entities\ScholarshipPeriod;
 
 class ScholarshipSubmissionsController extends Controller
 {
@@ -18,7 +18,7 @@ class ScholarshipSubmissionsController extends Controller
     public function __construct()
     {
         $this->scholarshipSubmissionsModel = new ScholarshipSubmissions();
-        $this->periodModel = new Period();
+        $this->periodModel = new ScholarshipPeriod();
     }
 
 
@@ -59,9 +59,12 @@ class ScholarshipSubmissionsController extends Controller
         ];
 
         $getPeriod = $this->periodModel->where('id', $request->period_id)->first();
-        if (Carbon::now()->lessThan($getPeriod->start_date) && Carbon::now()->greaterThanOrEqualTo($getPeriod->due_date_file)) {
+        //dd($getPeriod);
+        if (Carbon::now()->lessThan($getPeriod->start_date) && Carbon::now()->greaterThan($getPeriod->due_date_file)) {
             return response()->json(['message' => 'expired'], 500);
         }
+        // dd(Carbon::now());
+        //dd(Carbon::now()->greaterThanOrEqualTo($getPeriod->due_date_file));
 
         if ($request->file('submit_form')) {
             // if (Storage::exists($findSubmissions->submit_form)) {
