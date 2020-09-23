@@ -60,52 +60,55 @@ class ScholarshipSubmissionsController extends Controller
 
         $getPeriod = $this->periodModel->where('id', $request->period_id)->first();
         //dd($getPeriod);
-        if (Carbon::now()->lessThan($getPeriod->start_date) && Carbon::now()->greaterThan($getPeriod->due_date_file)) {
+        if (Carbon::now()->lessThan($getPeriod->start_date) || Carbon::now()->greaterThanOrEqualTo($getPeriod->due_date_file)) {
             return response()->json(['message' => 'expired'], 500);
         }
         // dd(Carbon::now());
+        //dd(Carbon::now()->lessThan($getPeriod->start_date));
         //dd(Carbon::now()->greaterThanOrEqualTo($getPeriod->due_date_file));
 
         if ($request->file('submit_form')) {
             // if (Storage::exists($findSubmissions->submit_form)) {
             //     Storage::delete($findSubmissions->submit_form);
             // }
-            $uploadForm = $request->file('submit_form')->store('document');
+            $uploadForm = $request->file('submit_form')->storeAs('document', $request->file('submit_form')->getClientOriginalName());
             $payloadData['submit_form'] = $uploadForm;
         }
+
+
         if ($request->file('brs')) {
             // if (Storage::exists($findSubmissions->brs)) {
             //     Storage::delete($findSubmissions->brs);
             // }
-            $uploadForm = $request->file('brs')->store('document');
+            $uploadForm = $request->file('brs')->storeAs('document', $request->file('brs')->getClientOriginalName());
             $payloadData['brs'] = $uploadForm;
         }
         if ($request->file('raport')) {
             // if (Storage::exists($findSubmissions->raport)) {
             //     Storage::delete($findSubmissions->raport);
             // }
-            $uploadForm = $request->file('raport')->store('document');
+            $uploadForm = $request->file('raport')->storeAs('document', $request->file('raport')->getClientOriginalName());
             $payloadData['raport'] = $uploadForm;
         }
         if ($request->file('cv')) {
             // if (Storage::exists($findSubmissions->cv)) {
             //     Storage::delete($findSubmissions->cv);
             // }
-            $uploadForm = $request->file('cv')->store('document');
+            $uploadForm = $request->file('cv')->storeAs('document', $request->file('cv')->getClientOriginalName());
             $payloadData['cv'] = $uploadForm;
         }
         if ($request->file('papers')) {
             // if (Storage::exists($findSubmissions->papers)) {
             //     Storage::delete($findSubmissions->papers);
             // }
-            $uploadForm = $request->file('papers')->store('document');
+            $uploadForm = $request->file('papers')->storeAs('document', $request->file('papers')->getClientOriginalName());
             $payloadData['papers'] = $uploadForm;
         }
         if ($request->file('other_requirements')) {
             // if (Storage::exists($findSubmissions->other_requirements)) {
             //     Storage::delete($findSubmissions->other_requirements);
             // }
-            $uploadForm = $request->file('other_requirements')->store('document');
+            $uploadForm = $request->file('other_requirements')->storeAs('document', $request->file('other_requirements')->getClientOriginalName());
             $payloadData['other_requirements'] = $uploadForm;
         }
         $createNewScholarshipSubmissions = $this->scholarshipSubmissionsModel->updateOrCreate([
