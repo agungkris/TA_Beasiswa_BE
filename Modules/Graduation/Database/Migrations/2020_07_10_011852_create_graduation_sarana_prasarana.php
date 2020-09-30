@@ -16,7 +16,7 @@ class CreateGraduationSaranaPrasarana extends Migration
         Schema::create('graduation_sarana_prasarana', function (Blueprint $table) {
             $table->id();
             $table->string('image');
-            $table->string('subtitle');
+            $table->string('kategori');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 

@@ -7,7 +7,7 @@ use Modules\Auth\Entities\GraduationTahun;
 
 class GraduationSaranaPrasarana extends Model
 {
-    protected $fillable = ['image','subtitle','tahun_id'];
+    protected $fillable = ['image','kategori','tahun_id'];
 
     protected $table = 'graduation_sarana_prasarana';
 
