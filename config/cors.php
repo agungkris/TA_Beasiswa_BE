@@ -17,9 +17,9 @@ return [
 
     'paths' => ['api/*'],
 
-    'allowed_methods' => ['POST','GET','DELETE','PUT','OPTIONS','PATCH','PUT','*'],
+    'allowed_methods' => ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', 'PATCH', 'PUT', '*'],
 
-    'allowed_origins' => ['http://localhost:8080'],
+    'allowed_origins' => ['http://localhost:8080', 'https://beasiswa.ankp.xyz', 'https://graduation.ankp.xyz'],
     // 'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],

@@ -3,11 +3,11 @@
 namespace Modules\Scholarship\Entities;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Auth\Entities\Users;
+use Modules\Auth\Entities\User;
 
 class ScholarshipPaperAssessments extends Model
 {
-    protected $fillable = ['period_id', 'jury_id', 'student_id', 'format_papers', 'creativity', 'contribution', 'information', 'conclusion', 'comment', 'score'];
+    protected $fillable = ['period_id', 'jury_id', 'student_id', 'format_papers', 'creativity', 'contribution', 'information', 'conclusion', 'comment', 'papers_score'];
 
     protected $table = 'scholarship_paper_assessments';
 
@@ -18,11 +18,11 @@ class ScholarshipPaperAssessments extends Model
 
     public function jury()
     {
-        return $this->belongsTo(Users::class, 'jury_id');
+        return $this->belongsTo(User::class, 'jury_id');
     }
 
     public function student()
     {
-        return $this->belongsTo(Users::class, 'student_id');
+        return $this->belongsTo(User::class, 'student_id');
     }
 }

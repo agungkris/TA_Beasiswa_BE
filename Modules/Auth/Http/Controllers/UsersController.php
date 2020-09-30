@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Http\Controllers;
 
-use App\User;
+use Modules\Auth\Entities\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -17,7 +17,7 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-        $userModel = $this->usersModel;
+        $userModel = $this->usersModel->with('profile', 'category_jury');
         // dd($request->level);
         if ($request->level) {
             $userModel = $userModel->where('level', $request->level);
@@ -45,19 +45,26 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        if ($request->level == 'juri') {
+            $createNewUsers->category_jury()->create([
+                'karya_tulis' => $request->karya_tulis,
+                'fgd' => $request->fgd
+            ]);
+        }
         return response()->json($createNewUsers);
     }
 
     public function show($id)
     {
-        $findUsers = $this->usersModel->find($id);
+        $findUsers = $this->usersModel->with('category_jury', 'profile')->find($id);
         return response()->json($findUsers);
     }
 
     public function update($id, Request $request)
     {
         $findUsers = $this->usersModel->find($id);
-        $findUsers->update([
+        $updateUser = $findUsers->update([
             'level' => $request->level,
             'username' => $request->username,
             'prodi' => $request->prodi,
@@ -66,6 +73,12 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+        if ($request->level == 'juri') {
+            $findUsers->category_jury()->update([
+                'karya_tulis' => $request->karya_tulis,
+                'fgd' => $request->fgd
+            ]);
+        }
         return response()->json($findUsers);
     }
 

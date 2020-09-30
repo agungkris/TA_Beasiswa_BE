@@ -23,7 +23,7 @@ class ScholarshipStudentGroupController extends Controller
     public function index(Request $request)
     {
 
-        $getAllStudentGroup = $this->scholarshipStudentGroupModel->with('period', 'member'); // select * from studentGroups;
+        $getAllStudentGroup = $this->scholarshipStudentGroupModel->with('period', 'member.profile'); // select * from studentGroups;
 
         if ($request->filled('period_id')) {
             $getAllStudentGroup = $getAllStudentGroup->where('period_id', $request->period_id);

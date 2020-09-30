@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $fillable = ['generation','prodi'];
+    protected $fillable = ['generation', 'prodi'];
 }

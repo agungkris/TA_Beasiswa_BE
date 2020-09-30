@@ -25,7 +25,7 @@ class CreatePaperAssessmentsTable extends Migration
             $table->unsignedTinyInteger('information');
             $table->unsignedTinyInteger('conclusion');
             $table->string('comment')->nullable();
-            $table->double('score')->default(0);
+            $table->double('papers_score')->default(0);
 
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');

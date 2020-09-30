@@ -18,10 +18,9 @@ class CreateProfilesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('prodi')->nullable();
             $table->string('generation')->nullable();
-
-            
-
             $table->timestamps();
+
+            $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,9 @@ class CreateProfilesTable extends Migration
      */
     public function down()
     {
+        Schema::table('profiles', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
+        });
         Schema::dropIfExists('profiles');
     }
 }

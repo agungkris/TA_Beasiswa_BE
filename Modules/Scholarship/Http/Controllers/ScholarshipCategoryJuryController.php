@@ -18,7 +18,7 @@ class ScholarshipCategoryJuryController extends Controller
 
     public function index()
     {
-        $getAllCategoryJury = $this->categoryJuryModel->get(); // select * from categoryjurys;
+        $getAllCategoryJury = $this->categoryJuryModel->with('jury')->get(); // select * from categoryjurys;
         return response()->json($getAllCategoryJury);
     }
 
