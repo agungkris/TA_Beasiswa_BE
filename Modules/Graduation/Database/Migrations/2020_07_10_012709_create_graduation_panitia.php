@@ -17,7 +17,7 @@ class CreateGraduationPanitia extends Migration
             $table->id();
             $table->string('seksi_panitia');
             $table->string('jabatan');
-            $table->string('list_anggota');
+            $table->text('list_anggota');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
