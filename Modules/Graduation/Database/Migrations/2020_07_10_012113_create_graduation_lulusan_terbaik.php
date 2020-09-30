@@ -21,7 +21,7 @@ class CreateGraduationLulusanTerbaik extends Migration
             $table->enum('kategori',['IPK','JSDP']);
             $table->string('isi_kategori');
             $table->text('prestasi');
-            $table->string('testimoni');
+            $table->text('testimoni');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
