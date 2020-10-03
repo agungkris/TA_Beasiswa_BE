@@ -25,17 +25,17 @@ class ScholarshipPresentationAssessmentsController extends Controller
 
     public function store(Request $request)
     {
-        $score_A = $request->score_A;
-        $score_B = $request->score_B;
-        $score_C = $request->score_C;
-        $score_D = $request->score_D;
-        $score_E = $request->score_E;
-        $score_F = $request->score_F;
-        $score_G = $request->score_G;
-        $score_H = $request->score_H;
-        $score_I = $request->score_I;
-        $score_J = $request->score_J;
-        $score = (($score_A + $score_B + $score_C + $score_D + $score_E + $score_F + $score_G + $score_F + $score_G + $score_H + $score_I + $score_J) / 10);
+        $score_A = $request->score_A / 10;
+        $score_B = $request->score_B / 10;
+        $score_C = $request->score_C / 10;
+        $score_D = $request->score_D / 10;
+        $score_E = $request->score_E / 10;
+        $score_F = $request->score_F / 10;
+        $score_G = $request->score_G / 10;
+        $score_H = $request->score_H / 10;
+        $score_I = $request->score_I / 10;
+        $score_J = $request->score_J / 10;
+        $score = $score_A + $score_B + $score_C + $score_D + $score_E + $score_F + $score_G + $score_H + $score_I + $score_J;
 
 
         $createNewPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->updateorcreate([

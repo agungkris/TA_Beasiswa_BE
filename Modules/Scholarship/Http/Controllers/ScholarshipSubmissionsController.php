@@ -8,23 +8,26 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Modules\Auth\Entities\User;
 use Modules\Scholarship\Entities\ScholarshipSubmissions;
 use Modules\Scholarship\Transformers\ScholarshipSubmissionResource;
 use Modules\Scholarship\Entities\ScholarshipPeriod;
+use Modules\Scholarship\Entities\ScholarshipPaperJury;
 
 class ScholarshipSubmissionsController extends Controller
 {
-    private $scholarshipSubmissionsModel, $periodModel;
+    private $scholarshipSubmissionsModel, $periodModel, $paperjuryModel, $userModel;
     public function __construct()
     {
         $this->scholarshipSubmissionsModel = new ScholarshipSubmissions();
         $this->periodModel = new ScholarshipPeriod();
+        $this->paperjuryModel = new ScholarshipPaperJury();
+        $this->userModel = new User();
     }
-
 
     public function index(Request $request)
     {
-        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile', 'paper'); // select * from Submissionss;
+        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile'); // select * from Submissionss;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
 
         $periodId = $request->period_id ?? null;
@@ -37,6 +40,29 @@ class ScholarshipSubmissionsController extends Controller
         }
         if ($request->filled('final_stage')) {
             $getAllSubmissions = $getAllSubmissions->where('final_stage', $request->final_stage);
+        }
+        if ($request->filled('jury_id')) {
+            // $getPaperJury = $this->userModel->find($request->jury_id)->paper_jury->map(function ($value) {
+            //     return $value->id;
+            // });
+            $getPaperJury = $this->userModel->find($request->jury_id)->paper_jury->map(function ($value) {
+                return $value->id;
+            });
+            // $getSubmissions = $this->paperjuryModel->get()->map(function ($value) {
+            //     return $value->submissions_id;
+            // });
+            // dd($getPaperJury);
+            $getAllSubmissions = $getAllSubmissions->whereIn('id', $getPaperJury);
+            
+        }
+        if($request->filled('submission_member')){
+            
+            
+            $getSubmissions = $this->paperjuryModel->get()->map(function ($value) {
+                return $value->submissions_id;
+            });
+            // dd($getPaperJury);
+            $getAllSubmissions = $getAllSubmissions->whereNotIn('id', $getSubmissions);
         }
         // if ($request->filled('student_id')) {
         //     $getAllSubmissions = $getAllSubmissions->where('student_id', $request->student_id);
@@ -53,8 +79,6 @@ class ScholarshipSubmissionsController extends Controller
         $payloadData = [
             'student_id' => auth()->id(),
             'period_id' => $request->period_id,
-            'papers_score' => $request->papers_score,
-            'comment' => $request->comment
 
         ];
 
@@ -115,15 +139,13 @@ class ScholarshipSubmissionsController extends Controller
             'student_id' => auth()->id(),
             'period_id' => $request->period_id,
             'presentation' => $request->presentation,
-            'papers_score' => $request->papers_score,
-            'comment' => $request->comment,
         ], $payloadData);
         return response()->json($createNewScholarshipSubmissions);
     }
 
     public function show($id)
     {
-        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile', 'paper')->find($id);
+        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile')->find($id);
         $findSubmissions->submit_form = asset('upload/' . $findSubmissions->submit_form);
         $findSubmissions->brs = asset('upload/' . $findSubmissions->brs);
         $findSubmissions->raport = asset('upload/' . $findSubmissions->raport);

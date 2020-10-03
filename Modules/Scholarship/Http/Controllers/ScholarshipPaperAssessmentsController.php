@@ -51,11 +51,11 @@ class ScholarshipPaperAssessmentsController extends Controller
         $createNewPaperAssessments = $this->scholarshipPaperAssessmentsModel->updateOrCreate([
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
-            'student_id' => $id,
+            'student_id' => $request->student_id,
         ], [
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
-            'student_id' => $id,
+            'student_id' => $request->student_id,
             'format_papers' => $request->format_papers,
             'creativity' => $request->creativity,
             'contribution' => $request->contribution,

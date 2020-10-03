@@ -86,4 +86,11 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/update/{id}', 'ScholarshipAnnouncementController@update');
         Route::delete('/delete/{id}', 'ScholarshipAnnouncementController@destroy');
     });
+    Route::prefix('scholarshippaperjury')->group(function () {
+        Route::get('/', 'ScholarshipPaperJuryController@index');
+        Route::post('/create', 'ScholarshipPaperJuryController@store');
+        Route::get('/get/{id}', 'ScholarshipPaperJuryController@show');
+        Route::post('/update/{id}', 'ScholarshipPaperJuryController@update');
+        Route::delete('/delete/{id}', 'ScholarshipPaperJuryController@destroy');
+    });
 });

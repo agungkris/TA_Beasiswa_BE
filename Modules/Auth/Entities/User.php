@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Scholarship\Entities\ScholarshipCategoryJury;
+use Modules\Scholarship\Entities\ScholarshipSubmissions;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,12 @@ class User extends Authenticatable
     public function category_jury()
     {
         return $this->hasOne(ScholarshipCategoryJury::class, 'jury_id');
+    }
+
+    public function paper_jury()
+    {
+        // return $this->belongsToMany(ScholarshipSubmissions::class, 'scholarship_paper_jury', 'submissions_id', 'jury_id');
+        return $this->belongsToMany(ScholarshipSubmissions::class, 'scholarship_paper_jury', 'jury_id', 'submissions_id');
     }
 
     // public function student(){

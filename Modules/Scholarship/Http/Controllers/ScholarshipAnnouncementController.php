@@ -37,11 +37,9 @@ class ScholarshipAnnouncementController extends Controller
             'title' => $request->title,
             'description' => $request->description,
         ];
+
         if ($request->file('document')) {
-            // if (Storage::exists($findSubmissions->document)) {
-            //     Storage::delete($findSubmissions->document);
-            // }
-            $uploadForm = $request->file('document')->store('document');
+            $uploadForm = $request->file('document')->storeAs('document', $request->file('document')->getClientOriginalName());
             $payloadData['document'] = $uploadForm;
         }
         $createNewScholarshipAnnouncement = $this->scholarshipAnnouncementModel->updateOrCreate([
