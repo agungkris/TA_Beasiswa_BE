@@ -23,7 +23,7 @@ class GraduationSaranaPrasaranaController extends Controller
             return [
                 'id' => $value->id,
                 'image' => asset('upload/'.$value->image),
-                'subtitle' => $value->subtitle,
+                'kategori' => $value->kategori,
                 'tahun_id' => $value->tahun_id,
                 'tahun' => $value->tahun,
             ];
@@ -35,7 +35,7 @@ class GraduationSaranaPrasaranaController extends Controller
     {
         $payloadData =[
             'image' => $request->image,
-            'subtitle' => $request->subtitle,
+            'kategori' => $request->kategori,
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('image')) {
@@ -59,7 +59,7 @@ class GraduationSaranaPrasaranaController extends Controller
         $findSaranaPrasarana = $this->saranaPrasaranaModel->find($id);
         $payloadData =[
             'image' => $request->image,
-            'subtitle' => $request->subtitle,
+            'kategori' => $request->kategori,
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('image')) {
