@@ -24,16 +24,12 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->string('papers');
             $table->string('other_requirements')->nullable();
             $table->double('presentation')->default(0)->nullable();
-            $table->unsignedBigInteger('papers_score')->default(0)->nullable();
-            $table->unsignedBigInteger('comment')->nullable();
             $table->tinyInteger('next_stage')->nullable();
             $table->tinyInteger('final_stage')->nullable();
 
 
             $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
-            $table->foreign('papers_score')->on('scholarship_paper_assessments')->references('id')->onDelete('cascade');
-            $table->foreign('comment')->on('scholarship_paper_assessments')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -48,8 +44,6 @@ class CreateScholarshipSubmissionsTable extends Migration
         Schema::table('scholarship_submissions', function (Blueprint $table) {
             $table->dropForeign(['period_id']);
             $table->dropForeign(['student_id']);
-            $table->dropForeign(['papers_score']);
-            $table->dropForeign(['comment']);
         });
 
 

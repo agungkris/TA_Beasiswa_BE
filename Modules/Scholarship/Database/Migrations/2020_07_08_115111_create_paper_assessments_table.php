@@ -43,13 +43,7 @@ class CreatePaperAssessmentsTable extends Migration
     {
         Schema::table('scholarship_paper_assessments', function (Blueprint $table) {
             $table->dropForeign(['jury_id']);
-        });
-
-        Schema::table('scholarship_paper_assessments', function (Blueprint $table) {
             $table->dropForeign(['student_id']);
-        });
-
-        Schema::table('scholarship_paper_assessments', function (Blueprint $table) {
             $table->dropForeign(['period_id']);
         });
 

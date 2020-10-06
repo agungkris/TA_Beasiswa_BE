@@ -28,6 +28,10 @@ Route::prefix('/auth')->group(function () {
         Route::get('/get/{id}', 'UsersController@show');
         Route::post('/update/{id}', 'UsersController@update');
         Route::delete('/delete/{id}', 'UsersController@destroy');
+
+        Route::post('/add-submission/{id}', 'UsersController@addSubmissionMember');
+        Route::get('/submission-member/{id}', 'UsersController@submissionMember');
+        Route::delete('/removesubmissionmember/{id}/submission/{submission_id}', 'UsersController@removeSubmissionMember');
     });
 });
 

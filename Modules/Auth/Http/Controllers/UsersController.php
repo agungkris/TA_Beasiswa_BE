@@ -82,6 +82,37 @@ class UsersController extends Controller
         return response()->json($findUsers);
     }
 
+    public function submissionMember($id)
+    {
+        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile')->find($id)->paper_jury;
+        // dd($findJury);
+        return response()->json($findJurySubmissionMember);
+    }
+
+
+    public function addSubmissionMember($id, Request $request)
+    {
+        try {
+            $this->usersModel->find($id)->paper_jury()->attach($request->submission_id);
+            return response()->json(['message' => 'berhasil']);
+            //code...
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function removeSubmissionMember($id, $submissionId)
+    {
+        try {
+            $this->usersModel->find($id)->paper_jury()->detach($submissionId);
+            return response()->json(['message' => 'berhasil']);
+            //code...
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+
     public function destroy($id)
     {
         $findUsers = $this->usersModel->find($id);
