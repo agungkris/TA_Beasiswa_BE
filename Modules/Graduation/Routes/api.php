@@ -18,11 +18,17 @@ Route::middleware('auth:api')->get('/graduation', function (Request $request) {
 });
 
 Route::prefix('/graduation')->group(function () {
-    Route::prefix('undangan')->group(function () {
-        Route::get('/', 'GraduationUndanganController@index');
-        Route::post('/create', 'GraduationUndanganController@store');
-        Route::get('/get/{id}', 'GraduationUndanganController@show');
-        Route::post('/update/{id}', 'GraduationUndanganController@update');
+    Route::prefix('sk')->group(function () {
+        Route::get('/', 'GraduationskController@index');
+        Route::post('/create', 'GraduationskController@store');
+        Route::get('/get/{id}', 'GraduationskController@show');
+        Route::post('/update/{id}', 'GraduationskController@update');
+    });
+    Route::prefix('sk')->group(function () {
+        Route::get('/', 'GraduationSkController@index');
+        Route::post('/create', 'GraduationSkController@store');
+        Route::get('/get/{id}', 'GraduationSkController@show');
+        Route::post('/update/{id}', 'GraduationSkController@update');
     });
     Route::prefix('home-gallery')->group(function () {
         Route::get('/', 'GraduationHomeGalleryController@index');

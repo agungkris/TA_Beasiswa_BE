@@ -5,11 +5,11 @@ namespace Modules\Graduation\Entities;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Auth\Entities\GraduationTahun;
 
-class GraduationUndangan extends Model
+class GraduationSk extends Model
 {
-    protected $fillable = ['undangan','kategori','tahun_id'];
+    protected $fillable = ['sk','tahun_id'];
 
-    protected $table = 'graduation_undangan';
+    protected $table = 'graduation_sk';
 
     public function tahun()
     {
