@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGraduationUndangan extends Migration
+class CreateGraduationSk extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateGraduationUndangan extends Migration
      */
     public function up()
     {
-        Schema::create('graduation_undangan', function (Blueprint $table) {
+        Schema::create('graduation_sk', function (Blueprint $table) {
             $table->id();
-            $table->string('undangan');
-            $table->enum('kategori',['Wisudawan','Orang Tua','Direksi Jaya','Yayasan','Pimpinan UPJ','Dosen & Tendik','Orator/Narasumber','Kepala LLDIKTI Wilayah IV','Sponsor']);
+            $table->string('sk');
             $table->unsignedBigInteger('tahun_id');
             $table->timestamps();
 
@@ -31,9 +30,9 @@ class CreateGraduationUndangan extends Migration
      */
     public function down()
     {
-        Schema::table('graduation_undangan', function (Blueprint $table) {
+        Schema::table('graduation_sk', function (Blueprint $table) {
             $table->dropForeign(['tahun_id']);
         });
-        Schema::dropIfExists('graduation_undangan');
+        Schema::dropIfExists('graduation_sk');
     }
 }

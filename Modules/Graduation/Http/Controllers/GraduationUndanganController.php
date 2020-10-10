@@ -23,6 +23,7 @@ class GraduationUndanganController extends Controller
             return [
                 'id' => $value->id,
                 'undangan' => asset('upload/'.$value->undangan),
+                'kategori' => $value->kategori,
                 'tahun_id' => $value->tahun_id,
                 'tahun' => $value->tahun
             ];
@@ -34,6 +35,7 @@ class GraduationUndanganController extends Controller
     {
         $payloadData = [
             'undangan' => $request->undangan,
+            'kategori' => $request->kategori,
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('undangan')) {
@@ -58,6 +60,7 @@ class GraduationUndanganController extends Controller
         $findUndangan = $this->undanganModel->find($id);
         $payloadData = [
             'undangan' => $request->undangan,
+            'kategori' => $request->kategori,
             'tahun_id' => $request->tahun_id,
         ];
         if ($request->file('undangan')) {

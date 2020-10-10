@@ -24,6 +24,12 @@ Route::prefix('/graduation')->group(function () {
         Route::get('/get/{id}', 'GraduationUndanganController@show');
         Route::post('/update/{id}', 'GraduationUndanganController@update');
     });
+    Route::prefix('sk')->group(function () {
+        Route::get('/', 'GraduationSkController@index');
+        Route::post('/create', 'GraduationSkController@store');
+        Route::get('/get/{id}', 'GraduationSkController@show');
+        Route::post('/update/{id}', 'GraduationSkController@update');
+    });
     Route::prefix('home-gallery')->group(function () {
         Route::get('/', 'GraduationHomeGalleryController@index');
         Route::post('/create', 'GraduationHomeGalleryController@store');
