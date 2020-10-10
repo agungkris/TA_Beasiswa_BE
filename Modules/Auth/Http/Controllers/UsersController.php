@@ -82,9 +82,9 @@ class UsersController extends Controller
         return response()->json($findUsers);
     }
 
-    public function submissionMember($id)
+    public function submissionMember($id,Request $request)
     {
-        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile')->find($id)->paper_jury;
+        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile')->find($id)->paper_jury()->with('student.profile')->where('period_id',$request->period_id ?? 1)->get();
         // dd($findJury);
         return response()->json($findJurySubmissionMember);
     }

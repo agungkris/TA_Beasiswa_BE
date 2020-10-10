@@ -15,6 +15,17 @@ class ScholarshipPresentationAssessmentsController extends Controller
         $this->scholarshipPresentationAssessmentsModel = new ScholarshipPresentationAssessments();
     }
 
+    public function report(Request $request)
+    {
+        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury', 'student')
+            ->where('period_id', $request->period_id)->where('student_id', $request->student_id)->first();
+
+
+        return response()->json($getAllPresentationAssessments);
+        // $periodId = $request->period_id ?? null;
+        // if ($request->filled('period_id')) {
+        // $getAllPaperAssessments = $getAllPaperAssessments->where('period_id', $periodId);
+    }
 
     public function index()
     {
