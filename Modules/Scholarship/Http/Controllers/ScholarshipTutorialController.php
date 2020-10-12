@@ -51,7 +51,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->laporan_beasiswa)) {
                 Storage::delete($findScholarShip->laporan_beasiswa);
             }
-            $uploadForm = $request->file('laporan_beasiswa')->store('document');
+            $uploadForm = $request->file('laporan_beasiswa')->storeAs('document', $request->file('laporan_beasiswa')->getClientOriginalName());
             $payloadData['laporan_beasiswa'] = $uploadForm;
         }
 
@@ -59,7 +59,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->akun_mahasiswa)) {
                 Storage::delete($findScholarShip->akun_mahasiswa);
             }
-            $uploadTerm = $request->file('akun_mahasiswa')->store('document');
+            $uploadTerm = $request->file('akun_mahasiswa')->storeAs('document', $request->file('akun_mahasiswa')->getClientOriginalName());
             $payloadData['akun_mahasiswa'] = $uploadTerm;
         }
 
@@ -67,7 +67,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->akun_juri)) {
                 Storage::delete($findScholarShip->akun_juri);
             }
-            $uploadTerm = $request->file('akun_juri')->store('document');
+            $uploadTerm = $request->file('akun_juri')->storeAs('document', $request->file('akun_juri')->getClientOriginalName());
             $payloadData['akun_juri'] = $uploadTerm;
         }
 
@@ -75,7 +75,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->grup_fgd)) {
                 Storage::delete($findScholarShip->grup_fgd);
             }
-            $uploadTerm = $request->file('grup_fgd')->store('document');
+            $uploadTerm = $request->file('grup_fgd')->storeAs('document', $request->file('grup_fgd')->getClientOriginalName());
             $payloadData['grup_fgd'] = $uploadTerm;
         }
 
@@ -83,7 +83,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->pemberitahuan_admin)) {
                 Storage::delete($findScholarShip->pemberitahuan_admin);
             }
-            $uploadTerm = $request->file('pemberitahuan_admin')->store('document');
+            $uploadTerm = $request->file('pemberitahuan_admin')->storeAs('document', $request->file('pemberitahuan_admin')->getClientOriginalName());
             $payloadData['pemberitahuan_admin'] = $uploadTerm;
         }
 
@@ -91,7 +91,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->periode)) {
                 Storage::delete($findScholarShip->periode);
             }
-            $uploadTerm = $request->file('periode')->store('document');
+            $uploadTerm = $request->file('periode')->storeAs('document', $request->file('periode')->getClientOriginalName());
             $payloadData['periode'] = $uploadTerm;
         }
 
@@ -99,7 +99,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->seleksi_beasiswa)) {
                 Storage::delete($findScholarShip->seleksi_beasiswa);
             }
-            $uploadTerm = $request->file('seleksi_beasiswa')->store('document');
+            $uploadTerm = $request->file('seleksi_beasiswa')->storeAs('document', $request->file('seleksi_beasiswa')->getClientOriginalName());
             $payloadData['seleksi_beasiswa'] = $uploadTerm;
         }
 
@@ -107,7 +107,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->ketentuan_beasiswa_admin)) {
                 Storage::delete($findScholarShip->ketentuan_beasiswa_admin);
             }
-            $uploadTerm = $request->file('ketentuan_beasiswa_admin')->store('document');
+            $uploadTerm = $request->file('ketentuan_beasiswa_admin')->storeAs('document', $request->file('ketentuan_beasiswa_admin')->getClientOriginalName());
             $payloadData['ketentuan_beasiswa_admin'] = $uploadTerm;
         }
 
@@ -115,7 +115,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->juri_fgd)) {
                 Storage::delete($findScholarShip->juri_fgd);
             }
-            $uploadTerm = $request->file('juri_fgd')->store('document');
+            $uploadTerm = $request->file('juri_fgd')->storeAs('document', $request->file('juri_fgd')->getClientOriginalName());
             $payloadData['juri_fgd'] = $uploadTerm;
         }
 
@@ -123,7 +123,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->juri_karya_tulis)) {
                 Storage::delete($findScholarShip->juri_karya_tulis);
             }
-            $uploadTerm = $request->file('juri_karya_tulis')->store('document');
+            $uploadTerm = $request->file('juri_karya_tulis')->storeAs('document', $request->file('juri_karya_tulis')->getClientOriginalName());
             $payloadData['juri_karya_tulis'] = $uploadTerm;
         }
 
@@ -131,7 +131,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->pemberitahuan_mahasiswa)) {
                 Storage::delete($findScholarShip->pemberitahuan_mahasiswa);
             }
-            $uploadTerm = $request->file('pemberitahuan_mahasiswa')->store('document');
+            $uploadTerm = $request->file('pemberitahuan_mahasiswa')->storeAs('document', $request->file('pemberitahuan_mahasiswa')->getClientOriginalName());
             $payloadData['pemberitahuan_mahasiswa'] = $uploadTerm;
         }
 
@@ -139,7 +139,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->ketentuan_beasiswa_mahasiswa)) {
                 Storage::delete($findScholarShip->ketentuan_beasiswa_mahasiswa);
             }
-            $uploadTerm = $request->file('ketentuan_beasiswa_mahasiswa')->store('document');
+            $uploadTerm = $request->file('ketentuan_beasiswa_mahasiswa')->storeAs('document', $request->file('ketentuan_beasiswa_mahasiswa')-> getClientOriginalName());
             $payloadData['ketentuan_beasiswa_mahasiswa'] = $uploadTerm;
         }
 
@@ -147,7 +147,7 @@ class ScholarshipTutorialController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->pengumpulan_dokumen_mahasiswa)) {
                 Storage::delete($findScholarShip->pengumpulan_dokumen_mahasiswa);
             }
-            $uploadTerm = $request->file('pengumpulan_dokumen_mahasiswa')->store('document');
+            $uploadTerm = $request->file('pengumpulan_dokumen_mahasiswa')->storeAs('document', $request->file('pengumpulan_dokumen_mahasiswa')->getClientOriginalName());
             $payloadData['pengumpulan_dokumen_mahasiswa'] = $uploadTerm;
         }
 
