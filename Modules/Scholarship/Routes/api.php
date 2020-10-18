@@ -101,4 +101,55 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/update/{id}', 'ScholarshipTutorialController@update');
         Route::delete('/delete/{id}', 'ScholarshipTutorialController@destroy');
     });
+
+    // BEASISWA LAINNYA
+    Route::prefix('semesters')->group(function () {
+        Route::get('/', 'ScholarshipSemestersController@index');
+        Route::post('/create', 'ScholarshipSemestersController@store');
+        Route::get('/get/{id}', 'ScholarshipSemestersController@show');
+        Route::post('/update/{id}', 'ScholarshipSemestersController@update');
+        Route::delete('/delete/{id}', 'ScholarshipSemestersController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('academicachievement')->group(function () {
+        Route::get('/', 'ScholarshipAcademicAchievementsController@index');
+        Route::post('/create', 'ScholarshipAcademicAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipAcademicAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipAcademicAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipAcademicAchievementsController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('competitionachievement')->group(function () {
+        Route::get('/', 'ScholarshipCompetitionAchievementsController@index');
+        Route::post('/create', 'ScholarshipCompetitionAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipCompetitionAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipCompetitionAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipCompetitionAchievementsController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('eventachievement')->group(function () {
+        Route::get('/', 'ScholarshipEventAchievementsController@index');
+        Route::post('/create', 'ScholarshipEventAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipEventAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipEventAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipEventAchievementsController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('organizationachievement')->group(function () {
+        Route::get('/', 'ScholarshipOrganizationAchievementsController@index');
+        Route::post('/create', 'ScholarshipOrganizationAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipOrganizationAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipOrganizationAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipOrganizationAchievementsController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('paperachievement')->group(function () {
+        Route::get('/', 'ScholarshipPaperAchievementsController@index');
+        Route::post('/create', 'ScholarshipPaperAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipPaperAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipPaperAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipPaperAchievementsController@destroy');
+    });
+    Route::middleware('auth:sanctum')->prefix('financialreport')->group(function () {
+        Route::get('/', 'ScholarshipFinancialReportsController@index');
+        Route::post('/create', 'ScholarshipFinancialReportsController@store');
+        Route::get('/get/{id}', 'ScholarshipFinancialReportsController@show');
+        Route::post('/update/{id}', 'ScholarshipFinancialReportsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipFinancialReportsController@destroy');
+    });
 });
