@@ -16,9 +16,12 @@ class ScholarshipPaperAchievementsController extends Controller
         $this->paperModel = new ScholarshipPaperAchievements();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $getAllPaper = $this->paperModel->with('semester','student');
+        if($request->student_id){
+            $getAllPaper = $getAllPaper->where('student_id', $request->student_id);
+        }
         $getAllPaper = $getAllPaper->get();
         return ScholarshipPaperAchievementResource::collection($getAllPaper);
     }

@@ -152,4 +152,11 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/update/{id}', 'ScholarshipFinancialReportsController@update');
         Route::delete('/delete/{id}', 'ScholarshipFinancialReportsController@destroy');
     });
+    Route::middleware('auth:sanctum')->prefix('anotherscholarshipreport')->group(function () {
+        Route::get('/', 'AnotherScholarshipReportController@index');
+        Route::post('/create', 'AnotherScholarshipReportController@store');
+        Route::get('/get/{id}', 'AnotherScholarshipReportController@show');
+        Route::post('/update/{id}', 'AnotherScholarshipReportController@update');
+        Route::delete('/delete/{id}', 'AnotherScholarshipReportController@destroy');
+    });
 });

@@ -16,9 +16,12 @@ class ScholarshipCompetitionAchievementsController extends Controller
         $this->competitionModel = new ScholarshipCompetitionAchievements();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $getAllCompetition = $this->competitionModel->with('semester','student');
+        if($request->student_id){
+            $getAllCompetition = $getAllCompetition->where('student_id', $request->student_id);
+        }
         $getAllCompetition = $getAllCompetition->get();
         return ScholarshipCompetitionAchievementResource::collection($getAllCompetition);
     }

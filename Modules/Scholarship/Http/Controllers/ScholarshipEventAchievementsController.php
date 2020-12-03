@@ -16,9 +16,12 @@ class ScholarshipEventAchievementsController extends Controller
         $this->eventModel = new ScholarshipEventAchievements();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $getAllEvent = $this->eventModel->with('semester','student');
+        if($request->student_id){
+            $getAllEvent = $getAllEvent->where('student_id', $request->student_id);
+        }
         $getAllEvent = $getAllEvent->get();
         return ScholarshipEventAchievementResource::collection($getAllEvent);
     }

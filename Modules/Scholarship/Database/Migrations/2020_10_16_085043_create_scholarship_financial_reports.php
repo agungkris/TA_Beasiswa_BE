@@ -35,9 +35,10 @@ class CreateScholarshipFinancialReports extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scholarship_financial_reports', function (Blueprint $table){
+        Schema::table('scholarship_financial_reports', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
         });
+        Schema::dropIfExists('scholarship_financial_reports');
     }
 }

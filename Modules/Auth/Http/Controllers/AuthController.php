@@ -8,9 +8,16 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+// use Modules\Auth\Entities\Profile;
 
 class AuthController extends Controller
 {
+    // private $profilesModel;
+    // public function __construct()
+    // {
+    //     $this->profilesModel = new Profile();
+    // }
+
     public function loginToken(Request $request)
     {
         $checkValidation = validator($request->all(), [
@@ -66,6 +73,7 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        // $registerUser = $this->registratioModel->with('prodi, generation');
         $registerUser = User::create([
             'level' => $request->level ?? 'student',
             'username' => $request->username,            
@@ -74,11 +82,11 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        if($request->prodi || $request->generation){
+        if($request->prodi_id || $request->generation_id){
 
             $registerUser->profile()->create([
-                'prodi' => $request->prodi ?? null,
-                'generation' => $request->generation ?? null
+                'prodi_id' => $request->prodi_id ?? null,
+                'generation_id' => $request->generation_id ?? null
             ]);
             
         }

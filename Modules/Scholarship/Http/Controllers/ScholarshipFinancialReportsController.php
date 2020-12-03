@@ -14,9 +14,12 @@ class ScholarshipFinancialReportsController extends Controller
         $this->financialModel = new ScholarshipFinancialReports();
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $getAllFinancial = $this->financialModel->with('semester','student')->get();
+        if($request->student_id){
+            $getAllFinancial = $getAllFinancial->where('student_id', $request->student_id);
+        }
         return response()->json($getAllFinancial);
     }
 

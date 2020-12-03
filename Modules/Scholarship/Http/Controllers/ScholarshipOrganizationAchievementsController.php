@@ -16,9 +16,12 @@ class ScholarshipOrganizationAchievementsController extends Controller
         $this->organizationModel = new ScholarshipOrganizationAchievements();
     }
 
-    public function index()
+    public function index(Request $request)
     {   
         $getAllOrganization = $this->organizationModel->with('semester','student');
+        if($request->student_id){
+            $getAllOrganization = $getAllOrganization->where('student_id', $request->student_id);
+        }
         $getAllOrganization = $getAllOrganization->get();
         return ScholarshipOrganizationAchievementResource::collection($getAllOrganization);
     }

@@ -4,24 +4,19 @@ namespace Modules\Scholarship\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Scholarship\Entities\ScholarshipAcademicAchievements;
-use Modules\Scholarship\Transformers\ScholarshipAcademicAchievementResource;
-use Illuminate\Support\Facades\Storage;
+use Modules\Scholarship\Entities\AnotherScholarshipReports;
 
-class ScholarshipAcademicAchievementsController extends Controller
+class AnotherScholarshipReportsController extends Controller
 {
     private $academicModel;
     public function __construct()
     {
-        $this->academicModel = new ScholarshipAcademicAchievements();
+        $this->academicModel = new AnotherScholarshipReports();
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $getAllAcademic = $this->academicModel->with('semester','student');
-        if($request->student_id){
-            $getAllAcademic = $getAllAcademic->where('student_id', $request->student_id);
-        }
+        $getAllAcademic = $this->academicModel->with('semester','student','academic','competition','organization','event','paper','financial');
         $getAllAcademic = $getAllAcademic->get();
         return ScholarshipAcademicAchievementResource::collection($getAllAcademic);
     }

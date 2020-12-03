@@ -36,9 +36,10 @@ class CreateScholarshipCompetitionAchievements extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scholarship_competition_achievements', function (Blueprint $table){
+        Schema::table('scholarship_competition_achievements', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
         });
+        Schema::dropIfExists('scholarship_competition_achievements');
     }
 }

@@ -12,65 +12,35 @@ class ProdiController extends Controller
     private $prodiModel;
     public function __construct()
     {
-        $this->prodiModel = new prodi();
+        $this->prodiModel = new Prodi();
     }
 
     public function index()
     {
-        $getAllProdi = $this->prodiModel->with('fakultas')->get()->map(function($value){
-            return [
-                'id' => $value->id,
-                'nama_prodi' => $value->nama_prodi,
-                'singkatan_prodi' => $value->singkatan_prodi,
-                'fakultas_id' => $value->fakultas_id,
-                'fakultas' => $value->fakultas,
-                'logo' => asset('upload/'.$value->logo),
-            ];
-        }); // select * from Prodi;
+        $getAllProdi = $this->prodiModel->get(); // select * from Prodis;
         return response()->json($getAllProdi);
     }
 
     public function store(Request $request)
     {
-        $payloadData = [
-            'nama_prodi' => $request->nama_prodi,
-            'singkatan_prodi' => $request->singkatan_prodi,
-            'fakultas_id' => $request->fakultas_id,
-            'logo' => $request->logo,
-        ];
-        if ($request->file('logo')) {
-           
-            $uploadForm = $request->file('logo')->store('document');
-            $payloadData['logo'] = $uploadForm;
-        }
-        $createNewProdi = $this->prodiModel->create($payloadData);
+        $createNewProdi = $this->prodiModel->create([
+            'name' => $request->name,
+        ]);
         return response()->json($createNewProdi);
     }
 
     public function show($id)
     {
-        $findProdi = $this->prodiModel->with('fakultas')->find($id);
-        $findProdi->logo = asset('upload/'.$findProdi->logo);
+        $findProdi = $this->prodiModel->find($id);
         return response()->json($findProdi);
     }
 
     public function update($id, Request $request)
     {
         $findProdi = $this->prodiModel->find($id);
-        $payloadData = [
-            'nama_prodi' => $request->nama_prodi,
-            'singkatan_prodi' => $request->singkatan_prodi,
-            'fakultas_id' => $request->fakultas_id,
-            'logo' => $request->logo,
-        ];
-        if ($request->file('logo')) {
-            if ($findProdi && Storage::exists($findProdi->logo)) {
-                Storage::delete($findProdi->logo);
-            }
-            $uploadForm = $request->file('logo')->store('document');
-            $payloadData['logo'] = $uploadForm;
-        }
-        $findProdi->update($payloadData);
+        $findProdi->update([
+            'name' => $request->name,
+        ]);
         return response()->json($findProdi);
     }
 

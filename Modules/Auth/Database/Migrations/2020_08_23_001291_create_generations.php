@@ -1,10 +1,10 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateGraduationTahun extends Migration
+class CreateGenerations extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateGraduationTahun extends Migration
      */
     public function up()
     {
-        Schema::create('graduation_tahun', function (Blueprint $table) {
+        Schema::create('generations', function (Blueprint $table) {
             $table->id();
-            $table->string('tahun');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateGraduationTahun extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('graduation_tahun');
+        Schema::dropIfExists('generations');
     }
 }

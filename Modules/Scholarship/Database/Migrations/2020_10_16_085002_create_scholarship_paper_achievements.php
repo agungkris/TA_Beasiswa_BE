@@ -33,9 +33,10 @@ class CreateScholarshipPaperAchievements extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('scholarship_paper_achievements', function (Blueprint $table){
+        Schema::table('scholarship_paper_achievements', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
         });
+        Schema::dropIfExists('scholarship_paper_achievements');
     }
 }
