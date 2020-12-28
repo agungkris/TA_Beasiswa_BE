@@ -5,14 +5,14 @@ namespace Modules\Auth\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\Auth\Entities\Generation;
+use Modules\Auth\Entities\Generations;
 
 class GenerationsController extends Controller
 {
     private $generationsModel;
     public function __construct()
     {
-        $this->generationsModel = new Generation();
+        $this->generationsModel = new Generations();
     }
 
     public function index()

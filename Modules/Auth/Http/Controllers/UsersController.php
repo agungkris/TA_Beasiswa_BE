@@ -39,8 +39,8 @@ class UsersController extends Controller
         $createNewUsers = $this->usersModel->create([
             'level' => $request->level ?? 'student',
             'username' => $request->username,
-            'prodi' => $request->prodi,
-            'generation' => $request->generation,
+            'prodi_id' => $request->prodi_id,
+            'generation_id' => $request->generation_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
@@ -67,8 +67,8 @@ class UsersController extends Controller
         $updateUser = $findUsers->update([
             'level' => $request->level,
             'username' => $request->username,
-            'prodi' => $request->prodi,
-            'generation' => $request->generation,
+            'prodi_id' => $request->prodi_id,
+            'generation_id' => $request->generation_id,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
@@ -84,7 +84,7 @@ class UsersController extends Controller
 
     public function submissionMember($id,Request $request)
     {
-        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile')->find($id)->paper_jury()->with('student.profile')->where('period_id',$request->period_id ?? 1)->get();
+        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile.prodi')->find($id)->paper_jury()->with('student.profile.prodi')->where('period_id',$request->period_id ?? 1)->get();
         // dd($findJury);
         return response()->json($findJurySubmissionMember);
     }

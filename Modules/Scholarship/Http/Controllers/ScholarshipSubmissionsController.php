@@ -27,7 +27,7 @@ class ScholarshipSubmissionsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile'); // select * from Submissionss;
+        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile.generation'); // select * from Submissionss;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
 
         $periodId = $request->period_id ?? null;
@@ -145,7 +145,7 @@ class ScholarshipSubmissionsController extends Controller
 
     public function show($id)
     {
-        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile')->find($id);
+        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile.generation')->find($id);
         $findSubmissions->submit_form = asset('upload/' . $findSubmissions->submit_form);
         $findSubmissions->brs = asset('upload/' . $findSubmissions->brs);
         $findSubmissions->raport = asset('upload/' . $findSubmissions->raport);
@@ -214,68 +214,68 @@ class ScholarshipSubmissionsController extends Controller
 
         $periodId = $request->period_id;
 
-        $prodiInformatika = DB::table('scholarship_submissions')
+        $prodiAkun = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Informatika')->where('final_stage', 1)->count();
-
-        $prodiDkv = DB::table('scholarship_submissions')
+            ->where('period_id', $periodId)->where('prodi_id', '1')->where('final_stage', 1)->count();
+        
+        $prodiMene = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Desain Komunikasi Visual')->where('final_stage', 1)->count();
-
-        $prodiDp = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Desain Produk')->where('final_stage', 1)->count();
-
-        $prodiArsi = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Arsitektur')->where('final_stage', 1)->count();
-
-        $prodiTeksip = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Teknik Sipil')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('prodi_id', '2')->where('final_stage', 1)->count();
 
         $prodiIlkom = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Ilmu Komunikasi')->where('final_stage', 1)->count();
-
-        $prodiAkun = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Akuntansi')->where('final_stage', 1)->count();
-
-        $prodiMene = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Manajemen')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('prodi_id', '3')->where('final_stage', 1)->count();
 
         $prodiPsi = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Psikologi')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('prodi_id', '4')->where('final_stage', 1)->count();
+        
+        $prodiDkv = DB::table('scholarship_submissions')
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodId)->where('prodi_id', '5')->where('final_stage', 1)->count();
+
+        $prodiDp = DB::table('scholarship_submissions')
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodId)->where('prodi_id', '6')->where('final_stage', 1)->count();
+
+        $prodiInformatika = DB::table('scholarship_submissions')
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodId)->where('prodi_id', '7')->where('final_stage', 1)->count();
 
         $prodiSif = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('prodi', 'Sistem Informasi')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('prodi_id', '8')->where('final_stage', 1)->count();
+
+        $prodiTeksip = DB::table('scholarship_submissions')
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodId)->where('prodi_id', '9')->where('final_stage', 1)->count();
+
+        $prodiArsi = DB::table('scholarship_submissions')
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodId)->where('prodi_id', '10')->where('final_stage', 1)->count();
 
         $angkatan17 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2017')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation_id', '1')->where('final_stage', 1)->count();
         $angkatan18 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2018')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation_id', '2')->where('final_stage', 1)->count();
         $angkatan19 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2019')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation_id', '3')->where('final_stage', 1)->count();
 
         $total = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')

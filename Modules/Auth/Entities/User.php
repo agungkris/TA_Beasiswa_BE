@@ -55,10 +55,4 @@ class User extends Authenticatable
         // return $this->belongsToMany(ScholarshipSubmissions::class, 'scholarship_paper_jury', 'submissions_id', 'jury_id');
         return $this->belongsToMany(ScholarshipSubmissions::class, 'scholarship_paper_jury', 'jury_id', 'submissions_id');
     }
-
-    // public function student(){
-    //     return $this->hasOne(Scholarshi)
-    // }
-
-
 }

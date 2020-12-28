@@ -4,7 +4,7 @@ namespace Modules\Auth\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Generation extends Model
+class Generations extends Model
 {
     protected $fillable = ['name'];
 
