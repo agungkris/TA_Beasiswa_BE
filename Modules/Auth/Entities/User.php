@@ -45,6 +45,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class, 'user_id');
     }
 
+    // public function prodi()
+    // {
+    //     return $this->hasOne(Profile::class, 'prodi_id');
+    // }
+
     public function category_jury()
     {
         return $this->hasOne(ScholarshipCategoryJury::class, 'jury_id');

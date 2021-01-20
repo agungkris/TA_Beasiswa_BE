@@ -2,16 +2,12 @@
 
 namespace Modules\Auth\Entities;
 
+use Modules\Auth\Entities\Prodi;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $fillable = ['generation_id', 'prodi_id'];
-
-    public function generation()
-    {
-        return $this->belongsTo(generations::class, 'generation_id');
-    }
+    protected $fillable = ['generation', 'prodi_id'];
 
     public function prodi()
     {

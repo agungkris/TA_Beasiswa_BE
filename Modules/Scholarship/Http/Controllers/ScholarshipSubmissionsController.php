@@ -27,7 +27,7 @@ class ScholarshipSubmissionsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile.generation'); // select * from Submissionss;
+        $getAllSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile'); // select * from Submissionss;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
 
         $periodId = $request->period_id ?? null;
@@ -145,7 +145,7 @@ class ScholarshipSubmissionsController extends Controller
 
     public function show($id)
     {
-        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile.generation')->find($id);
+        $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile')->find($id);
         $findSubmissions->submit_form = asset('upload/' . $findSubmissions->submit_form);
         $findSubmissions->brs = asset('upload/' . $findSubmissions->brs);
         $findSubmissions->raport = asset('upload/' . $findSubmissions->raport);
@@ -267,15 +267,15 @@ class ScholarshipSubmissionsController extends Controller
         $angkatan17 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation_id', '1')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation', '2017')->where('final_stage', 1)->count();
         $angkatan18 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation_id', '2')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation', '2018')->where('final_stage', 1)->count();
         $angkatan19 = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation_id', '3')->where('final_stage', 1)->count();
+            ->where('period_id', $periodId)->where('generation', '2019')->where('final_stage', 1)->count();
 
         $total = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')

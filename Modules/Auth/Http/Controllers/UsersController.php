@@ -17,7 +17,7 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-        $userModel = $this->usersModel->with('profile', 'category_jury');
+        $userModel = $this->usersModel->with('profile.prodi', 'category_jury');
         // dd($request->level);
         if ($request->level) {
             $userModel = $userModel->where('level', $request->level);
@@ -40,7 +40,7 @@ class UsersController extends Controller
             'level' => $request->level ?? 'student',
             'username' => $request->username,
             'prodi_id' => $request->prodi_id,
-            'generation_id' => $request->generation_id,
+            'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
@@ -57,7 +57,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $findUsers = $this->usersModel->with('category_jury', 'profile')->find($id);
+        $findUsers = $this->usersModel->with('category_jury', 'profile.prodi', 'prodi')->find($id);
         return response()->json($findUsers);
     }
 
@@ -68,7 +68,7 @@ class UsersController extends Controller
             'level' => $request->level,
             'username' => $request->username,
             'prodi_id' => $request->prodi_id,
-            'generation_id' => $request->generation_id,
+            'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
@@ -82,9 +82,9 @@ class UsersController extends Controller
         return response()->json($findUsers);
     }
 
-    public function submissionMember($id,Request $request)
+    public function submissionMember($id, Request $request)
     {
-        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile.prodi')->find($id)->paper_jury()->with('student.profile.prodi')->where('period_id',$request->period_id ?? 1)->get();
+        $findJurySubmissionMember = $this->usersModel->with('paper_jury.student.profile.prodi')->find($id)->paper_jury()->with('student.profile.prodi')->where('period_id', $request->period_id ?? 1)->get();
         // dd($findJury);
         return response()->json($findJurySubmissionMember);
     }

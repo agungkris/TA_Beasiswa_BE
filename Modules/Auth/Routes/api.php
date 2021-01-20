@@ -39,10 +39,10 @@ Route::prefix('/auth')->group(function () {
         Route::get('/get/{id}', 'ProdiController@show');
         Route::post('/update/{id}', 'ProdiController@update');
     });
-    Route::prefix('generations')->group(function () {
-        Route::get('/', 'GenerationsController@index');
-        Route::post('/create', 'GenerationsController@store');
-        Route::get('/get/{id}', 'GenerationsController@show');
-        Route::post('/update/{id}', 'GenerationsController@update');
-    });
+    // Route::prefix('generations')->group(function () {
+    //     Route::get('/', 'GenerationsController@index');
+    //     Route::post('/create', 'GenerationsController@store');
+    //     Route::get('/get/{id}', 'GenerationsController@show');
+    //     Route::post('/update/{id}', 'GenerationsController@update');
+    // });
 });

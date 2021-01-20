@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Scholarship\Entities\ScholarshipPresentationAssessments;
 
+use function PHPSTORM_META\map;
+
 class ScholarshipPresentationAssessmentsController extends Controller
 {
     private $scholarshipPresentationAssessmentsModel;
@@ -105,5 +107,16 @@ class ScholarshipPresentationAssessmentsController extends Controller
         $findPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->find($id);
         $findPresentationAssessments->delete();
         return response()->json($findPresentationAssessments);
+    }
+
+    // UNTUK PENJUMLAHAN AKHIR
+    public function final(Request $request)
+    {
+        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->all('period');
+        $getAllPresentationAssessments->map(function($item,$key){
+            $item->final_score
+        });
+        
+        return response()->json($getAllPresentationAssessments);
     }
 }

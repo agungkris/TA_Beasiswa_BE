@@ -4,5 +4,7 @@
     "CommandCenter": true,
     "Auth": true,
     "Controller": true,
-    "Users": true
+    "Users": true,
+    "Model": true,
+    "ScholarshipLevelAchievements": true
 }

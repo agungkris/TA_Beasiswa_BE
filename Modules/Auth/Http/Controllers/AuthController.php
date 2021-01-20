@@ -82,11 +82,11 @@ class AuthController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        if($request->prodi_id || $request->generation_id){
+        if($request->prodi_id || $request->generation){
 
             $registerUser->profile()->create([
                 'prodi_id' => $request->prodi_id ?? null,
-                'generation_id' => $request->generation_id ?? null
+                'generation' => $request->generation ?? null
             ]);
             
         }

@@ -19,7 +19,7 @@ class CreateScholarshipAcademicAchievements extends Migration
             $table->unsignedBigInteger('student_id');
             $table->double('ip');
             $table->tinyInteger('sks');
-            $table->tinyInteger('ipk');
+            $table->double('ipk');
             $table->string('description');
             $table->string('khs');
             $table->timestamps();

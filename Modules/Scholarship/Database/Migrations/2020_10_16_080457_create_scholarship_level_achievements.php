@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGenerations extends Migration
+class CreateScholarshipLevelAchievements extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateGenerations extends Migration
      */
     public function up()
     {
-        Schema::create('generations', function (Blueprint $table) {
+        Schema::create('scholarship_level_achievements', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('level');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateGenerations extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('generations');
+        Schema::dropIfExists('scholarship_level_achievements');
     }
 }
