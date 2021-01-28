@@ -57,7 +57,7 @@ class UsersController extends Controller
 
     public function show($id)
     {
-        $findUsers = $this->usersModel->with('category_jury', 'profile.prodi', 'prodi')->find($id);
+        $findUsers = $this->usersModel->with('category_jury', 'profile.prodi')->find($id);
         return response()->json($findUsers);
     }
 

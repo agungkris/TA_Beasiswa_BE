@@ -20,7 +20,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
     public function report(Request $request)
     {
         $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury', 'student')
-            ->where('period_id', $request->period_id)->where('student_id', $request->student_id)->first();
+            ->where('period_id', $request->period_id)->where('student_id', $request->student_id)->get();
 
 
         return response()->json($getAllPresentationAssessments);
@@ -110,13 +110,13 @@ class ScholarshipPresentationAssessmentsController extends Controller
     }
 
     // UNTUK PENJUMLAHAN AKHIR
-    public function final(Request $request)
-    {
-        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->all('period');
-        $getAllPresentationAssessments->map(function($item,$key){
-            $item->final_score
-        });
-        
-        return response()->json($getAllPresentationAssessments);
-    }
+    // public function final(Request $request)
+    // {
+    //     $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->all('period');
+    //     $getAllPresentationAssessments->map(function($item,$key){
+    //         $item->final_score
+    //     });
+
+    //     return response()->json($getAllPresentationAssessments);
+    // }
 }

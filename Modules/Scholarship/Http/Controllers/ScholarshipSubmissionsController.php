@@ -53,11 +53,10 @@ class ScholarshipSubmissionsController extends Controller
             // });
             // dd($getPaperJury);
             $getAllSubmissions = $getAllSubmissions->whereIn('id', $getPaperJury);
-            
         }
-        if($request->filled('submission_member')){
-            
-            
+        if ($request->filled('submission_member')) {
+
+
             $getSubmissions = $this->paperjuryModel->get()->map(function ($value) {
                 return $value->submissions_id;
             });
@@ -218,7 +217,7 @@ class ScholarshipSubmissionsController extends Controller
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
             ->where('period_id', $periodId)->where('prodi_id', '1')->where('final_stage', 1)->count();
-        
+
         $prodiMene = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
@@ -233,7 +232,7 @@ class ScholarshipSubmissionsController extends Controller
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
             ->where('period_id', $periodId)->where('prodi_id', '4')->where('final_stage', 1)->count();
-        
+
         $prodiDkv = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
             ->join('profiles', 'profiles.user_id', '=', 'users.id')

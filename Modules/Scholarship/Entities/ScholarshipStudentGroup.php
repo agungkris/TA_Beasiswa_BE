@@ -18,6 +18,6 @@ class ScholarshipStudentGroup extends Model
 
     public function member()
     {
-        return $this->belongsToMany(User::class, 'scholarship_student_group_members', 'student_group_id', 'student_id')->with('profile');
+        return $this->belongsToMany(User::class, 'scholarship_student_group_members', 'student_group_id', 'student_id')->with('profile.prodi');
     }
 }

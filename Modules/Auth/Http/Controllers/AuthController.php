@@ -2,12 +2,13 @@
 
 namespace Modules\Auth\Http\Controllers;
 
-use App\User;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Modules\Auth\Entities\User;
+
 // use Modules\Auth\Entities\Profile;
 
 class AuthController extends Controller
@@ -29,7 +30,7 @@ class AuthController extends Controller
             return response()->json(['errors' => $checkValidation->errors()], 422);
         }
 
-        $user = User::where('username', $request->username)->orWhere('email', $request->username)->first();
+        $user = User::where('username', $request->username)->orWhere('email', $request->username)->with('category_jury')->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -50,13 +51,13 @@ class AuthController extends Controller
 
     public function getUser(Request $request)
     {
-        // $findUser = 
-        $user = User::with('profile')->find(auth()->id());
+        // $findUser =
+        $user = User::with('profile', 'category_jury')->find(auth()->id());
         return response()->json([
             'user' => $user,
             'token' => $user->tokens()->orderBy('id', 'desc')->first()
         ]);
-        // return 
+        // return
 
     }
 
@@ -76,19 +77,18 @@ class AuthController extends Controller
         // $registerUser = $this->registratioModel->with('prodi, generation');
         $registerUser = User::create([
             'level' => $request->level ?? 'student',
-            'username' => $request->username,            
+            'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
 
-        if($request->prodi_id || $request->generation){
+        if ($request->prodi_id || $request->generation) {
 
             $registerUser->profile()->create([
                 'prodi_id' => $request->prodi_id ?? null,
                 'generation' => $request->generation ?? null
             ]);
-            
         }
 
         return response()->json(['data' => $registerUser]);
