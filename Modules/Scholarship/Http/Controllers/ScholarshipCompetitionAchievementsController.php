@@ -18,8 +18,8 @@ class ScholarshipCompetitionAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllCompetition = $this->competitionModel->with('semester','student','level');
-        if($request->student_id){
+        $getAllCompetition = $this->competitionModel->with('semester', 'student');
+        if ($request->student_id) {
             $getAllCompetition = $getAllCompetition->where('student_id', $request->student_id);
         }
         $getAllCompetition = $getAllCompetition->get();
@@ -32,7 +32,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
-            'level_id' => $request->level_id,
+            'level' => $request->level,
             'realization' => $request->realization,
             'result' => $request->result,
         ];
@@ -45,7 +45,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
-            'level_id' => $request->level_id,
+            'level' => $request->level,
             'realization' => $request->realization,
             'result' => $request->result,
         ], $payloadData);
@@ -76,7 +76,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
-            'level_id' => $request->level_id,
+            'level' => $request->level,
             'realization' => $request->realization,
             'result' => $request->result,
         ];

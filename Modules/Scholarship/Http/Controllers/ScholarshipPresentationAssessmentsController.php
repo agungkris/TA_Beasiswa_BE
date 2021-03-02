@@ -50,6 +50,9 @@ class ScholarshipPresentationAssessmentsController extends Controller
         $score_J = $request->score_J / 10;
         $score = $score_A + $score_B + $score_C + $score_D + $score_E + $score_F + $score_G + $score_H + $score_I + $score_J;
 
+        $periodId = $request->period_id;
+        $studentId = $request->student_id;
+        $getStudentSubmission = $this->scholarshipSubmissionModel->where('period_id', $periodId)->where('student_id', $studentId)->first();
 
         $createNewPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->updateorcreate([
             'period_id' => $request->period_id,
@@ -59,6 +62,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
             'student_id' => $request->student_id,
+            'submission_id' => $getStudentSubmission->id,
             'score_A' => $request->score_A,
             'score_B' => $request->score_B,
             'score_C' => $request->score_C,

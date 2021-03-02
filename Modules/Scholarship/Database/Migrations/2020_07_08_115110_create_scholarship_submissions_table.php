@@ -23,7 +23,7 @@ class CreateScholarshipSubmissionsTable extends Migration
             $table->string('cv');
             $table->string('papers');
             $table->string('other_requirements')->nullable();
-            $table->double('presentation')->default(0)->nullable();
+            $table->double('initial_ipk')->default(0)->nullable();
             $table->tinyInteger('next_stage')->nullable();
             $table->tinyInteger('final_stage')->nullable();
 

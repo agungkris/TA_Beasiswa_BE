@@ -137,7 +137,7 @@ class ScholarshipSubmissionsController extends Controller
         $createNewScholarshipSubmissions = $this->scholarshipSubmissionsModel->updateOrCreate([
             'student_id' => auth()->id(),
             'period_id' => $request->period_id,
-            'presentation' => $request->presentation,
+            'initial_ipk' => $request->initial_ipk,
         ], $payloadData);
         return response()->json($createNewScholarshipSubmissions);
     }
@@ -145,14 +145,14 @@ class ScholarshipSubmissionsController extends Controller
     public function show($id)
     {
         $findSubmissions = $this->scholarshipSubmissionsModel->with('period', 'student.profile.prodi', 'student.profile')->find($id);
-        $findSubmissions->submit_form = asset('upload/' . $findSubmissions->submit_form);
-        $findSubmissions->brs = asset('upload/' . $findSubmissions->brs);
-        $findSubmissions->raport = asset('upload/' . $findSubmissions->raport);
-        $findSubmissions->cv = asset('upload/' . $findSubmissions->cv);
-        $findSubmissions->papers = asset('upload/' . $findSubmissions->papers);
-        $findSubmissions->other_requirement = asset('upload/' . $findSubmissions->other_requirement);
+        // $findSubmissions->submit_form = asset('upload/' . $findSubmissions->submit_form);
+        // $findSubmissions->brs = asset('upload/' . $findSubmissions->brs);
+        // $findSubmissions->raport = asset('upload/' . $findSubmissions->raport);
+        // $findSubmissions->cv = asset('upload/' . $findSubmissions->cv);
+        // $findSubmissions->papers = asset('upload/' . $findSubmissions->papers);
+        // $findSubmissions->other_requirement = asset('upload/' . $findSubmissions->other_requirement);
 
-        return response()->json($findSubmissions);
+        return new ScholarshipSubmissionResource($findSubmissions);
     }
 
     public function next_Stage($id, Request $request)
@@ -206,6 +206,20 @@ class ScholarshipSubmissionsController extends Controller
         $findSubmissions = $this->scholarshipSubmissionsModel->find($id);
         $findSubmissions->delete();
         return response()->json($findSubmissions);
+    }
+
+    public function reportNew(Request $request)
+    {
+        $periodID = $request->period_id;
+
+        $getScholarshipSubmission = $this->scholarshipSubmissionsModel
+            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+            ->join('profiles', 'profiles.user_id', '=', 'users.id')
+            ->where('period_id', $periodID)
+            ->where('final_stage', 1)
+            ->get()->groupBy('generation');
+
+        return response()->json($getScholarshipSubmission);
     }
 
     public function report(Request $request)
@@ -263,18 +277,18 @@ class ScholarshipSubmissionsController extends Controller
             ->join('profiles', 'profiles.user_id', '=', 'users.id')
             ->where('period_id', $periodId)->where('prodi_id', '10')->where('final_stage', 1)->count();
 
-        $angkatan17 = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2017')->where('final_stage', 1)->count();
-        $angkatan18 = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2018')->where('final_stage', 1)->count();
-        $angkatan19 = DB::table('scholarship_submissions')
-            ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
-            ->join('profiles', 'profiles.user_id', '=', 'users.id')
-            ->where('period_id', $periodId)->where('generation', '2019')->where('final_stage', 1)->count();
+        // $angkatan17 = DB::table('scholarship_submissions')
+        //     ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+        //     ->join('profiles', 'profiles.user_id', '=', 'users.id')
+        //     ->where('period_id', $periodId)->where('generation', '2017')->where('final_stage', 1)->count();
+        // $angkatan18 = DB::table('scholarship_submissions')
+        //     ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+        //     ->join('profiles', 'profiles.user_id', '=', 'users.id')
+        //     ->where('period_id', $periodId)->where('generation', '2018')->where('final_stage', 1)->count();
+        // $angkatan19 = DB::table('scholarship_submissions')
+        //     ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
+        //     ->join('profiles', 'profiles.user_id', '=', 'users.id')
+        //     ->where('period_id', $periodId)->where('generation', '2019')->where('final_stage', 1)->count();
 
         $total = DB::table('scholarship_submissions')
             ->join('users', 'users.id', '=', 'scholarship_submissions.student_id')
@@ -297,9 +311,9 @@ class ScholarshipSubmissionsController extends Controller
             'prodiPsi' => $prodiPsi,
             'prodiSif' => $prodiSif,
 
-            'angkatan17' => $angkatan17,
-            'angkatan18' => $angkatan18,
-            'angkatan19' => $angkatan19,
+            // 'angkatan17' => $angkatan17,
+            // 'angkatan18' => $angkatan18,
+            // 'angkatan19' => $angkatan19,
 
             'total' => $total,
             'totalfhb' => $totalfhb,
@@ -307,5 +321,83 @@ class ScholarshipSubmissionsController extends Controller
             'hasil' => $hasil
         ];
         return response()->json($data);
+    }
+
+    public function kmeans(Request $request)
+    {
+        $periodID = $request->period_id;
+
+        // $studentID = 2;
+
+        $getSubmissions = $this->scholarshipSubmissionsModel
+            ->with(['paper_assessments', 'presentation_assessments', 'student.profile', 'period'])
+            ->where('period_id', $periodID)
+            ->where('next_stage', 1)
+            ->where('final_stage', 0)
+            ->get()
+            ->map(function ($value) {
+
+                $countPresentation = count($value->presentation_assessments);
+
+                $submitScore = !empty($value->submit_form) && $value->submit_form ? 100 : 0;
+                $brsScore = !empty($value->brs) && $value->brs ? 100 : 0;
+                $raportScore = !empty($value->raport) && $value->raport ? 100 : 0;
+                $cvScore = !empty($value->cv) && $value->cv ? 100 : 0;
+                $paperAssessments = $value->paper_assessments ? $value->paper_assessments->papers_score : 0;
+                $presentationAssessments = $countPresentation ?  $value->presentation_assessments->reduce(function ($carry, $item) {
+                    return $carry + $item->final_score;
+                }) / $countPresentation : 0;
+                $ipk = $value->initial_ipk;
+                $ipk_final = $ipk * 25;
+
+
+                return [
+                    'id' => $value->id,
+                    "student_id" => $value->student_id,
+                    "student" => $value->student,
+                    "period" => $value->period,
+                    "period_id" => $value->period_id,
+                    "submit_form" => $value->submit_form,
+                    "submit_score" => $submitScore,
+                    "brs" => $value->brs,
+                    "brs_score" => $brsScore,
+                    "raport" => $value->raport,
+                    "raport_score" => $raportScore,
+                    "cv" => $value->cv,
+                    "cv_score" => $cvScore,
+                    "papers" => $value->papers,
+                    "other_requirements" => $value->other_requirements != null ? asset('upload/' . $value->other_requirements) : "",
+                    "presentation" => $value->presentation,
+                    "next_stage" => $value->next_stage,
+                    "final_stage" => $value->final_Stage,
+                    "paper_assessments" => $paperAssessments,
+                    "presentation_assessments" => $presentationAssessments,
+                    "ipk" => $ipk,
+                    "final_score" => $submitScore + $brsScore + $raportScore + $cvScore + $paperAssessments + $presentationAssessments + $ipk_final
+                ];
+            });
+
+        return $getSubmissions;
+    }
+
+    public function submitScholarship(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $beasiswaList = $request->beasiswa_list;
+
+
+            foreach ($beasiswaList as $data) {
+                $finalStage = $data['final_stage'] ? 1 : 0;
+                $this->scholarshipSubmissionsModel->find($data['id'])->update(['final_stage' => $finalStage]);
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'success']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // throw $th;
+            return response()->json(['message' => "error"], 500);
+        }
     }
 }

@@ -7,7 +7,7 @@ use Modules\Auth\Entities\User;
 
 class ScholarshipPaperAssessments extends Model
 {
-    protected $fillable = ['period_id', 'jury_id', 'student_id', 'format_papers', 'creativity', 'contribution', 'information', 'conclusion', 'comment', 'papers_score'];
+    protected $fillable = ['period_id', 'jury_id', 'student_id', 'submission_id', 'format_papers', 'creativity', 'contribution', 'information', 'conclusion', 'comment', 'papers_score'];
 
     protected $table = 'scholarship_paper_assessments';
 

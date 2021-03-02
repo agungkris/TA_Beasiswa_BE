@@ -1,6 +1,7 @@
 <?php
 
 namespace Modules\Scholarship\Transformers;
+
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ScholarshipCompetitionAchievementResource extends JsonResource
@@ -13,12 +14,12 @@ class ScholarshipCompetitionAchievementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             "id" => $this->id,
             "semester_id" => $this->semester_id,
             "student_id" => $this->student_id,
             "activity" => $this->activity,
-            "level_id" => $this->level_id,
+            "level" => $this->level,
             "realization" => $this->realization,
             "result" => $this->result,
             "document" => $this->document != null ? asset('upload/' . $this->document) : null,

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Scholarship\Entities\ScholarshipPaperAssessments;
+use Modules\Scholarship\Entities\ScholarshipSubmissions;
 
 class ScholarshipPaperAssessmentsController extends Controller
 {
@@ -13,6 +14,7 @@ class ScholarshipPaperAssessmentsController extends Controller
     public function __construct()
     {
         $this->scholarshipPaperAssessmentsModel = new ScholarshipPaperAssessments();
+        $this->scholarshipSubmissionModel = new ScholarshipSubmissions();
     }
 
     public function report(Request $request)
@@ -48,6 +50,14 @@ class ScholarshipPaperAssessmentsController extends Controller
         $conclusion = $request->conclusion * (15 / 100);
 
         $papers_score = $formatPapers + $creativity + $contribution + $information + $conclusion;
+
+        $periodId = $request->period_id;
+        $studentId = $request->student_id;
+
+
+        $getStudentSubmission = $this->scholarshipSubmissionModel->where('period_id', $periodId)->where('student_id', $studentId)->first();
+
+
         $createNewPaperAssessments = $this->scholarshipPaperAssessmentsModel->updateOrCreate([
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
@@ -55,6 +65,7 @@ class ScholarshipPaperAssessmentsController extends Controller
         ], [
             'period_id' => $request->period_id,
             'jury_id' => $request->jury_id,
+            'submission_id' => $getStudentSubmission->id,
             'student_id' => $request->id,
             'format_papers' => $request->format_papers,
             'creativity' => $request->creativity,

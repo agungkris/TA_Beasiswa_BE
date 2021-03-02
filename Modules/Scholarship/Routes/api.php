@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,9 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/finalstage/{id}', 'ScholarshipSubmissionsController@final_Stage');
         Route::delete('/delete/{id}', 'ScholarshipSubmissionsController@destroy');
         Route::post('/report', 'ScholarshipSubmissionsController@report');
+        Route::post('/reportnew', 'ScholarshipSubmissionsController@reportNew');
+        Route::post('/kmeans', 'ScholarshipSubmissionsController@kmeans');
+        Route::post('/submit-scholarship', 'ScholarshipSubmissionsController@submitscholarship');
     });
     Route::prefix('scholarshipstudentgroupmembers')->group(function () {
         Route::get('/', 'ScholarshipStudentGroupMembersController@index');

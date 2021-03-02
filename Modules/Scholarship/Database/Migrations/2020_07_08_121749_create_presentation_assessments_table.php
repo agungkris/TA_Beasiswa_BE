@@ -19,6 +19,7 @@ class CreatePresentationAssessmentsTable extends Migration
             $table->unsignedBigInteger('period_id');
             $table->unsignedBigInteger('jury_id');
             $table->unsignedBigInteger('student_id');
+            $table->unsignedBigInteger('submission_id');
             $table->unsignedTinyInteger('score_A');
             $table->unsignedTinyInteger('score_B');
             $table->unsignedTinyInteger('score_C');
@@ -34,6 +35,7 @@ class CreatePresentationAssessmentsTable extends Migration
             $table->foreign('jury_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
             $table->foreign('period_id')->on('scholarship_periods')->references('id')->onDelete('cascade');
+            $table->foreign('submission_id')->on('scholarship_submissions')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
