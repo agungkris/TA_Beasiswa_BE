@@ -18,8 +18,8 @@ class CreateScholarshipCompetitionAchievements extends Migration
             $table->unsignedBigInteger('semester_id');
             $table->unsignedBigInteger('student_id');
             $table->string('activity');
-            $table->string('level');
-            // $table->unsignedBigInteger('level_id');
+            // $table->string('level');
+            $table->unsignedBigInteger('level_id');
             $table->string('realization');
             $table->string('result');
             $table->string('document');
@@ -27,7 +27,7 @@ class CreateScholarshipCompetitionAchievements extends Migration
 
             $table->foreign('semester_id')->on('scholarship_semesters')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
-            // $table->foreign('level_id')->on('scholarship_level_achievements')->references('id')->onDelete('cascade');
+            $table->foreign('level_id')->on('scholarship_level_achievements')->references('id')->onDelete('cascade');
         });
     }
 
@@ -41,7 +41,7 @@ class CreateScholarshipCompetitionAchievements extends Migration
         Schema::table('scholarship_competition_achievements', function (Blueprint $table) {
             $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
-            // $table->dropForeign(['level_id']);
+            $table->dropForeign(['level_id']);
         });
         Schema::dropIfExists('scholarship_competition_achievements');
     }

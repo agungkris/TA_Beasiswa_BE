@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\Scholarship\Entities\ScholarshipPresentationAssessments;
+use Modules\Scholarship\Entities\ScholarshipSubmissions;
 
 use function PHPSTORM_META\map;
 
@@ -15,6 +16,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
     public function __construct()
     {
         $this->scholarshipPresentationAssessmentsModel = new ScholarshipPresentationAssessments();
+        $this->scholarshipSubmissionModel = new ScholarshipSubmissions();
     }
 
     public function report(Request $request)
