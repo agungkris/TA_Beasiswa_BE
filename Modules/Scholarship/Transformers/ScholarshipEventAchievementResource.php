@@ -14,17 +14,19 @@ class ScholarshipEventAchievementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
-            "id" =>$this->id,
-            "semester_id" =>$this->semester_id,
-            "student_id" =>$this->student_id,
-            "activity" =>$this->activity,
-            "realization" =>$this->realization,
-            "document" =>$this->document != null ? asset('upload/' . $this->document) : null,
-            "created_at" =>$this->created_at,
-            "updated_at" =>$this->updated_at,
-            "semester" =>$this->semester,
-            "student" =>$this->student,
+        return [
+            "id" => $this->id,
+            "achievement_id" => $this->achievement_id,
+            "semester_id" => $this->semester_id,
+            "student_id" => $this->student_id,
+            "activity" => $this->activity,
+            "realization" => $this->realization,
+            "document" => $this->document != null ? asset('upload/' . $this->document) : null,
+            "created_at" => $this->created_at,
+            "updated_at" => $this->updated_at,
+            "semester" => $this->semester,
+            "student" => $this->student,
+            "achievement" => $this->achievement
         ];
     }
 }

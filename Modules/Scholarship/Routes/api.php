@@ -171,4 +171,11 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/update/{id}', 'ScholarshipLevelAchievementsController@update');
         Route::delete('/delete/{id}', 'ScholarshipLevelAchievementsController@destroy');
     });
+    Route::prefix('scholarshipachievements')->group(function () {
+        Route::get('/', 'ScholarshipAchievementsController@index');
+        Route::post('/create', 'ScholarshipAchievementsController@store');
+        Route::get('/get/{id}', 'ScholarshipAchievementsController@show');
+        Route::post('/update/{id}', 'ScholarshipAchievementsController@update');
+        Route::delete('/delete/{id}', 'ScholarshipAchievementsController@destroy');
+    });
 });

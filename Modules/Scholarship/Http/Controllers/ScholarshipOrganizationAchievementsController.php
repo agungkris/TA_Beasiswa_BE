@@ -17,9 +17,9 @@ class ScholarshipOrganizationAchievementsController extends Controller
     }
 
     public function index(Request $request)
-    {   
-        $getAllOrganization = $this->organizationModel->with('semester','student');
-        if($request->student_id){
+    {
+        $getAllOrganization = $this->organizationModel->with('semester', 'student', 'achievement');
+        if ($request->student_id) {
             $getAllOrganization = $getAllOrganization->where('student_id', $request->student_id);
         }
         $getAllOrganization = $getAllOrganization->get();
@@ -29,6 +29,7 @@ class ScholarshipOrganizationAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -41,6 +42,7 @@ class ScholarshipOrganizationAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewOrganization = $this->organizationModel->updateOrCreate([
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -70,6 +72,7 @@ class ScholarshipOrganizationAchievementsController extends Controller
     {
         $findOrganization = $this->organizationModel->find($id);
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -88,7 +91,7 @@ class ScholarshipOrganizationAchievementsController extends Controller
         }
         $findOrganization->update($payloadData);
         return response()->json($findOrganization);
-        
+
         // $findOrganization = $this->organizationModel->find($id);
         // $findOrganization->update([
         //     'semester_id' => $request->semester_id,

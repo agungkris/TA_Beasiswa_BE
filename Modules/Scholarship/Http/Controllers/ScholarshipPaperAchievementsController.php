@@ -18,8 +18,8 @@ class ScholarshipPaperAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllPaper = $this->paperModel->with('semester','student');
-        if($request->student_id){
+        $getAllPaper = $this->paperModel->with('semester', 'student', 'achievement');
+        if ($request->student_id) {
             $getAllPaper = $getAllPaper->where('student_id', $request->student_id);
         }
         $getAllPaper = $getAllPaper->get();
@@ -29,6 +29,7 @@ class ScholarshipPaperAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'title' => $request->title,
@@ -39,6 +40,7 @@ class ScholarshipPaperAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewPaper = $this->paperModel->updateOrCreate([
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'title' => $request->title,
@@ -64,6 +66,7 @@ class ScholarshipPaperAchievementsController extends Controller
     {
         $findPaper = $this->paperModel->find($id);
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'title' => $request->title,

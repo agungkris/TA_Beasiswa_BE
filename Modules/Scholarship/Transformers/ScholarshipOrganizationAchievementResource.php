@@ -14,8 +14,9 @@ class ScholarshipOrganizationAchievementResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             "id" => $this->id,
+            "achievement_id" => $this->achievement_id,
             "semester_id" => $this->semester_id,
             "student_id" => $this->student_id,
             "name" => $this->name,
@@ -26,6 +27,7 @@ class ScholarshipOrganizationAchievementResource extends JsonResource
             "updated_at" => $this->updated_at,
             "semester" => $this->semester,
             "student"  => $this->student,
+            "achievement" => $this->achievement
         ];
     }
 }

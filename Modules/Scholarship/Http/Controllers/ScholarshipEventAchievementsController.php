@@ -18,8 +18,8 @@ class ScholarshipEventAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllEvent = $this->eventModel->with('semester','student');
-        if($request->student_id){
+        $getAllEvent = $this->eventModel->with('semester', 'student', 'achievement');
+        if ($request->student_id) {
             $getAllEvent = $getAllEvent->where('student_id', $request->student_id);
         }
         $getAllEvent = $getAllEvent->get();
@@ -29,6 +29,7 @@ class ScholarshipEventAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -40,6 +41,7 @@ class ScholarshipEventAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewEvent = $this->eventModel->updateOrCreate([
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -67,6 +69,7 @@ class ScholarshipEventAchievementsController extends Controller
     {
         $findEvent = $this->eventModel->find($id);
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,

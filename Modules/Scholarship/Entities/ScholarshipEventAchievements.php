@@ -7,7 +7,7 @@ use Modules\Auth\Entities\User;
 
 class ScholarshipEventAchievements extends Model
 {
-    protected $fillable = ['semester_id','student_id','activity','realization','document'];
+    protected $fillable = ['achievement_id', 'semester_id', 'student_id', 'activity', 'realization', 'document'];
 
     protected $table = 'scholarship_event_achievements';
 
@@ -19,5 +19,10 @@ class ScholarshipEventAchievements extends Model
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
+    }
+
+    public function achievement()
+    {
+        return $this->belongsTo(ScholarshipAchievements::class, 'achievement_id');
     }
 }

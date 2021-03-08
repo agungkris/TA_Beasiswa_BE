@@ -15,6 +15,7 @@ class CreateScholarshipAcademicAchievements extends Migration
     {
         Schema::create('scholarship_academic_achievements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('achievement_id');
             $table->unsignedBigInteger('semester_id');
             $table->unsignedBigInteger('student_id');
             $table->double('ip');
@@ -26,6 +27,7 @@ class CreateScholarshipAcademicAchievements extends Migration
 
             $table->foreign('semester_id')->on('scholarship_semesters')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('achievement_id')->on('scholarship_achievements')->references('id')->onDelete('cascade');
         });
     }
 
@@ -37,6 +39,7 @@ class CreateScholarshipAcademicAchievements extends Migration
     public function down()
     {
         Schema::table('scholarship_academic_achievements', function (Blueprint $table) {
+            $table->dropForeign(['achievement_id']);
             $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
         });

@@ -325,7 +325,7 @@ class ScholarshipSubmissionsController extends Controller
 
     public function kmeans(Request $request)
     {
-        $periodID = $request->period_id;
+        $periodID = $request->period_id ?? null;
 
         // $studentID = 2;
 
@@ -333,7 +333,8 @@ class ScholarshipSubmissionsController extends Controller
             ->with(['paper_assessments', 'presentation_assessments', 'student.profile', 'period'])
             ->where('period_id', $periodID)
             ->where('next_stage', 1)
-            ->where('final_stage', 0)
+            ->where('final_stage', null)
+            ->orWhere('final_stage', 0)
             ->get()
             ->map(function ($value) {
 
@@ -376,8 +377,8 @@ class ScholarshipSubmissionsController extends Controller
                     "final_score" => $submitScore + $brsScore + $raportScore + $cvScore + $paperAssessments + $presentationAssessments + $ipk_final
                 ];
             });
-
         return $getSubmissions;
+        // dd($getSubmissions);
     }
 
     public function submitScholarship(Request $request)

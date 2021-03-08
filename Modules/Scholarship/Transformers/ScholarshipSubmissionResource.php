@@ -25,7 +25,7 @@ class ScholarshipSubmissionResource extends JsonResource
             "papers" => asset('upload/' . $this->papers),
             "other_requirements" => $this->other_requirements != null ? asset('upload/' . $this->other_requirements) : "",
             "initial_ipk" => $this->initial_ipk,
-            "papers_score" => $this->papers_score,
+            // "paper_assessments" => $this->paperAssessments,
             "comment" => $this->comment,
             "next_stage" => $this->next_stage,
             "final_stage" => $this->final_stage,

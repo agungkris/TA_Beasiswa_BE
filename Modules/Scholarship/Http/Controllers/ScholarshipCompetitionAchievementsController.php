@@ -18,7 +18,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllCompetition = $this->competitionModel->with('semester', 'student', 'level');
+        $getAllCompetition = $this->competitionModel->with('semester', 'student', 'level', 'achievement');
         if ($request->student_id) {
             $getAllCompetition = $getAllCompetition->where('student_id', $request->student_id);
         }
@@ -29,6 +29,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -42,6 +43,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewCompetition = $this->competitionModel->updateOrCreate([
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -73,6 +75,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
     {
         $findCompetition = $this->competitionModel->find($id);
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,

@@ -18,8 +18,8 @@ class ScholarshipAcademicAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllAcademic = $this->academicModel->with('semester','student');
-        if($request->student_id){
+        $getAllAcademic = $this->academicModel->with('semester', 'student', 'achievement');
+        if ($request->student_id) {
             $getAllAcademic = $getAllAcademic->where('student_id', $request->student_id);
         }
         $getAllAcademic = $getAllAcademic->get();
@@ -29,6 +29,7 @@ class ScholarshipAcademicAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,
@@ -43,6 +44,7 @@ class ScholarshipAcademicAchievementsController extends Controller
             $payloadData['khs'] = $uploadForm;
         }
         $createNewAcademic = $this->academicModel->updateOrCreate([
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,
@@ -73,6 +75,7 @@ class ScholarshipAcademicAchievementsController extends Controller
     {
         $findAcademic = $this->academicModel->find($id);
         $payloadData = [
+            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,

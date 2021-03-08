@@ -16,10 +16,11 @@ class ScholarshipCompetitionAchievementResource extends JsonResource
     {
         return [
             "id" => $this->id,
+            "achievement_id" => $this->achievement_id,
             "semester_id" => $this->semester_id,
             "student_id" => $this->student_id,
             "activity" => $this->activity,
-            "level" => $this->level,
+            "level_id" => $this->level_id,
             "realization" => $this->realization,
             "result" => $this->result,
             "document" => $this->document != null ? asset('upload/' . $this->document) : null,
@@ -27,6 +28,8 @@ class ScholarshipCompetitionAchievementResource extends JsonResource
             "updated_at" => $this->updated_at,
             "semester" => $this->semester,
             "student" => $this->student,
+            "level" => $this->level,
+            "achievement" => $this->achievement
         ];
     }
 }
