@@ -18,7 +18,7 @@ class ScholarshipCompetitionAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllCompetition = $this->competitionModel->with('semester', 'student', 'level', 'achievement');
+        $getAllCompetition = $this->competitionModel->with('semester', 'student', 'level');
         if ($request->student_id) {
             $getAllCompetition = $getAllCompetition->where('student_id', $request->student_id);
         }
@@ -29,7 +29,6 @@ class ScholarshipCompetitionAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -43,7 +42,6 @@ class ScholarshipCompetitionAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewCompetition = $this->competitionModel->updateOrCreate([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -52,17 +50,6 @@ class ScholarshipCompetitionAchievementsController extends Controller
             'result' => $request->result,
         ], $payloadData);
         return response()->json($createNewCompetition);
-
-        // $createNewCompetition = $this->competitionModel->create([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'activity' => $request->activity,
-        //     'level' => $request->level,
-        //     'realization' => $request->realization,
-        //     'result' => $request->result,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($createNewCompetition);
     }
 
     public function show($id)
@@ -75,7 +62,6 @@ class ScholarshipCompetitionAchievementsController extends Controller
     {
         $findCompetition = $this->competitionModel->find($id);
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -95,18 +81,6 @@ class ScholarshipCompetitionAchievementsController extends Controller
         }
         $findCompetition->update($payloadData);
         return response()->json($findCompetition);
-
-        // $findCompetition = $this->competitionModel->find($id);
-        // $findCompetition->update([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'activity' => $request->activity,
-        //     'level' => $request->level,
-        //     'realization' => $request->realization,
-        //     'result' => $request->result,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($findCompetition);
     }
 
     public function destroy($id)

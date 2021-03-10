@@ -7,6 +7,7 @@ use Illuminate\Routing\Controller;
 use Modules\Scholarship\Entities\ScholarshipAcademicAchievements;
 use Modules\Scholarship\Transformers\ScholarshipAcademicAchievementResource;
 use Illuminate\Support\Facades\Storage;
+use Modules\Scholarship\Entities\ScholarshipAchievements;
 
 class ScholarshipAcademicAchievementsController extends Controller
 {
@@ -18,7 +19,7 @@ class ScholarshipAcademicAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllAcademic = $this->academicModel->with('semester', 'student', 'achievement');
+        $getAllAcademic = $this->academicModel->with('semester', 'student');
         if ($request->student_id) {
             $getAllAcademic = $getAllAcademic->where('student_id', $request->student_id);
         }
@@ -29,7 +30,6 @@ class ScholarshipAcademicAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,
@@ -44,7 +44,6 @@ class ScholarshipAcademicAchievementsController extends Controller
             $payloadData['khs'] = $uploadForm;
         }
         $createNewAcademic = $this->academicModel->updateOrCreate([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,
@@ -53,16 +52,6 @@ class ScholarshipAcademicAchievementsController extends Controller
             'description' => $request->description,
         ], $payloadData);
         return response()->json($createNewAcademic);
-        // $createNewAcademic = $this->academicModel->create([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'ip' => $request->ip,
-        //     'sks' => $request->sks,
-        //     'ipk' => $request->ipk,
-        //     'description' => $request->description,
-        //     'khs' => $request->khs,
-        // ]);
-        // return response()->json($createNewAcademic);
     }
 
     public function show($id)
@@ -75,7 +64,6 @@ class ScholarshipAcademicAchievementsController extends Controller
     {
         $findAcademic = $this->academicModel->find($id);
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'ip' => $request->ip,
@@ -96,18 +84,6 @@ class ScholarshipAcademicAchievementsController extends Controller
         $findAcademic->update($payloadData);
 
         return response()->json($findAcademic);
-
-        // $findAcademic = $this->academicModel->find($id);
-        // $findAcademic->update([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'ip' => $request->ip,
-        //     'sks' => $request->sks,
-        //     'ipk' => $request->ipk,
-        //     'description' => $request->description,
-        //     'khs' => $request->khs,
-        // ]);
-        // return response()->json($findAcademic);
     }
 
     public function destroy($id)

@@ -28,6 +28,8 @@ Route::prefix('/auth')->group(function () {
         Route::get('/get/{id}', 'UsersController@show');
         Route::post('/update/{id}', 'UsersController@update');
         Route::delete('/delete/{id}', 'UsersController@destroy');
+        Route::post('/achievement/{id}', 'UsersController@achievement');
+        Route::get('/achievementlist', 'UsersController@achievementList');
 
         Route::post('/add-submission/{id}', 'UsersController@addSubmissionMember');
         Route::get('/submission-member/{id}', 'UsersController@submissionMember');

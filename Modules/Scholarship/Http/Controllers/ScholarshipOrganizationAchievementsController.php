@@ -18,7 +18,7 @@ class ScholarshipOrganizationAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllOrganization = $this->organizationModel->with('semester', 'student', 'achievement');
+        $getAllOrganization = $this->organizationModel->with('semester', 'student');
         if ($request->student_id) {
             $getAllOrganization = $getAllOrganization->where('student_id', $request->student_id);
         }
@@ -29,7 +29,6 @@ class ScholarshipOrganizationAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -42,7 +41,6 @@ class ScholarshipOrganizationAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewOrganization = $this->organizationModel->updateOrCreate([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -50,16 +48,6 @@ class ScholarshipOrganizationAchievementsController extends Controller
             'position' => $request->position,
         ], $payloadData);
         return response()->json($createNewOrganization);
-
-        // $createNewOrganization = $this->organizationModel->create([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'name' => $request->name,
-        //     'period' => $request->period,
-        //     'position' => $request->position,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($createNewOrganization);
     }
 
     public function show($id)
@@ -72,7 +60,6 @@ class ScholarshipOrganizationAchievementsController extends Controller
     {
         $findOrganization = $this->organizationModel->find($id);
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'name' => $request->name,
@@ -91,17 +78,6 @@ class ScholarshipOrganizationAchievementsController extends Controller
         }
         $findOrganization->update($payloadData);
         return response()->json($findOrganization);
-
-        // $findOrganization = $this->organizationModel->find($id);
-        // $findOrganization->update([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'name' => $request->name,
-        //     'period' => $request->period,
-        //     'position' => $request->position,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($findOrganization);
     }
 
     public function destroy($id)

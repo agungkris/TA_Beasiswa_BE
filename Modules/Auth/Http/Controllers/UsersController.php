@@ -43,7 +43,8 @@ class UsersController extends Controller
             'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'is_achievement' => $request->is_achievement
         ]);
 
         if ($request->level == 'juri') {
@@ -71,7 +72,8 @@ class UsersController extends Controller
             'generation' => $request->generation,
             'name' => $request->name,
             'email' => $request->email,
-            'password' => bcrypt($request->password)
+            'password' => bcrypt($request->password),
+            'is_achievement' => $request->is_achievement
         ]);
         if ($request->level == 'juri') {
             $findUsers->category_jury()->update([
@@ -118,5 +120,28 @@ class UsersController extends Controller
         $findUsers = $this->usersModel->find($id);
         $findUsers->delete();
         return response()->json($findUsers);
+    }
+
+    public function achievement(request $request, $id)
+    {
+        $findUsers = $this->usersModel->find($id);
+        $updateUser = $findUsers->update([
+            'is_achievement' => $request->is_achievement
+        ]);
+        return response()->json($findUsers);
+    }
+
+    public function achievementList(request $request)
+    {
+        $userModel = $this->usersModel->with('profile.prodi', 'category_jury')
+            ->where('is_achievement', 1);
+        // dd($request->level);
+        // if ($request->is_achievement) {
+        // }
+        $getAllUsers = $userModel->get();
+
+        // select * from Users;
+        // select * from student_groups inner join period on periode.id = student_groups.period_id;
+        return response()->json($getAllUsers);
     }
 }

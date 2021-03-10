@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScholarshipAchievements extends Migration
+class CreateScholarshipPaperAchievements extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateScholarshipAchievements extends Migration
      */
     public function up()
     {
-        Schema::create('scholarship_achievements', function (Blueprint $table) {
+        Schema::create('scholarship_paper_achievements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('semester_id');
             $table->unsignedBigInteger('student_id');
+            $table->string('title');
+            $table->string('document');
             $table->timestamps();
 
+            $table->foreign('semester_id')->on('scholarship_semesters')->references('id')->onDelete('cascade');
             $table->foreign('student_id')->on('users')->references('id')->onDelete('cascade');
         });
     }
@@ -29,9 +33,10 @@ class CreateScholarshipAchievements extends Migration
      */
     public function down()
     {
-        Schema::table('scholarship_achievements', function (Blueprint $table) {
+        Schema::table('scholarship_paper_achievements', function (Blueprint $table) {
+            $table->dropForeign(['semester_id']);
             $table->dropForeign(['student_id']);
         });
-        Schema::dropIfExists('scholarship_achievements');
+        Schema::dropIfExists('scholarship_paper_achievements');
     }
 }

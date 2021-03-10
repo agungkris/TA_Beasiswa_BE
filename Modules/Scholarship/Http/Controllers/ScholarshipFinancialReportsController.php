@@ -16,7 +16,7 @@ class ScholarshipFinancialReportsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllFinancial = $this->financialModel->with('semester', 'student', 'achievement')->get();
+        $getAllFinancial = $this->financialModel->with('semester', 'student')->get();
         if ($request->student_id) {
             $getAllFinancial = $getAllFinancial->where('student_id', $request->student_id);
         }
@@ -26,7 +26,6 @@ class ScholarshipFinancialReportsController extends Controller
     public function store(Request $request)
     {
         $createNewFinancial = $this->financialModel->create([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'spp' => $request->spp,
@@ -47,7 +46,6 @@ class ScholarshipFinancialReportsController extends Controller
     {
         $findFinancial = $this->financialModel->find($id);
         $findFinancial->update([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'spp' => $request->spp,

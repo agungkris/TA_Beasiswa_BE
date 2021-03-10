@@ -18,7 +18,7 @@ class ScholarshipEventAchievementsController extends Controller
 
     public function index(Request $request)
     {
-        $getAllEvent = $this->eventModel->with('semester', 'student', 'achievement');
+        $getAllEvent = $this->eventModel->with('semester', 'student');
         if ($request->student_id) {
             $getAllEvent = $getAllEvent->where('student_id', $request->student_id);
         }
@@ -29,7 +29,6 @@ class ScholarshipEventAchievementsController extends Controller
     public function store(Request $request)
     {
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -41,22 +40,12 @@ class ScholarshipEventAchievementsController extends Controller
             $payloadData['document'] = $uploadForm;
         }
         $createNewEvent = $this->eventModel->updateOrCreate([
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
             'realization' => $request->realization,
         ], $payloadData);
         return response()->json($createNewEvent);
-
-        // $createNewEvent = $this->eventModel->create([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'activity' => $request->activity,
-        //     'realization' => $request->realization,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($createNewEvent);
     }
 
     public function show($id)
@@ -69,7 +58,6 @@ class ScholarshipEventAchievementsController extends Controller
     {
         $findEvent = $this->eventModel->find($id);
         $payloadData = [
-            'achievement_id' => $request->achievement_id,
             'semester_id' => $request->semester_id,
             'student_id' => auth()->id(),
             'activity' => $request->activity,
@@ -87,16 +75,6 @@ class ScholarshipEventAchievementsController extends Controller
         }
         $findEvent->update($payloadData);
         return response()->json($findEvent);
-
-        // $findEvent = $this->eventModel->find($id);
-        // $findEvent->update([
-        //     'semester_id' => $request->semester_id,
-        //     'student_id' => $request->student_id,
-        //     'activity' => $request->activity,
-        //     'realization' => $request->realization,
-        //     'document' => $request->document,
-        // ]);
-        // return response()->json($findEvent);
     }
 
     public function destroy($id)
