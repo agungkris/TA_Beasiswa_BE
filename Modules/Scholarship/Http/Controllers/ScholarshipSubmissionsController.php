@@ -401,4 +401,24 @@ class ScholarshipSubmissionsController extends Controller
             return response()->json(['message' => "error"], 500);
         }
     }
+
+    public function submitIpk(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $ipkList = $request->ipk_list;
+
+            foreach ($ipkList as $data) {
+                $ipk = $data['initial_ipk'];
+                $this->scholarshipSubmissionsModel->find($data['id'])->update(['initial_ipk' => $ipk]);
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'success']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            // throw $th;
+            return response()->json(['message' => "error"], 500);
+        }
+    }
 }

@@ -53,6 +53,7 @@ Route::prefix('/scholarship')->group(function () {
         Route::post('/reportnew', 'ScholarshipSubmissionsController@reportNew');
         Route::post('/kmeans', 'ScholarshipSubmissionsController@kmeans');
         Route::post('/submit-scholarship', 'ScholarshipSubmissionsController@submitscholarship');
+        Route::post('/submitipk', 'ScholarshipSubmissionsController@submitIpk');
     });
     Route::prefix('scholarshipstudentgroupmembers')->group(function () {
         Route::get('/', 'ScholarshipStudentGroupMembersController@index');
