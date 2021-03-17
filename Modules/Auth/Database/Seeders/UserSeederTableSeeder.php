@@ -19,7 +19,6 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-
         User::updateOrCreate([
             'id' => 1
         ], [
