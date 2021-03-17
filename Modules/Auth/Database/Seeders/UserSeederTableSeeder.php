@@ -17,17 +17,12 @@ class UserSeederTableSeeder extends Seeder
     {
         Model::unguard();
 
+
+
+
         User::updateOrCreate([
-            'username' => 'admin',
-            'level' => 'admin',
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
-            'password' => bcrypt('admin123')
-        ]);
-
-
-
-        User::create([
+            'id' => 1
+        ], [
             'id' => 1,
             'level' => 'admin',
             'username' => 'admin',
@@ -43,7 +38,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 2
+        ], [
             'id' => 2,
             'level' => 'student',
             'username' => '2017071022',
@@ -59,7 +56,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 3
+        ], [
             'id' => 3,
             'level' => 'juri',
             'username' => '12345678',
@@ -75,7 +74,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 4
+        ], [
             'id' => 4,
             'level' => 'juri',
             'username' => '11223344',
@@ -91,7 +92,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 5
+        ], [
             'id' => 5,
             'level' => 'juri',
             'username' => '87654321',
@@ -107,7 +110,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 6
+        ], [
             'id' => 6,
             'level' => 'student',
             'username' => '2017011020',
@@ -123,7 +128,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 7
+        ], [
             'id' => 7,
             'level' => 'student',
             'username' => '2018011010',
@@ -139,7 +146,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 8
+        ], [
             'id' => 8,
             'level' => 'student',
             'username' => '2017021012',
@@ -155,7 +164,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 9
+        ], [
             'id' => 9,
             'level' => 'student',
             'username' => '2017031020',
@@ -171,7 +182,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 10
+        ], [
             'id' => 10,
             'level' => 'student',
             'username' => '2018031022',
@@ -187,7 +200,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 11
+        ], [
             'id' => 11,
             'level' => 'student',
             'username' => '2018051022',
@@ -203,7 +218,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 12
+        ], [
             'id' => 12,
             'level' => 'student',
             'username' => '2018061030',
@@ -219,7 +236,9 @@ class UserSeederTableSeeder extends Seeder
 
 
 
-        User::create([
+        User::updateOrCreate([
+            'id' => 13
+        ], [
             'id' => 13,
             'level' => 'student',
             'username' => '2018071050',
