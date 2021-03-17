@@ -19,7 +19,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        prodi::createOrUpdate([
+        prodi::updateOrCreate([
             'id' => 1
         ], [
             'id' => 1,
@@ -30,7 +30,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 2
         ], [
             'id' => 2,
@@ -41,7 +41,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate(
+        Prodi::updateOrCreate(
             [
                 'id' => 3
             ],
@@ -55,7 +55,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate(
+        Prodi::updateOrCreate(
             [
                 'id' => 4
             ],
@@ -69,7 +69,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 5
         ], [
             'id' => 5,
@@ -80,7 +80,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 6
         ], [
             'id' => 6,
@@ -91,7 +91,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 7
         ], [
             'id' => 7,
@@ -102,7 +102,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 8
         ], [
             'id' => 8,
@@ -113,7 +113,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 9
         ], [
             'id' => 9,
@@ -124,7 +124,7 @@ class ProdiTableSeeder extends Seeder
 
 
 
-        Prodi::createOrUpdate([
+        Prodi::updateOrCreate([
             'id' => 10
         ], [
             'id' => 10,

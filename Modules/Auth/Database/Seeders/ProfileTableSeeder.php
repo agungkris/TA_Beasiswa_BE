@@ -24,6 +24,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 2,
+                'prodi_id' => 7,
             ],
             [
                 'id' => 1,
@@ -38,6 +39,7 @@ class ProfileTableSeeder extends Seeder
         Profile::create([
             'id' => 2,
             'user_id' => 6,
+            'prodi_id' => 1,
         ], [
             'id' => 2,
             'user_id' => 6,
@@ -51,6 +53,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 3,
                 'user_id' => 7,
+                'prodi_id' => 1,
             ],
             [
                 'id' => 3,
@@ -67,6 +70,7 @@ class ProfileTableSeeder extends Seeder
         Profile::updateOrCreate([
             'id' => 4,
             'user_id' => 8,
+            'prodi_id' => 2,
         ], [
             'id' => 4,
             'user_id' => 8,
@@ -81,6 +85,7 @@ class ProfileTableSeeder extends Seeder
         Profile::updateOrCreate([
             'id' => 5,
             'user_id' => 9,
+            'prodi_id' => 3,
         ], [
             'id' => 5,
             'user_id' => 9,
@@ -95,6 +100,7 @@ class ProfileTableSeeder extends Seeder
         Profile::updateOrCreate([
             'id' => 6,
             'user_id' => 10,
+            'prodi_id' => 4,
         ], [
             'id' => 6,
             'user_id' => 10,
@@ -110,6 +116,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 7,
                 'user_id' => 11,
+                'prodi_id' => 5,
             ],
             [
                 'id' => 7,
@@ -127,6 +134,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 8,
                 'user_id' => 12,
+                'prodi_id' => 6,
             ],
             [
                 'id' => 8,
@@ -144,6 +152,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 9,
                 'user_id' => 13,
+                'prodi_id' => 7,
             ],
             [
                 'id' => 9,
