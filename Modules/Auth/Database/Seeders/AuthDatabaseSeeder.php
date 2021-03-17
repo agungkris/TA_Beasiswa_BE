@@ -18,5 +18,6 @@ class AuthDatabaseSeeder extends Seeder
 
         $this->call(UserSeederTableSeeder::class);
         $this->call(ProfileTableSeeder::class);
+        $this->call(ProdiTableSeeder::class);
     }
 }
