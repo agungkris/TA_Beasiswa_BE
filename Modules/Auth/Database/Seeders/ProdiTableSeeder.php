@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Database\Seeders;
 
-use App\prodi;
+use Modules\Auth\Entities\Prodi;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 

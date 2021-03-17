@@ -2,7 +2,7 @@
 
 namespace Modules\Auth\Database\Seeders;
 
-use App\User;
+use Modules\Auth\Entities\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 
