@@ -28,5 +28,11 @@ class ScholarshipDatabaseSeeder extends Seeder
         $this->call(StudentGroupMemberTableSeeder::class);
         $this->call(SemesterTableSeeder::class);
         $this->call(AcademicAchievementTableSeeder::class);
+        $this->call(LevelAchievementTableSeeder::class);
+        $this->call(CompetitionAchievementTableSeeder::class);
+        $this->call(EventAchievementTableSeeder::class);
+        $this->call(FinancialReportTableSeeder::class);
+        $this->call(OrganizationAchievementTableSeeder::class);
+        $this->call(PaperAchievementTableSeeder::class);
     }
 }
