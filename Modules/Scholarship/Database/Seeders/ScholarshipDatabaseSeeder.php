@@ -18,5 +18,7 @@ class ScholarshipDatabaseSeeder extends Seeder
 
         $this->call(PeriodTableSeeder::class);
         $this->call(AnnouncementTableSeeder::class);
+        $this->call(InformationTableSeeder::class);
+        $this->call(SubmissionTableSeeder::class);
     }
 }
