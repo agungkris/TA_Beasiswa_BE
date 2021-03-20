@@ -24,7 +24,7 @@ class ProfileTableSeeder extends Seeder
             [
                 'id' => 1,
                 'user_id' => 2,
-                'prodi_id' => 7,
+                // 'prodi_id' => 7,
             ],
             [
                 'id' => 1,

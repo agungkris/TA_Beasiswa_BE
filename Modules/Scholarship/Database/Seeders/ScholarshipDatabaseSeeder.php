@@ -16,6 +16,7 @@ class ScholarshipDatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call("OthersTableSeeder");
+        $this->call(PeriodTableSeeder::class);
+        $this->call(AnnouncementTableSeeder::class);
     }
 }
