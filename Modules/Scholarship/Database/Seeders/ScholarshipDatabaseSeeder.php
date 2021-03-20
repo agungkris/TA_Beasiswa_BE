@@ -22,5 +22,7 @@ class ScholarshipDatabaseSeeder extends Seeder
         $this->call(SubmissionTableSeeder::class);
         $this->call(CategoryJuryTableSeeder::class);
         $this->call(PaperAssessmentTableSeeder::class);
+        $this->call(PaperJuryTableSeeder::class);
+        $this->call(PresentationAssessmentTableSeeder::class);
     }
 }
