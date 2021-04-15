@@ -28,8 +28,8 @@ class ScholarshipCompetitionAchievementResource extends JsonResource
             "updated_at" => $this->updated_at,
             "semester" => $this->semester,
             "student" => $this->student,
-            "level" => $this->level,
-            "achievement" => $this->achievement
+            "achievement" => $this->achievement,
+            "level" => $this->level
         ];
     }
 }

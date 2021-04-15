@@ -70,7 +70,7 @@ class ScholarshipInformationController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->scholarship_form)) {
                 Storage::delete($findScholarShip->scholarship_form);
             }
-            $uploadForm = $request->file('scholarship_form')->store('document');
+            $uploadForm = $request->file('scholarship_form')->storeAs('document', $request->file('scholarship_form')->getClientOriginalName());
             $payloadData['scholarship_form'] = $uploadForm;
         }
 
@@ -78,7 +78,7 @@ class ScholarshipInformationController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->scholarship_terms_condition)) {
                 Storage::delete($findScholarShip->scholarship_terms_condition);
             }
-            $uploadTerm = $request->file('scholarship_terms_condition')->store('document');
+            $uploadTerm = $request->file('scholarship_terms_condition')->storeAs('document', $request->file('scholarship_terms_condition')->getClientOriginalName());
             $payloadData['scholarship_terms_condition'] = $uploadTerm;
         }
 
@@ -86,7 +86,7 @@ class ScholarshipInformationController extends Controller
             if ($findScholarShip && Storage::exists($findScholarShip->cv_templete)) {
                 Storage::delete($findScholarShip->cv_templete);
             }
-            $uploadTerm = $request->file('cv_templete')->store('document');
+            $uploadTerm = $request->file('cv_templete')->storeAs('document', $request->file('cv_templete')->getClientOriginalName());
             $payloadData['cv_templete'] = $uploadTerm;
         }
 

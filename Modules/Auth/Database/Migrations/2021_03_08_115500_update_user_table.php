@@ -14,7 +14,7 @@ class UpdateUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('is_achievement')->default(0);
+            $table->boolean('is_achievement')->default(0)->nullable();
         });
     }
 

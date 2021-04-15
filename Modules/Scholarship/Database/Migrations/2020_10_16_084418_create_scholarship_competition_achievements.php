@@ -18,7 +18,6 @@ class CreateScholarshipCompetitionAchievements extends Migration
             $table->unsignedBigInteger('semester_id');
             $table->unsignedBigInteger('student_id');
             $table->string('activity');
-            // $table->string('level');
             $table->unsignedBigInteger('level_id');
             $table->string('realization');
             $table->string('result');
