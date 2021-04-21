@@ -75,6 +75,10 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
             'is_achievement' => $request->is_achievement
         ]);
+
+        $findUsers->profile()->update(['generation' => $request->generation, 'prodi_id' => $request->prodi_id]);
+
+
         if ($request->level == 'juri') {
             $findUsers->category_jury()->update([
                 'karya_tulis' => $request->karya_tulis,
