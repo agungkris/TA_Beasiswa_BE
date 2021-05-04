@@ -34,7 +34,6 @@ class ScholarshipPaperAssessmentsController extends Controller
         $getAllPaperAssessments = $this->scholarshipPaperAssessmentsModel->with('period', 'jury', 'student')->get(); // select * from PaperAssessmentss;
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
         $periodId = $request->period_id ?? null;
-        // if ($request->filled('period_id')) {
         $getAllPaperAssessments = $getAllPaperAssessments->where('period_id', $periodId);
 
         return response()->json($getAllPaperAssessments);
