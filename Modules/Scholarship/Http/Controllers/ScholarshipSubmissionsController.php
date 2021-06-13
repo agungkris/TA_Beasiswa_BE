@@ -333,8 +333,9 @@ class ScholarshipSubmissionsController extends Controller
             ->with(['paper_assessments', 'presentation_assessments', 'student.profile', 'period'])
             ->where('period_id', $periodID)
             ->where('next_stage', 1)
-            ->where('final_stage', null)
-            ->orWhere('final_stage', 0)
+            ->where(function ($where) {
+                $where->where('final_stage', 0)->orWhere('final_stage', null);
+            })
             ->get()
             ->map(function ($value) {
 
