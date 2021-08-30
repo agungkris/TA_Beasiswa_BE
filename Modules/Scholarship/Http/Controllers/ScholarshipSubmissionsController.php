@@ -83,7 +83,8 @@ class ScholarshipSubmissionsController extends Controller
 
         $getPeriod = $this->periodModel->where('id', $request->period_id)->first();
         //dd($getPeriod);
-        if (Carbon::now()->lessThan($getPeriod->start_date) || Carbon::now()->greaterThanOrEqualTo($getPeriod->due_date_file)) {
+        $due_date_file = Carbon::parse($getPeriod->due_date_file)->addDay();
+        if (Carbon::now()->lessThan($getPeriod->start_date) || Carbon::now()->greaterThan($due_date_file)) {
             return response()->json(['message' => 'expired'], 500);
         }
         // dd(Carbon::now());
@@ -297,7 +298,9 @@ class ScholarshipSubmissionsController extends Controller
 
         $totalfhb = $prodiPsi + $prodiIlkom + $prodiMene + $prodiAkun;
         $totalftd = $prodiArsi + $prodiDkv + $prodiDp + $prodiTeksip + $prodiSif + $prodiInformatika;
-        $hasil = $total * 3500000;
+        $hasilinf = $prodiInformatika * 3500000;
+        $hasilakt = $prodiAkun * 3000000;
+        $hasilmene = $prodiMene * 2000000;
 
         $data = [
             'prodiInformatika' => $prodiInformatika,
@@ -318,7 +321,9 @@ class ScholarshipSubmissionsController extends Controller
             'total' => $total,
             'totalfhb' => $totalfhb,
             'totalftd' => $totalftd,
-            'hasil' => $hasil
+            'hasilinf' => $hasilinf,
+            'hasilakt' => $hasilakt,
+            'hasilmene' => $hasilmene
         ];
         return response()->json($data);
     }
