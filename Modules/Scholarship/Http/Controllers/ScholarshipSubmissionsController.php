@@ -298,9 +298,32 @@ class ScholarshipSubmissionsController extends Controller
 
         $totalfhb = $prodiPsi + $prodiIlkom + $prodiMene + $prodiAkun;
         $totalftd = $prodiArsi + $prodiDkv + $prodiDp + $prodiTeksip + $prodiSif + $prodiInformatika;
-        $hasilinf = $prodiInformatika * 3500000;
-        $hasilakt = $prodiAkun * 3000000;
-        $hasilmene = $prodiMene * 2000000;
+
+        $subsidiAkun = 1000000;
+        $subsidiMene = 1500000;
+        $subsidiIlkom = 2000000;
+        $subsidiPsi = 2500000;
+        $subsidiDkv = 3000000;
+        $subsidiDp = 3500000;
+        $subsidiInf = 4000000;
+        $subsidiSi = 4500000;
+        $subsidiTsp = 5000000;
+        $subsidiArsi = 5500000;
+
+        $hasilAkun = $prodiAkun * $subsidiAkun;
+        $hasilMene = $prodiMene * $subsidiMene;
+        $hasilIlkom = $prodiIlkom * $subsidiIlkom;
+        $hasilPsi = $prodiPsi * $subsidiPsi;
+        $hasilDkv = $prodiDkv * $subsidiDkv;
+        $hasilDp = $prodiDp * $subsidiDp;
+        $hasilInf = $prodiInformatika * $subsidiInf;
+        $hasilSi = $prodiSif * $subsidiSi;
+        $hasilTsp = $prodiTeksip * $subsidiTsp;
+        $hasilArsi = $prodiArsi * $subsidiArsi;
+
+        $totalSubsidiFhb = $hasilAkun + $hasilMene + $hasilIlkom + $hasilPsi;
+        $totalSubsidiFtd = $hasilDkv + $hasilDp + $hasilInf + $hasilSi + $hasilTsp + $hasilArsi;
+        $totalSubsidiKeseluruhan = $totalSubsidiFhb + $totalSubsidiFtd;
 
         $data = [
             'prodiInformatika' => $prodiInformatika,
@@ -321,9 +344,32 @@ class ScholarshipSubmissionsController extends Controller
             'total' => $total,
             'totalfhb' => $totalfhb,
             'totalftd' => $totalftd,
-            'hasilinf' => $hasilinf,
-            'hasilakt' => $hasilakt,
-            'hasilmene' => $hasilmene
+
+            'subsidiAkun' => $subsidiAkun,
+            'subsidiMene' => $subsidiMene,
+            'subsidiIlkom' => $subsidiIlkom,
+            'subsidiPsi' => $subsidiPsi,
+            'subsidiDkv' => $subsidiDkv,
+            'subsidiDp' => $subsidiDp,
+            'subsidiInf' => $subsidiInf,
+            'subsidiSi' => $subsidiSi,
+            'subsidiTsp' => $subsidiTsp,
+            'subsidiArsi' => $subsidiArsi,
+
+            'hasilAkun' => $hasilAkun,
+            'hasilMene' => $hasilMene,
+            'hasilIlkom' => $hasilIlkom,
+            'hasilPsi' => $hasilPsi,
+            'hasilDkv' => $hasilDkv,
+            'hasilDp' => $hasilDp,
+            'hasilInf' => $hasilInf,
+            'hasilSi' => $hasilSi,
+            'hasilTsp' => $hasilTsp,
+            'hasilArsi' => $hasilArsi,
+
+            'totalSubsidiFhb' => $totalSubsidiFhb,
+            'totalSubsidiFtd' => $totalSubsidiFtd,
+            'totalSubsidiKeseluruhan' => $totalSubsidiKeseluruhan
         ];
         return response()->json($data);
     }
