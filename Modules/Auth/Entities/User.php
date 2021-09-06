@@ -2,11 +2,14 @@
 
 namespace Modules\Auth\Entities;
 
+use App\StudentGroup;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Modules\Scholarship\Entities\ScholarshipCategoryJury;
+use Modules\Scholarship\Entities\ScholarshipStudentGroup;
+use Modules\Scholarship\Entities\ScholarshipStudentGroupMembers;
 use Modules\Scholarship\Entities\ScholarshipSubmissions;
 
 class User extends Authenticatable
@@ -43,6 +46,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class, 'user_id');
+    }
+
+    public function group()
+    {
+        return $this->hasOne(ScholarshipStudentGroupMembers::class, 'student_id', 'id');
     }
 
     // public function prodi()

@@ -5,6 +5,7 @@ namespace Modules\Scholarship\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Modules\Auth\Entities\User;
 use Modules\Scholarship\Entities\ScholarshipPresentationAssessments;
 use Modules\Scholarship\Entities\ScholarshipSubmissions;
 
@@ -21,7 +22,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
 
     public function report(Request $request)
     {
-        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury', 'student')
+        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury', 'student.student_group')
             ->where('period_id', $request->period_id)->where('student_id', $request->student_id)->get();
 
 
@@ -33,7 +34,12 @@ class ScholarshipPresentationAssessmentsController extends Controller
 
     public function index()
     {
-        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury', 'student')->get(); // select * from PresentationAssessmentss;
+        // $testing = User::with('group')->find(2);
+
+        // // dd($testing->group);
+
+        $getAllPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('period', 'jury')->get(); // select * from PresentationAssessmentss;
+        // dd($getAllPresentationAssessments);
         // select * from student_groups inner join period on periode.id = student_groups.period_id;
         return response()->json($getAllPresentationAssessments);
     }
@@ -82,7 +88,7 @@ class ScholarshipPresentationAssessmentsController extends Controller
 
     public function show($id)
     {
-        $findPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->find($id);
+        $findPresentationAssessments = $this->scholarshipPresentationAssessmentsModel->with('student.group')->find($id);
         return response()->json($findPresentationAssessments);
     }
 

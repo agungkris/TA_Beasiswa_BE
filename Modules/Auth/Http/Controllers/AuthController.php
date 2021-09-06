@@ -74,6 +74,18 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+        $validate = validator($request->all(), [
+            'username' => 'required|unique:users,username',
+            'email' => 'required|unique:users,email'
+        ], [
+            'email.unique' => 'Email sudah digunakan',
+            'username.unique' => 'NIM sudah digunakan'
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json(['errors' => $validate->errors()], 422);
+        }
+
         // $registerUser = $this->registratioModel->with('prodi, generation');
         $registerUser = User::create([
             'level' => $request->level ?? 'student',
