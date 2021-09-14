@@ -299,16 +299,16 @@ class ScholarshipSubmissionsController extends Controller
         $totalfhb = $prodiPsi + $prodiIlkom + $prodiMene + $prodiAkun;
         $totalftd = $prodiArsi + $prodiDkv + $prodiDp + $prodiTeksip + $prodiSif + $prodiInformatika;
 
-        $subsidiAkun = 1000000;
-        $subsidiMene = 1500000;
-        $subsidiIlkom = 2000000;
-        $subsidiPsi = 2500000;
-        $subsidiDkv = 3000000;
+        $subsidiAkun = 3500000;
+        $subsidiMene = 3500000;
+        $subsidiIlkom = 3750000;
+        $subsidiPsi = 3500000;
+        $subsidiDkv = 4000000;
         $subsidiDp = 3500000;
-        $subsidiInf = 4000000;
-        $subsidiSi = 4500000;
-        $subsidiTsp = 5000000;
-        $subsidiArsi = 5500000;
+        $subsidiInf = 3500000;
+        $subsidiSi = 3500000;
+        $subsidiTsp = 4000000;
+        $subsidiArsi = 4000000;
 
         $hasilAkun = $prodiAkun * $subsidiAkun;
         $hasilMene = $prodiMene * $subsidiMene;
