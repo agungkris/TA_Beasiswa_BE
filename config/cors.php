@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['POST', 'GET', 'DELETE', 'PUT', 'OPTIONS', 'PATCH', 'PUT', '*'],
 
-    'allowed_origins' => ['http://localhost:8080', 'http://upjtesting.xyz'],
+    'allowed_origins' => ['http://localhost:8080', 'https://beasiswaupj.xyz/'],
     // 'allowed_origins' => ['*'],
 
     'allowed_origins_patterns' => [],
